@@ -117,30 +117,30 @@ public class SwerveModule extends SubsystemBase {
 
     resetEncoders();
 
-    // // Thanks to Alec for this code!
-    // // >-----------S-I-M------------<//
+    // Thanks to Alec for this code!
+    // >-----------S-I-M------------<//
 
-    // // Create the mechanism 2d canvas and get the root
-    // Mechanism2d mod = new Mechanism2d(6, 6);
-    // MechanismRoot2d root = mod.getRoot("root", 3, 3);
+    // Create the mechanism 2d canvas and get the root
+    Mechanism2d mod = new Mechanism2d(6, 6);
+    MechanismRoot2d root = mod.getRoot("root", 3, 3);
 
-    // // // Add simTurn to the root, add direction to turn, then add it to smart
-    // // // dashboard
-    // simTurnCmd = root.append(new MechanismLigament2d("Swerve Turn", 2, 1.75));
-    // simDirectionCmd = simTurnCmd
-    //     .append(new MechanismLigament2d("Wheel Speed", 1, 0, 6, new Color8Bit(Color.kPurple)));
-    // SmartDashboard.putData(moduleName + " commanded Turn", mod);
+    // // Add simTurn to the root, add direction to turn, then add it to smart
+    // // dashboard
+    simTurnCmd = root.append(new MechanismLigament2d("Swerve Turn", 2, 1.75));
+    simDirectionCmd = simTurnCmd
+        .append(new MechanismLigament2d("Wheel Speed", 1, 0, 6, new Color8Bit(Color.kPurple)));
+    SmartDashboard.putData(moduleName + " commanded Turn", mod);
 
-    // // // ------------//
+    // // ------------//
 
-    // // // Do the same thing but for the real module state
-    // Mechanism2d mod2 = new Mechanism2d(6, 6);
-    // MechanismRoot2d root2 = mod2.getRoot("root", 3, 3);
+    // // Do the same thing but for the real module state
+    Mechanism2d mod2 = new Mechanism2d(6, 6);
+    MechanismRoot2d root2 = mod2.getRoot("root", 3, 3);
 
-    // simTurnReal = root2.append(new MechanismLigament2d("Swerve Turn", 2, 1.75));
-    // simDirectionReal = simTurnReal
-    //     .append(new MechanismLigament2d("Wheel Speed", 1, 0, 6, new Color8Bit(Color.kPurple)));
-    // SmartDashboard.putData(moduleName + "  real Turn", mod2);
+    simTurnReal = root2.append(new MechanismLigament2d("Swerve Turn", 2, 1.75));
+    simDirectionReal = simTurnReal
+        .append(new MechanismLigament2d("Wheel Speed", 1, 0, 6, new Color8Bit(Color.kPurple)));
+    SmartDashboard.putData(moduleName + "  real Turn", mod2);
 
     
   }
@@ -209,16 +209,16 @@ public class SwerveModule extends SubsystemBase {
     // Use PID to calculate angle setpoint
     builtinTurningPidController.setReference(state.angle.getRadians(), ControlType.kPosition);
 
-    // simTurnCmd.setAngle(state.angle); // .plus(Rotation2d.fromDegrees(90))
-    // simDirectionCmd.setAngle(state.speedMetersPerSecond > 0 ? 0 : 180);
-    // simDirectionCmd.setLength(Math.abs(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond));
+    simTurnCmd.setAngle(state.angle); // .plus(Rotation2d.fromDegrees(90))
+    simDirectionCmd.setAngle(state.speedMetersPerSecond > 0 ? 0 : 180);
+    simDirectionCmd.setLength(Math.abs(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond));
 
-    // simTurnReal.setAngle(getAbsoluteEncoderRad() * 360); // +90
-    // simDirectionReal
-    //     .setAngle(getDriveVelocity() > 0 ? 0 : 180);
-    // simDirectionReal.setLength(Math.abs(getDriveVelocity() / DriveConstants.kPhysicalMaxSpeedMetersPerSecond));
+    simTurnReal.setAngle(getAbsoluteEncoderRad() * 360); // +90
+    simDirectionReal
+        .setAngle(getDriveVelocity() > 0 ? 0 : 180);
+    simDirectionReal.setLength(Math.abs(getDriveVelocity() / DriveConstants.kPhysicalMaxSpeedMetersPerSecond));
 
-    // SmartDashboard.putString("Swerve[" + moduleName + "] state", state.toString());
+    SmartDashboard.putString("Swerve[" + moduleName + "] state", state.toString());
   }
 
   // Stop all motors on module

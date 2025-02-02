@@ -114,7 +114,7 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); // BR
 
     public static final boolean kFrontLeftDriveMotorReversed = true;
-    public static final boolean kFrontRightDriveMotorReversed = false;
+    public static final boolean kFrontRightDriveMotorReversed = true;
     public static final boolean kBackLeftDriveMotorReversed = true;
     public static final boolean kBackRightDriveMotorReversed = true;
 

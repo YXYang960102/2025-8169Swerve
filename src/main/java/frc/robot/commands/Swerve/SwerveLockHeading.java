@@ -70,7 +70,7 @@ public class SwerveLockHeading extends Command {
     turningAngle = turningLimiter.calculate(turningAngle);
 
     if (turningAngle == 0 && LimelightHelpers.getTV(limelight.hostname)) {
-      turningAngle = -LimelightHelpers.getTX(limelight.hostname) * 0.01;
+      turningAngle = -LimelightHelpers.getTX(limelight.hostname) * 0.02;
       swerveSubsystem.setChassisOutput(xSpeed, ySpeed, turningAngle, true);
     } else {
       turningAngle *= 3;
