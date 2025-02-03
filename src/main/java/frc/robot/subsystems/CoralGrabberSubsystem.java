@@ -33,8 +33,7 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   
   /** Creates a new GrabberSubsystem. */
   public CoralGrabberSubsystem() {
-    coralVortex.configure(coralVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    CoralGrabberAngleMotor.configure(CoralGrabberAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
     CoralGrabberAngleEncoder.setPosition(CoralGrabberAngleAbsEncoder.getPosition());
     // algaeVortex.configure(algaeVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
@@ -60,6 +59,9 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     .reverseSoftLimitEnabled(false)
     .forwardSoftLimit(AngleConstants.kCoralUpLimit)
     .reverseSoftLimit(AngleConstants.kCoralDownLimit);
+
+    coralVortex.configure(coralVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    CoralGrabberAngleMotor.configure(CoralGrabberAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
     // algaeVortexConfig
     // .idleMode(IdleMode.kBrake)

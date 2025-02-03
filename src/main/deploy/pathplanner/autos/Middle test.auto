@@ -7,25 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put 1 Coral"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
+            "pathName": "Middle Position Test"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get Left Algae"
+            "pathName": "Middle Position test2"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Left Position",
+  "folder": "Middle Position",
   "choreoAuto": false
 }

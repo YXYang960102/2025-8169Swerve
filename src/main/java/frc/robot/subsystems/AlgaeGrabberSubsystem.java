@@ -35,9 +35,7 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   public AlgaeGrabberSubsystem() {
 
     AlgaeGrabberAngleEncoder.setPosition(AlgaeGrabberAngleAbsEncoder.getPosition());
-   
-    AlgaeGrabberAngleMotor.configure(AlgaeGrabberAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    algaeVortex.configure(algaeVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
 
     algaeVortexConfig
      .idleMode(IdleMode.kBrake)
@@ -60,6 +58,9 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
     .reverseSoftLimitEnabled(false)
     .forwardSoftLimit(AngleConstants.kAlgaeUpLimit)
     .reverseSoftLimit(AngleConstants.kAlgaeDownLimit);
+
+    AlgaeGrabberAngleMotor.configure(AlgaeGrabberAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    algaeVortex.configure(algaeVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
 

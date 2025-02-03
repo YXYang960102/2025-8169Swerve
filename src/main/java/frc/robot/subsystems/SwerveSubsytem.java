@@ -97,7 +97,7 @@ public class SwerveSubsytem extends SubsystemBase {
   /*  Creates a new SwerveSubsytem. */
   public SwerveSubsytem() {
 
-    resetAllEncoders();
+    
 
      // Zero navX heading on new thread when robot starts
     new Thread(() -> {
@@ -108,6 +108,8 @@ public class SwerveSubsytem extends SubsystemBase {
       } catch (Exception e) {
       }
     }).start();
+
+    resetAllEncoders();
 
     odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
         getOdometryAngle(), getModulePositions());
