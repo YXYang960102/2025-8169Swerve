@@ -64,12 +64,12 @@ public final class Constants {
     public static final int kElevatorRMotor = 10;
 
     //Grabber Angle Motor Port
-    public static final int kGrabberAngle = 11;
+    public static final int kCoralGrabberAngle = 11;
+    public static final int kAlgaeGrabberAngle = 12;
 
     //Grabber Motor Port
-    public static final int kCoralVortex = 12;
-    public static final int kAlgaeLMotor = 13;
-    public static final int kAlgaeRMotor = 14;
+    public static final int kCoralVortex = 13;
+    public static final int kAlgaeVortex = 14;
 
     //Climber Motor Port
     public static final int kClimberLMotor = 15;
@@ -218,34 +218,53 @@ public final class Constants {
 
   //Grabber Angle
   public static class AngleConstants {
-    public static final double kDefultPosition = 0;
+    public static final double kCoralDefultPosition = 0;
+    public static final double kAlgaeDefultPosition = 0;
     public static final double kProcessorPosition = 0;
     public static final double kReefPosition = 0;
     public static final double kCoralStationPosition = 0;
-    public static final double kTopPosition = 0;
+    public static final double kCoralTopPosition = 0;
+    public static final double kAlgaeTopPosition = 0;
 
-    public static final double kAngleMotorRate = 0.5;
+    public static final double kCoralAngleMotorRate = 0.5;
+    public static final double kAlgaeAngleMotorRate = 0.5;
 
-    public static final double kUpLimit = 0;
-    public static final double kDownLimit = 0;
+    public static final double kCoralUpLimit = 0;
+    public static final double kCoralDownLimit = 0;
+
+    public static final double kAlgaeUpLimit = 0;
+    public static final double kAlgaeDownLimit = 0;
  
-    //Elevator PID
-    public static final double kP = 0.0; 
-    public static final double kI = 0.0; 
-    public static final double kD = 0.0; 
-    public static final double kIz = 0;
-    public static final double kFF = 0;
-    public static final double kMaxOutput = 1;
-    public static final double kMinOutput = -1;
+    //Coral Angle PID
+    public static final double CoralkP = 0.0; 
+    public static final double CoralkI = 0.0; 
+    public static final double CoralkD = 0.0; 
+    public static final double CoralkIz = 0;
+    public static final double CoralkFF = 0;
+    public static final double CoralkMaxOutput = 1;
+    public static final double CoralkMinOutput = -1;
+
+    //Algae Angle PID
+    public static final double AlgaekP = 0.0; 
+    public static final double AlgaekI = 0.0; 
+    public static final double AlgaekD = 0.0; 
+    public static final double AlgaekIz = 0;
+    public static final double AlgaekFF = 0;
+    public static final double AlgaekMaxOutput = 1;
+    public static final double AlgaekMinOutput = -1;
 
     public enum AngleState{
-      kUP,
-      kDown,
-      kDefult,
+      kCoralUP,
+      kCoralDown,
+      kAlgaeUP,
+      kAlgaeDown,
+      kCoralDefult,
+      kAlgaeDefult,
       kProcessor,
       kReef,
       kCoralStation,
-      kTop,  
+      kCoralTop,
+      kAlgaeTop  
     }    
   }
 
