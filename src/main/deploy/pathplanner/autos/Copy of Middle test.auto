@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Middle Position Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Middle Position Test2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Position Test3"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Middle Position",
+  "choreoAuto": false
+}
