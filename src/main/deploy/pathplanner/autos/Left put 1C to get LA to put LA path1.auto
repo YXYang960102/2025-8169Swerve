@@ -11,9 +11,21 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Left Position Get Left Algae"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
           }
         },
         {
@@ -23,9 +35,21 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Left Position Get RA"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         }
       ]
