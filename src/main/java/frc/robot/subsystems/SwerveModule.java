@@ -86,8 +86,6 @@ public class SwerveModule extends SubsystemBase {
 
     builtinTurningPidController = turningMotor.getClosedLoopController();
 
-    driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    turningMotor.configure(turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
 
 
@@ -117,7 +115,8 @@ public class SwerveModule extends SubsystemBase {
         .velocityFF(0.0)
         .outputRange(-1, 1);
 
-    
+        driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        turningMotor.configure(turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
 
     resetEncoders();
