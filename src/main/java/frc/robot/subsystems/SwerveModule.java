@@ -42,7 +42,7 @@ public class SwerveModule extends SubsystemBase {
   private SparkMaxConfig turningConfig;
 
   private RelativeEncoder driveEncoder;
-  private RelativeEncoder turningEnocder;
+  private RelativeEncoder turningEncoder;
 
   private SparkClosedLoopController builtinTurningPidController;
 
@@ -79,12 +79,17 @@ public class SwerveModule extends SubsystemBase {
     turningMotor = new SparkMax(turningMotorId, MotorType.kBrushless);
 
     driveEncoder = driveMotor.getEncoder();
-    turningEnocder = turningMotor.getEncoder();
+    turningEncoder = turningMotor.getEncoder();
 
     driveConfig = new SparkMaxConfig();
     turningConfig = new SparkMaxConfig();
 
     builtinTurningPidController = turningMotor.getClosedLoopController();
+
+    driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    turningMotor.configure(turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    
+
 
 
     driveConfig
@@ -112,8 +117,8 @@ public class SwerveModule extends SubsystemBase {
         .velocityFF(0.0)
         .outputRange(-1, 1);
 
-    driveMotor.configure(driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    turningMotor.configure(turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    
+    
 
     resetEncoders();
 
@@ -155,7 +160,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getTurningPosition() {
-    return turningEnocder.getPosition();
+    return turningEncoder.getPosition();
   }
 
   public double getDriveVelocity() {
@@ -163,7 +168,7 @@ public class SwerveModule extends SubsystemBase {
   } 
 
   public double getTurningVelocity() {
-    return turningEnocder.getVelocity();
+    return turningEncoder.getVelocity();
   }
 
   public SwerveModulePosition getPosition() {
@@ -183,7 +188,7 @@ public class SwerveModule extends SubsystemBase {
   // Set turning encoder to match absolute encoder value with gear offsets applied
   public void resetEncoders() {
     driveEncoder.setPosition(0);
-    turningEnocder.setPosition(getAbsoluteEncoderRad());
+    turningEncoder.setPosition(getAbsoluteEncoderRad());
   }
 
   // Get swerve module current state, aka velocity and wheel rotation

@@ -5,15 +5,19 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.AngleConstants.AngleState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Elevator.ElevatorNormal;
+import frc.robot.commands.Grabber.AngleNoraml;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
 // import frc.robot.commands.Swerve.SwerveXMode;
 import frc.robot.commands.Swerve.SwerveFieldRelative;
 // import frc.robot.subsystems.StatusSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.AlgaeGrabberSubsystem;
+import frc.robot.subsystems.CoralGrabberSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -36,6 +40,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsytem swerveSubsytem = new SwerveSubsytem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final AlgaeGrabberSubsystem grabberAngleSubsystem = new AlgaeGrabberSubsystem();
+  // private final CoralGrabberSubsystem coralGrabberSubsystem = new CoralGrabberSubsystem();
+
   // private final StatusSubsystem statusSubsystem = new StatusSubsystem(9, 270);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -93,6 +100,10 @@ public class RobotContainer {
     m_operatorController.pov(180).whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
     
     //elevator Auto
+
+
+    // m_operatorController.x().whileTrue(new AngleNoraml(grabberAngleSubsystem, AngleState.kCoralUP));
+    // m_operatorController.y().whileTrue(new AngleNoraml(grabberAngleSubsystem, AngleState.kCoralDown));
     
   }
 
