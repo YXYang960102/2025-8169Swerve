@@ -295,7 +295,7 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     }
   }
 
-  // Reset all swerve module encoders
+  // Reset all swerve  encoders
   public void resetAllEncoders() {
     frontLeft.resetEncoders();
     frontRight.resetEncoders();
