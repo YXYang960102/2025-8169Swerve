@@ -13,7 +13,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position test2"
+            "pathName": "Middle Position Test2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Position Test3"
           }
         }
       ]
