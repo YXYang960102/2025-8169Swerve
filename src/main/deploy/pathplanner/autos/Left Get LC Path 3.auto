@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Put 1 Coral"
+            "pathName": "Left Position Put 1 Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Get LA"
+            "pathName": "Left Put ReefA 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Put LA Path 2"
+            "pathName": "Left Position Get RC Path1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get RA"
+            "pathName": "Left Position Put RC Path 3"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Middle Position",
+  "folder": "Left Position",
   "choreoAuto": false
 }

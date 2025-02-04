@@ -13,19 +13,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get Middle Algae"
+            "pathName": "Left Get LC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put Middle Algae"
+            "pathName": "Left Position Put LC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get RA"
+            "pathName": "Left Position Get L2C Path 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Position Put L2C Path 1"
           }
         }
       ]

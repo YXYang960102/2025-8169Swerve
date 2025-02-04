@@ -90,9 +90,9 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralDefultPosition, ControlType.kPosition);
   }
 
-  public void setCoralStationPosition() {
-    CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralStationPosition, ControlType.kPosition);
-  }
+  // public void setCoralStationPosition() {
+  //   CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralStationPosition, ControlType.kPosition);
+  // }
 
   public void setCoralTopPosition() {
     CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralTopPosition, ControlType.kPosition);

@@ -110,21 +110,21 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
   }
 
-  public void setProcessor() {
-    elevatorPIDController.setReference(ElevatorConstants.kProcessor, ControlType.kPosition);
+  // public void setProcessor() {
+  //   elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
+  // }
+
+  public void setL2() {
+    elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
   }
 
-  public void setAlgae() {
-    elevatorPIDController.setReference(ElevatorConstants.kAlgae, ControlType.kPosition);
+  public void setL4() {
+    elevatorPIDController.setReference(ElevatorConstants.kL4, ControlType.kPosition);
   }
 
-  public void setReef() {
-    elevatorPIDController.setReference(ElevatorConstants.kReef, ControlType.kPosition);
-  }
-
-  public void setCoralStation() {
-    elevatorPIDController.setReference(ElevatorConstants.kCoralStation, ControlType.kPosition);
-  }
+  // public void setCoralStation() {
+  //   elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
+  // }
 
   public void setTop() {
     elevatorPIDController.setReference(ElevatorConstants.kTop, ControlType.kPosition);
@@ -149,7 +149,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Relative Position", getCurrentHeight());
+    SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
     // SmartDashboard.putNumber("Absolute Position ", getAbsPosition());
     SmartDashboard.putNumber("Elevator Velocity", getVelocity());
   }

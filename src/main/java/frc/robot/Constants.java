@@ -64,12 +64,12 @@ public final class Constants {
     public static final int kElevatorRMotor = 10;
 
     //Grabber Angle Motor Port
-    public static final int kCoralGrabberAngle = 11;
+    public static final int kAlgaeVortex = 11;
     public static final int kAlgaeGrabberAngle = 12;
-
+    
     //Grabber Motor Port
     public static final int kCoralVortex = 13;
-    public static final int kAlgaeVortex = 14;
+    public static final int kCoralGrabberAngle = 14;
 
     //Climber Motor Port
     public static final int kClimberLMotor = 15;
@@ -164,10 +164,10 @@ public final class Constants {
   public static final class ElevatorConstants {
 
     public static final double kDefault = 0;
-    public static final double kProcessor = 0;
-    public static final double kAlgae = 0;
-    public static final double kReef = 0;
-    public static final double kCoralStation = 0;
+    // public static final double kProcessor = 0;
+    public static final double kL2 = 0;
+    public static final double kL4= 0;
+    // public static final double kCoralStation = 0;
     public static final double kTop = 0;
     
     public static final double kElevatorMotorRate = 0.5;
@@ -204,9 +204,9 @@ public final class Constants {
     
     public enum ElevatorState {
       kDefault,
-      kProcessor,
-      kAlgae,
-      kReef,
+      // kProcessor,
+      kL2,
+      kL4,
       kCoralStation,
       kTop,
       kUP,
@@ -260,8 +260,8 @@ public final class Constants {
       kAlgaeDown,
       kCoralDefult,
       kAlgaeDefult,
-      kProcessor,
-      kReef,
+      // kProcessor,
+      // kReef,
       kCoralStation,
       kCoralTop,
       kAlgaeTop  
