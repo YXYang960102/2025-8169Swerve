@@ -50,7 +50,7 @@ public class SwerveAutoGo extends Command {
   public void execute() {
     if (LimelightHelpers.getTV(limelight.hostname)) {
       detected = true;
-      double turningAngle = -LimelightHelpers.getTX(limelight.hostname);
+      double turningAngle = -LimelightHelpers.getTX(limelight.hostname) * 0.02;
       double xSpeed;
       if (speed != null) {
         xSpeed = OIConstants.deadbandHandler(speed.getAsDouble(), 0.1) * 0.5;
