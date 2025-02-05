@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Position Put 1 Coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Position Get ReefA"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Position Get RC Path1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Position Put RC Path 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Position Get R2C Path 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Position Put RC Path 4"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Middle Position",
+  "choreoAuto": false
+}
