@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put 1 Coral"
+            "pathName": "Middle Position Put 1 Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Get LC Path 1"
+            "pathName": "Middle Position Get LC Path"
           }
         },
         {
@@ -31,19 +31,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put L2C Path 2"
+            "pathName": "Left Position Put L2C Path 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get L3C Path 2"
+            "pathName": "Left Position Get L3C Path 3"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Left Position",
+  "folder": "Middle Position",
   "choreoAuto": false
 }

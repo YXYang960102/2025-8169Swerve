@@ -7,19 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Test"
+            "pathName": "Middle Position Put 1 Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Test2"
+            "pathName": "Middle Position Get LC Path"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Position Test3"
+            "pathName": "Left Position Put LC Path 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Position Get L2C Path 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Position Put LC Path 1"
           }
         }
       ]
