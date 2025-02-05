@@ -7,37 +7,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put 1 Coral"
+            "pathName": "Right Position Put 1 Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Get LC Path 1"
+            "pathName": "Right Position Get RC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put LC Path 1"
+            "pathName": "Right Position Put RC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get L2C Path 1"
+            "pathName": "Right Position Get R2C Path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put L2C Path 1"
+            "pathName": "Right Position Put RC Path 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Position Get R2C Path 3"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Left Position",
+  "folder": "Right Position",
   "choreoAuto": false
 }

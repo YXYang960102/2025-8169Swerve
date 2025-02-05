@@ -5,57 +5,33 @@
     "data": {
       "commands": [
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Left Position Put 1 Coral"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "Left Get LC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Put ReefA 1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "pathName": "Left Position Put LC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get RC Path1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
+            "pathName": "Left Get LC Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": " Left Position Put RC Path 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Left Position Get R2C Path 2"
+            "pathName": "Left Position Put L2C Path 2"
           }
         }
       ]

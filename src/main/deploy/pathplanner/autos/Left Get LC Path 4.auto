@@ -19,19 +19,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put LC Path 1"
+            "pathName": "Left Position Put LC Path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Get L2C Path 1"
+            "pathName": "Left Position Get L2C Path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Position Put L2C Path 1"
+            "pathName": "Left Position Put L2C Path 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Position Get L3C Path 3"
           }
         }
       ]
