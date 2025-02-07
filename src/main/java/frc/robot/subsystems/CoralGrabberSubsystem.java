@@ -19,7 +19,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralGrabberConstants;
@@ -109,12 +109,16 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   }
 
   public void getCoral() {
-    coralVortex.set(CoralGrabberConstants.CoralmotorRate);
+    coralVortex.set(CoralGrabberConstants.CoralmotorFwd);
   }
 
   public void putCoral() {
     coralVortex.set(-CoralGrabberConstants.CoralmotorRate);
   }
+
+  // public void CoralFwdSce() {
+  //   coralVortex.set(CoralGrabberConstants.CoralmotorFwd);
+  // }
 
   public void StopMotor() {
     coralVortex.set(0);

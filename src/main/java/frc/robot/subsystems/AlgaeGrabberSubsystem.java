@@ -20,9 +20,7 @@ import frc.robot.Constants.AlgaeGrabberConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IDConstants;
-// import frc.robot.Constants.AlgaeGrabberConstants.AngleState;
-// import frc.robot.Constants.GrabberConstants;
-import frc.robot.commands.Grabber.AngleAuto;
+import frc.robot.commands.Angle.AngleAuto;
 
 public class AlgaeGrabberSubsystem extends SubsystemBase {
   private SparkMax AlgaeGrabberAngleMotor = new SparkMax(IDConstants.kAlgaeGrabberAngle, MotorType.kBrushless);

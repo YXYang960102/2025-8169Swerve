@@ -222,6 +222,7 @@ public final class Constants {
     public static final double kCoralAngleMotorRate = 0.5;
 
     public static final double CoralmotorRate = 0.6;
+    public static final double CoralmotorFwd = 0.3;
 
     public static final double kCoralUpLimit = 0;
     public static final double kCoralDownLimit = 0;

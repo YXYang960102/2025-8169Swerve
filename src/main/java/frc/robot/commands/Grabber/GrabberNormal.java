@@ -4,6 +4,9 @@
 
 package frc.robot.commands.Grabber;
 
+// import static edu.wpi.first.units.Units.Newton;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
 import frc.robot.Constants.CoralGrabberConstants.CoralState;
@@ -16,6 +19,7 @@ public class GrabberNormal extends Command {
   private AlgaeGrabberSubsystem algaeGrabberSubsystem;
   private CoralState coralState;
   private AlgaeState algaeState;
+  private Timer timer = new Timer();
 
   /** Creates a new GrabberNormal. */
   public GrabberNormal(
@@ -35,11 +39,14 @@ public class GrabberNormal extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (coralState == CoralState.kgetCoral)
+    timer.reset();
+    timer.start();
+
+    if (coralState == CoralState.kgetCoral && timer.get() <= 0.15)
       coralGrabberSubsystem.getCoral();
     if (coralState == CoralState.kputCoral)
       coralGrabberSubsystem.putCoral();
-    if (algaeState == AlgaeState.kgetAlgae)
+    if (algaeState == AlgaeState.kgetAlgae && timer.get() <= 0.15)
       algaeGrabberSubsystem.getAlgae();
     if (algaeState == AlgaeState.kputAlgae)
       algaeGrabberSubsystem.putAlgae();
@@ -60,6 +67,6 @@ public class GrabberNormal extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.get() > 0.15;
   }
 }
