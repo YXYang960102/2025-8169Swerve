@@ -171,6 +171,8 @@ public final class Constants {
     public static final double kUpLimit = 0;
     public static final double kDefaultLimit = 0;
 
+    public static final double kElevatorMotorGearRatio = 48.0 * (22 / 22);
+
     // Elevator PID
     public static final double kP = 0.0;
     public static final double kI = 0.0;
@@ -224,6 +226,10 @@ public final class Constants {
     public static final double kCoralUpLimit = 0;
     public static final double kCoralDownLimit = 0;
 
+    // public static final double kCoralAngleMotorRatio = 100.0 / 12 * 38 / 22 * 36;
+    public static final double kCoralAngleMotorRatio = 100.0 * (38.0 / 12.0) * (36.0 / 22.0);
+
+    
     // Coral Angle PID
     public static final double CoralkP = 0.0;
     public static final double CoralkI = 0.0;

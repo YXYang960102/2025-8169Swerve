@@ -123,7 +123,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void ElevatorHold() {
-    elevatorPIDController.setReference(getCurrentHeight(), SparkMax.ControlType.kPosition);
+    elevatorPIDController.setReference(getCurrentHeight(), ControlType.kPosition);
   }
 
   @Override
