@@ -55,18 +55,20 @@ public class AngleAuto extends Command {
       algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setL2();
     }
-    if (elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralTop) { // L3
+    if (elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralTop 
+    && algaeState == AlgaeState.kAlgaeTop) { // L3
       coralGrabberSubsystem.setCoralTopPosition();
-      // algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setDefault();
     }
-    if (elevatorState == ElevatorState.kCoralStation && coralState == CoralState.kCoralStation) { // Get Coral
-      coralGrabberSubsystem.setDefultPosition();
-      elevatorSubsystem.setDefault();
-    }
-    if (elevatorState == ElevatorState.kL4 && coralState == CoralState.kCoralTop) { // L4
+    // if (elevatorState == ElevatorState.kCoralStation && coralState == CoralState.kCoralStation) { // Get Coral
+    //   coralGrabberSubsystem.setDefultPosition();
+    //   elevatorSubsystem.setDefault();
+    // }
+    if (elevatorState == ElevatorState.kL4 && coralState == CoralState.kCoralTop 
+    && algaeState == AlgaeState.kAlgaeTop) { // L4
       coralGrabberSubsystem.setCoralTopPosition();
-      // algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setL4();
     }
     if (elevatorState == ElevatorState.kTop && coralState == CoralState.kCoralTop
@@ -85,9 +87,9 @@ public class AngleAuto extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    algaeGrabberSubsystem.setDefultPosition();
-    coralGrabberSubsystem.setDefultPosition();
-    elevatorSubsystem.setDefault();
+    // algaeGrabberSubsystem.setDefultPosition();
+    // coralGrabberSubsystem.setDefultPosition();
+    // elevatorSubsystem.setDefault();
   }
 
   // Returns true when the command should end.

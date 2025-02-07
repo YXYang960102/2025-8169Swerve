@@ -30,13 +30,13 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   private SparkMaxConfig AlgaeGrabberAngleConfig = new SparkMaxConfig();
   private SparkMaxConfig algaeVortexConfig = new SparkMaxConfig();
   private RelativeEncoder AlgaeGrabberAngleEncoder = AlgaeGrabberAngleMotor.getEncoder();
-  // private SparkAbsoluteEncoder AlgaeGrabberAngleAbsEncoder = AlgaeGrabberAngleMotor.getAbsoluteEncoder();
+  private SparkAbsoluteEncoder AlgaeGrabberAngleAbsEncoder = AlgaeGrabberAngleMotor.getAbsoluteEncoder();
   private SparkClosedLoopController AlgaeGrabberAnglePIDController = AlgaeGrabberAngleMotor.getClosedLoopController();
 
   /** Creates a new GrabberAngleSubsystem. */
   public AlgaeGrabberSubsystem() {
 
-    // AlgaeGrabberAngleEncoder.setPosition(AlgaeGrabberAngleAbsEncoder.getPosition());
+    AlgaeGrabberAngleEncoder.setPosition(AlgaeGrabberAngleAbsEncoder.getPosition());
 
     algaeVortexConfig
         .idleMode(IdleMode.kBrake)
@@ -75,10 +75,10 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
     return AlgaeGrabberAngleEncoder.getVelocity();
   }
 
-  // // return Angle Absolute Position
-  // public double getAlgaeAbsPosition() {
-  //   return AlgaeGrabberAngleAbsEncoder.getPosition();
-  // }
+  // return Angle Absolute Position
+  public double getAlgaeAbsPosition() {
+    return AlgaeGrabberAngleAbsEncoder.getPosition();
+  }
 
   public void setDefultPosition() {
     AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kAlgaeDefultPosition, ControlType.kPosition);
@@ -122,7 +122,7 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Algae Position", getAlgaePosition());
-    // SmartDashboard.putNumber("Algae Abs Position", getAlgaeAbsPosition());
+    SmartDashboard.putNumber("Algae Abs Position", getAlgaeAbsPosition());
     SmartDashboard.putNumber("Algae Velocity", getAlgaeVelocity());
   }
 
