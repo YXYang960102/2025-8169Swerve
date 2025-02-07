@@ -5,11 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
-
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
+import frc.robot.Constants.CoralGrabberConstants.CoralState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Angle.AngleNoraml;
 import frc.robot.commands.Elevator.ElevatorNormal;
+import frc.robot.commands.Grabber.GrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
 // import frc.robot.commands.Swerve.SwerveXMode;
@@ -21,6 +23,7 @@ import frc.robot.subsystems.CoralGrabberSubsystem;
 import frc.robot.subsystems.SwerveSubsytem;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -43,9 +46,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsytem swerveSubsytem = new SwerveSubsytem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-  private final AlgaeGrabberSubsystem grabberAngleSubsystem = new AlgaeGrabberSubsystem();
-  // private final CoralGrabberSubsystem coralGrabberSubsystem = new
-  // CoralGrabberSubsystem();
+  private final AlgaeGrabberSubsystem algaeGrabberAngleSubsystem = new AlgaeGrabberSubsystem();
+  private final CoralGrabberSubsystem coralGrabberSubsystem = new CoralGrabberSubsystem();
 
   // private final StatusSubsystem statusSubsystem = new StatusSubsystem(9, 270);
 
@@ -130,6 +132,11 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
+    NamedCommands.registerCommand("PutCoralNormal", 
+    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kputCoral, AlgaeState.kgetAlgae));
+
+    NamedCommands.registerCommand("GetCoral", 
+    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kgetCoral, null));
 
   }
 
