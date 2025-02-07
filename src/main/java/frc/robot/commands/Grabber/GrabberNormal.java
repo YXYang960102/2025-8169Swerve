@@ -5,7 +5,8 @@
 package frc.robot.commands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.GrabberConstants.GrabberMode;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
+import frc.robot.Constants.CoralGrabberConstants.CoralState;
 import frc.robot.subsystems.AlgaeGrabberSubsystem;
 import frc.robot.subsystems.CoralGrabberSubsystem;
 
@@ -13,17 +14,20 @@ import frc.robot.subsystems.CoralGrabberSubsystem;
 public class GrabberNormal extends Command {
   private CoralGrabberSubsystem coralGrabberSubsystem;
   private AlgaeGrabberSubsystem algaeGrabberSubsystem;
-  private GrabberMode grabberMode;
+  private CoralState coralState;
+  private AlgaeState algaeState;
 
   /** Creates a new GrabberNormal. */
   public GrabberNormal(
       CoralGrabberSubsystem coralGrabberSubsystem,
       AlgaeGrabberSubsystem algaeGrabberSubsystem,
-      GrabberMode grabberMode) {
+      CoralState coralState,
+      AlgaeState algaeState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralGrabberSubsystem = coralGrabberSubsystem;
     this.algaeGrabberSubsystem = algaeGrabberSubsystem;
-    this.grabberMode = grabberMode;
+    this.coralState = coralState;
+    this.algaeState = algaeState;
 
     // addRequirements(grabberSubsystem);
   }
@@ -31,13 +35,13 @@ public class GrabberNormal extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (grabberMode == GrabberMode.kgetCoral)
+    if (coralState == CoralState.kgetCoral)
       coralGrabberSubsystem.getCoral();
-    if (grabberMode == GrabberMode.kputCoral)
+    if (coralState == CoralState.kputCoral)
       coralGrabberSubsystem.putCoral();
-    if (grabberMode == GrabberMode.kgetAlgae)
+    if (algaeState == AlgaeState.kgetAlgae)
       algaeGrabberSubsystem.getAlgae();
-    if (grabberMode == GrabberMode.kputAlgae)
+    if (algaeState == AlgaeState.kputAlgae)
       algaeGrabberSubsystem.putAlgae();
   }
 

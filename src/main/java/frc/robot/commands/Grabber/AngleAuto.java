@@ -7,9 +7,10 @@ package frc.robot.commands.Grabber;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AlgaeGrabberSubsystem;
 import frc.robot.subsystems.CoralGrabberSubsystem;
-import frc.robot.Constants.AngleConstants.AngleState;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
+import frc.robot.Constants.CoralGrabberConstants.CoralState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
-import frc.robot.Constants.GrabberConstants.GrabberMode;
+
 import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -18,7 +19,8 @@ public class AngleAuto extends Command {
   private CoralGrabberSubsystem coralGrabberSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private ElevatorState elevatorState;
-  private AngleState angleState;
+  private CoralState coralState;
+  private AlgaeState algaeState;
 
   /** Creates a new AngleAuto. */
   public AngleAuto(
@@ -26,44 +28,49 @@ public class AngleAuto extends Command {
       CoralGrabberSubsystem coralGrabberSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ElevatorState elevatorState,
-      AngleState angleState) {
+      CoralState coralState,
+      AlgaeState algaeState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.algaeGrabberSubsystem = algaeGrabberSubsystem;
     this.coralGrabberSubsystem = coralGrabberSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
     this.elevatorState = elevatorState;
-    this.angleState = angleState;
+    this.coralState = coralState;
+    this.algaeState = algaeState;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (elevatorState == ElevatorState.kDefault && angleState == AngleState.kCoralDefult && angleState == AngleState.kAlgaeDefult) {
+    if (elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralDefult
+        && algaeState == AlgaeState.kAlgaeDefult) {
       coralGrabberSubsystem.setDefultPosition();
       algaeGrabberSubsystem.setDefultPosition();
       elevatorSubsystem.setDefault();
     }
-    if (elevatorState == ElevatorState.kL2 && angleState == AngleState.kCoralDefult && angleState == AngleState.kAlgaeTop) { //L2
+    if (elevatorState == ElevatorState.kL2 && coralState == CoralState.kCoralDefult
+        && algaeState == AlgaeState.kAlgaeTop) { // L2
       coralGrabberSubsystem.setDefultPosition();
       algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setL2();
     }
-    if (elevatorState == ElevatorState.kDefault && angleState == AngleState.kCoralTop) { //L3
+    if (elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralTop) { // L3
       coralGrabberSubsystem.setCoralTopPosition();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      // algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setDefault();
     }
-    if (elevatorState == ElevatorState.kCoralStation && angleState == AngleState.kCoralStation) { //Get Coral
+    if (elevatorState == ElevatorState.kCoralStation && coralState == CoralState.kCoralStation) { // Get Coral
       coralGrabberSubsystem.setDefultPosition();
       elevatorSubsystem.setDefault();
     }
-    if (elevatorState == ElevatorState.kL4 && angleState == AngleState.kCoralTop) { // L4
+    if (elevatorState == ElevatorState.kL4 && coralState == CoralState.kCoralTop) { // L4
       coralGrabberSubsystem.setCoralTopPosition();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      // algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setL4();
     }
-    if (elevatorState == ElevatorState.kTop && angleState == AngleState.kAlgaeTop) { // Top
+    if (elevatorState == ElevatorState.kTop && coralState == CoralState.kCoralTop
+        && algaeState == AlgaeState.kAlgaeTop) { // Top
       coralGrabberSubsystem.setCoralTopPosition();
       algaeGrabberSubsystem.setAlgaeTopPosition();
       elevatorSubsystem.setTop();

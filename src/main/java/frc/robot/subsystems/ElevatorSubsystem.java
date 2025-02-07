@@ -39,9 +39,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final SparkMaxConfig elevatorLConfig = new SparkMaxConfig();
   private final SparkMaxConfig elevatorRConfig = new SparkMaxConfig();
   private final RelativeEncoder elevatorEncoder = elevatorRMotor.getEncoder();
-  // private final SparkAbsoluteEncoder elevatorAbsEncoder = elevatorRMotor.getAbsoluteEncoder();
+  // private final SparkAbsoluteEncoder elevatorAbsEncoder =
+  // elevatorRMotor.getAbsoluteEncoder();
   private final SparkClosedLoopController elevatorPIDController = elevatorRMotor.getClosedLoopController();
 
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -59,6 +61,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorRMotor.configure(elevatorRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     elevatorLMotor.configure(elevatorLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
+    kP = ElevatorConstants.kP;
+    kI = ElevatorConstants.kI;
+    kD = ElevatorConstants.kD;
+    kIz = ElevatorConstants.kIz;
+    kFF = ElevatorConstants.kFF;
+    kMaxOutput = ElevatorConstants.kMaxOutput;
+    kMinOutput = ElevatorConstants.kMinOutput;
+
     elevatorRConfig.softLimit
         .forwardSoftLimitEnabled(false)
         .reverseSoftLimitEnabled(false)
@@ -67,52 +77,26 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     elevatorRConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ElevatorConstants.kP, ElevatorConstants.kI, ElevatorConstants.kD)
-        .iZone(ElevatorConstants.kIz)
-        .velocityFF(ElevatorConstants.kFF)
-        .maxOutput(ElevatorConstants.kMaxOutput)
-        .minOutput(ElevatorConstants.kMinOutput);
+        .pid(kP, kI, kD)
+        .iZone(kIz)
+        .velocityFF(kFF)
+        .maxOutput(kMaxOutput)
+        .minOutput(kMinOutput);
 
-    // // Initialize the absolute position to relative encoder
-    // initializeEncoders();
   }
-
-  // public void initializeEncoders() {
-  // // Use the absolute encoder position to set the relative encoder
-  // double absolutePosition = elevatorAbsEncoder.getPosition(); // Position in
-  // rotations
-  // elevatorEncoder.setPosition(absolutePosition * (2 * Math.PI)); // Convert
-  // rotations to radians/meters
-  // }
 
   public double getCurrentHeight() {
     // Convert relative encoder position to height in meters
     return elevatorEncoder.getPosition();
   }
 
-  // public double getAbsPosition() {
-  //   return elevatorAbsEncoder.getPosition();
-  // }
-
   public double getVelocity() {
     return elevatorEncoder.getVelocity();
   }
 
-  // public void setHeight(double heightMeters) {
-  // // Clamp the target height to within soft limits
-  // heightMeters = Math.max(ElevatorConstants.kUpLimit, Math.min(heightMeters,
-  // ElevatorConstants.kUpLimit));
-  // elevatorPIDController.setReference(heightMeters,
-  // SparkMax.ControlType.kPosition);
-  // }
-
   public void setDefault() {
     elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
   }
-
-  // public void setProcessor() {
-  //   elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
-  // }
 
   public void setL2() {
     elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
@@ -121,10 +105,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setL4() {
     elevatorPIDController.setReference(ElevatorConstants.kL4, ControlType.kPosition);
   }
-
-  // public void setCoralStation() {
-  //   elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
-  // }
 
   public void setTop() {
     elevatorPIDController.setReference(ElevatorConstants.kTop, ControlType.kPosition);
@@ -150,7 +130,43 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
-    // SmartDashboard.putNumber("Absolute Position ", getAbsPosition());
-    SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+    // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+
+    // read PID coefficients from SmartDashboard
+    double p = SmartDashboard.getNumber("Elevator P Gain", 0);
+    double i = SmartDashboard.getNumber("Elevator I Gain", 0);
+    double d = SmartDashboard.getNumber("Elevator D Gain", 0);
+    double iz = SmartDashboard.getNumber("Elevator I Zone", 0);
+    double ff = SmartDashboard.getNumber("Elevator Feed Forward", 0);
+    double max = SmartDashboard.getNumber("Elevator Max Output", 0);
+    double min = SmartDashboard.getNumber("Elevator Min Output", 0);
+
+    // if PID coefficients on SmartDashboard have changed, write new values to
+    // controller
+    if ((p != kP)) {
+      elevatorRConfig.closedLoop.p(p);
+      kP = p;
+    }
+    if ((i != kI)) {
+      elevatorRConfig.closedLoop.i(i);
+      kI = i;
+    }
+    if ((d != kD)) {
+      elevatorRConfig.closedLoop.d(d);
+      kD = d;
+    }
+    if ((iz != kIz)) {
+      elevatorRConfig.closedLoop.iZone(iz);
+      kIz = iz;
+    }
+    if ((ff != kFF)) {
+      elevatorRConfig.closedLoop.velocityFF(ff);
+      kFF = ff;
+    }
+    if ((max != kMaxOutput) || (min != kMinOutput)) {
+      elevatorRConfig.closedLoop.outputRange(min, max);
+      kMinOutput = min;
+      kMaxOutput = max;
+    }
   }
 }

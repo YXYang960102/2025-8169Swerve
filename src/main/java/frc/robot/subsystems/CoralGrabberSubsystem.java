@@ -11,116 +11,107 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.AngleConstants;
-import frc.robot.Constants.GrabberConstants;
+import frc.robot.Constants.CoralGrabberConstants;
+// import frc.robot.Constants.CoralGrabberConstants;
+// import frc.robot.Constants.GrabberConstants;
 import frc.robot.Constants.IDConstants;
 
 public class CoralGrabberSubsystem extends SubsystemBase {
-  private SparkMax coralVortex = new SparkMax(IDConstants.kCoralVortex, MotorType.kBrushless);
+  private SparkFlex coralVortex = new SparkFlex(IDConstants.kCoralVortex, MotorType.kBrushless);
   private SparkMax CoralGrabberAngleMotor = new SparkMax(IDConstants.kCoralGrabberAngle, MotorType.kBrushless);
-  private SparkMaxConfig coralVortexConfig = new SparkMaxConfig();
+  private SparkFlexConfig coralVortexConfig = new SparkFlexConfig();
   private SparkMaxConfig CoralGrabberAngleConfig = new SparkMaxConfig();
   private RelativeEncoder CoralGrabberAngleEncoder = CoralGrabberAngleMotor.getEncoder();
   private SparkAbsoluteEncoder CoralGrabberAngleAbsEncoder = CoralGrabberAngleMotor.getAbsoluteEncoder();
   private SparkClosedLoopController CoralGrabberAnglePIDController = CoralGrabberAngleMotor.getClosedLoopController();
-  
-  
+
   /** Creates a new GrabberSubsystem. */
   public CoralGrabberSubsystem() {
 
     CoralGrabberAngleEncoder.setPosition(CoralGrabberAngleAbsEncoder.getPosition());
-    // algaeVortex.configure(algaeVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     coralVortexConfig
-    .idleMode(IdleMode.kCoast)
-    .inverted(false)
-    .smartCurrentLimit(70);
-
+        .idleMode(IdleMode.kCoast)
+        .inverted(false)
+        .smartCurrentLimit(70);
 
     CoralGrabberAngleConfig
-    .inverted(false)
-    .idleMode(IdleMode.kBrake)
-    .closedLoop
-    .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-    .pid(AngleConstants.CoralkP, AngleConstants.CoralkI, AngleConstants.CoralkD)
-    .iZone(AngleConstants.CoralkIz)
-    .velocityFF(AngleConstants.CoralkFF)
-    .maxOutput(AngleConstants.CoralkMaxOutput)
-    .minOutput(AngleConstants.CoralkMinOutput);
-    
+        .inverted(false)
+        .idleMode(IdleMode.kBrake).closedLoop
+        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+        .pid(CoralGrabberConstants.CoralkP, CoralGrabberConstants.CoralkI, CoralGrabberConstants.CoralkD)
+        .iZone(CoralGrabberConstants.CoralkIz)
+        .velocityFF(CoralGrabberConstants.CoralkFF)
+        .maxOutput(CoralGrabberConstants.CoralkMaxOutput)
+        .minOutput(CoralGrabberConstants.CoralkMinOutput);
+
     CoralGrabberAngleConfig.softLimit
-    .forwardSoftLimitEnabled(false)
-    .reverseSoftLimitEnabled(false)
-    .forwardSoftLimit(AngleConstants.kCoralUpLimit)
-    .reverseSoftLimit(AngleConstants.kCoralDownLimit);
+        .forwardSoftLimitEnabled(false)
+        .reverseSoftLimitEnabled(false)
+        .forwardSoftLimit(CoralGrabberConstants.kCoralUpLimit)
+        .reverseSoftLimit(CoralGrabberConstants.kCoralDownLimit);
 
     coralVortex.configure(coralVortexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    CoralGrabberAngleMotor.configure(CoralGrabberAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    
-    // algaeVortexConfig
-    // .idleMode(IdleMode.kBrake)
-    // .inverted(false)
-    // .secondaryCurrentLimit(70);
+    CoralGrabberAngleMotor.configure(CoralGrabberAngleConfig, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
 
 
   }
 
-  //return Angle Relative Position
+  // return Angle Relative Position
   public double getCoralPosition() {
     return CoralGrabberAngleEncoder.getPosition();
   }
 
-  //return Angle Velocity
+  // return Angle Velocity
   public double getCoralVelocity() {
     return CoralGrabberAngleEncoder.getVelocity();
   }
 
-  //return Angle Absolute Position
+  // return Angle Absolute Position
   public double getCoralAbsPosition() {
     return CoralGrabberAngleAbsEncoder.getPosition();
   }
 
   public void setDefultPosition() {
-    CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralDefultPosition, ControlType.kPosition);
+    CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kCoralDefultPosition, ControlType.kPosition);
   }
-
-  // public void setCoralStationPosition() {
-  //   CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralStationPosition, ControlType.kPosition);
-  // }
 
   public void setCoralTopPosition() {
-    CoralGrabberAnglePIDController.setReference(AngleConstants.kCoralTopPosition, ControlType.kPosition);
+    CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kCoralTopPosition, ControlType.kPosition);
   }
 
-  public void  CoralGrabberAngleUP() {
-    CoralGrabberAngleMotor.set(AngleConstants.kCoralAngleMotorRate);
+  public void CoralGrabberAngleUP() {
+    CoralGrabberAngleMotor.set(CoralGrabberConstants.kCoralAngleMotorRate);
   }
 
-  public void  CoralGrabberAngleDown() {
-    CoralGrabberAngleMotor.set(-AngleConstants.kCoralAngleMotorRate);
+  public void CoralGrabberAngleDown() {
+    CoralGrabberAngleMotor.set(-CoralGrabberConstants.kCoralAngleMotorRate);
   }
 
-  public void  CoralGrabberAngleStop() {
+  public void CoralGrabberAngleStop() {
     CoralGrabberAngleMotor.set(0);
   }
 
-  public void  CoralGrabberAngleHold() {
+  public void CoralGrabberAngleHold() {
     CoralGrabberAnglePIDController.setReference(getCoralAbsPosition(), ControlType.kPosition);
   }
 
-
   public void getCoral() {
-    coralVortex.set(GrabberConstants.CoralmotorRate);
+    coralVortex.set(CoralGrabberConstants.CoralmotorRate);
   }
 
   public void putCoral() {
-    coralVortex.set(-GrabberConstants.CoralmotorRate);
+    coralVortex.set(-CoralGrabberConstants.CoralmotorRate);
   }
 
   public void StopMotor() {
@@ -130,7 +121,9 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Coral Grabber Position", getCoralPosition());
+    SmartDashboard.putNumber("Coral Grabber Abs Position", getCoralAbsPosition());
+    SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
   }
 
-  
 }

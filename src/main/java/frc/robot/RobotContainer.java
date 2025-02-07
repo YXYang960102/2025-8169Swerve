@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.AngleConstants.AngleState;
+
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Elevator.ElevatorNormal;
@@ -31,9 +31,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -41,18 +44,23 @@ public class RobotContainer {
   private final SwerveSubsytem swerveSubsytem = new SwerveSubsytem();
   private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final AlgaeGrabberSubsystem grabberAngleSubsystem = new AlgaeGrabberSubsystem();
-  // private final CoralGrabberSubsystem coralGrabberSubsystem = new CoralGrabberSubsystem();
+  // private final CoralGrabberSubsystem coralGrabberSubsystem = new
+  // CoralGrabberSubsystem();
 
   // private final StatusSubsystem statusSubsystem = new StatusSubsystem(9, 270);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private static CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
-  private static CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
+  private static CommandXboxController m_driverController = new CommandXboxController(
+      OIConstants.kDriverControllerPort);
+  private static CommandXboxController m_operatorController = new CommandXboxController(
+      OIConstants.kOperatorControllerPort);
 
   // Create auto chooser
   private final SendableChooser<Command> autoChooser;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
     // SmartDashboard.putData(elevatorSubsystem);
@@ -66,58 +74,63 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
   private void configureBindings() {
-    
+
     m_driverController.start().whileTrue(new InstantCommand(() -> swerveSubsytem.zeroHeading()));
     // //LED Status
-    // m_operatorController.leftBumper().whileTrue(new InstantCommand(() -> statusSubsystem.lightLeft(0, 255, 128)));
-    // m_operatorController.rightBumper().whileTrue(new InstantCommand(() -> statusSubsystem.lightRight(60, 255, 128)));
+    // m_operatorController.leftBumper().whileTrue(new InstantCommand(() ->
+    // statusSubsystem.lightLeft(0, 255, 128)));
+    // m_operatorController.rightBumper().whileTrue(new InstantCommand(() ->
+    // statusSubsystem.lightRight(60, 255, 128)));
 
-    //Lock REEF
-    m_driverController.leftBumper().whileTrue(new SwerveLockHeading(swerveSubsytem, 
-    () -> -m_driverController.getLeftY(), 
-    () -> -m_driverController.getLeftX(), 
-    () -> -m_driverController.getRightX(), 
-    Limelight.kReef));
+    // Lock REEF
+    m_driverController.leftBumper().whileTrue(new SwerveLockHeading(swerveSubsytem,
+        () -> -m_driverController.getLeftY(),
+        () -> -m_driverController.getLeftX(),
+        () -> -m_driverController.getRightX(),
+        Limelight.kReef));
 
     // // Swerve Auto approaching AprilTag
-    // m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, 0.1)
-    //     .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef, m_driverController::getLeftTriggerAxis));
+    // m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value,
+    // 0.1)
+    // .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef,
+    // m_driverController::getLeftTriggerAxis));
 
-    //Swerve X Mode
+    // Swerve X Mode
     // m_driverController.x().whileTrue(new SwerveXMode(swerveSubsytem));
 
-    //elevator normal 
+    // elevator normal
     m_operatorController.pov(0).whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
     m_operatorController.pov(180).whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
-    
-    //elevator Auto
 
+    // elevator Auto
 
-    // m_operatorController.x().whileTrue(new AngleNoraml(grabberAngleSubsystem, AngleState.kCoralUP));
-    // m_operatorController.y().whileTrue(new AngleNoraml(grabberAngleSubsystem, AngleState.kCoralDown));
-    
   }
 
   private void setDefaultCommand() {
     swerveSubsytem.setDefaultCommand(new SwerveFieldRelative(swerveSubsytem,
-    () -> -m_driverController.getLeftY(), // X-Axis
-    () -> -m_driverController.getLeftX(), // Y-Axis
-    () -> -m_driverController.getRightX() // R-Axis
+        () -> -m_driverController.getLeftY(), // X-Axis
+        () -> -m_driverController.getLeftX(), // Y-Axis
+        () -> -m_driverController.getRightX() // R-Axis
     ));
 
   }
 
   private void configureNamedCommands() {
-      
+
   }
 
   /**

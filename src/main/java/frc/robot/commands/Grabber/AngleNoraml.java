@@ -5,7 +5,8 @@
 package frc.robot.commands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AngleConstants.AngleState;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
+import frc.robot.Constants.CoralGrabberConstants.CoralState;
 import frc.robot.subsystems.AlgaeGrabberSubsystem;
 import frc.robot.subsystems.CoralGrabberSubsystem;
 
@@ -13,31 +14,34 @@ import frc.robot.subsystems.CoralGrabberSubsystem;
 public class AngleNoraml extends Command {
   private AlgaeGrabberSubsystem algaeGrabberSubsystem;
   private CoralGrabberSubsystem coralGrabberSubsystem;
-  private AngleState angleState;
+  private CoralState coralState;
+  private AlgaeState algaeState;
 
   /** Creates a new AngleNoraml. */
   public AngleNoraml(
       AlgaeGrabberSubsystem algaeGrabberSubsystem,
       CoralGrabberSubsystem coralGrabberSubsystem,
-      AngleState angleState) {
+      CoralState coralState,
+      AlgaeState algaeState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.algaeGrabberSubsystem = algaeGrabberSubsystem;
     this.coralGrabberSubsystem = coralGrabberSubsystem;
-    this.angleState = angleState;
+    this.coralState = coralState;
+    this.algaeState = algaeState;
 
-    addRequirements(algaeGrabberSubsystem);
+    // addRequirements(algaeGrabberSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (angleState == AngleState.kCoralUP)
+    if (coralState == CoralState.kCoralUP)
       coralGrabberSubsystem.CoralGrabberAngleUP();
-    if (angleState == AngleState.kCoralDown)
+    if (coralState == CoralState.kCoralDown)
       coralGrabberSubsystem.CoralGrabberAngleDown();
-    if (angleState == AngleState.kAlgaeUP)
+    if (algaeState == AlgaeState.kAlgaeUP)
       algaeGrabberSubsystem.AlgaeGrabberAngleUP();
-    if(angleState == AngleState.kAlgaeDown)
+    if (algaeState == AlgaeState.kAlgaeDown)
       algaeGrabberSubsystem.AlgaeGrabberAngleDown();
   }
 

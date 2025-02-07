@@ -83,11 +83,11 @@ public class SwerveSubsytem extends SubsystemBase {
   // Returns positions of the swerve modules for odometry
   public SwerveModulePosition[] getModulePositions() {
 
-    return new SwerveModulePosition[] {
+    return (new SwerveModulePosition[] {
         frontLeft.getPosition(),
         frontRight.getPosition(),
         backLeft.getPosition(),
-        backRight.getPosition() };
+        backRight.getPosition() });
 
   }
 
@@ -97,7 +97,7 @@ public class SwerveSubsytem extends SubsystemBase {
   /*  Creates a new SwerveSubsytem. */
   public SwerveSubsytem() {
 
-    
+    resetAllEncoders();
 
      // Zero navX heading on new thread when robot starts
     new Thread(() -> {
@@ -109,7 +109,7 @@ public class SwerveSubsytem extends SubsystemBase {
       }
     }).start();
 
-    resetAllEncoders();
+    
 
     odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
         getOdometryAngle(), getModulePositions());
