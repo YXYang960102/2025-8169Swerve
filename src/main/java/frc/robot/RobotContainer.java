@@ -10,6 +10,7 @@ import frc.robot.Constants.CoralGrabberConstants.CoralState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Angle.AngleNoraml;
+import frc.robot.commands.Auto.PutCoralAngleAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.GrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
@@ -137,6 +138,9 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("GetCoral", 
     new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kgetCoral, null));
+
+    NamedCommands.registerCommand("PutCoralAngle", 
+    new PutCoralAngleAuto(swerveSubsytem, coralGrabberSubsystem, algaeGrabberAngleSubsystem, elevatorSubsystem));
 
   }
 
