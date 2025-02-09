@@ -254,7 +254,7 @@ public final class Constants {
   // Grabber
   public static final class AlgaeGrabberConstants {
 
-    public static final double AlgaeMotorRate = 0.6;
+    public static final double AlgaeMotorRate = 0.05;
     public static final double kAlgaeAngleMotorRate = 0.5;
 
     public static final double kAlgaeUpLimit = 0;

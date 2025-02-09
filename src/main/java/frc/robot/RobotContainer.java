@@ -67,8 +67,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     // SmartDashboard.putData(elevatorSubsystem);
-    // SmartDashboard.putData(swerveSubsytem);
-    configureNamedCommands();
+    
+    // configureNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
     SmartDashboard.putData("Auto Mode", autoChooser);
 
