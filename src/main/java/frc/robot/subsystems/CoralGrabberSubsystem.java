@@ -113,7 +113,7 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   }
 
   public void putCoral() {
-    coralVortex.set(-CoralGrabberConstants.CoralmotorRate);
+    coralVortex.set(CoralGrabberConstants.CoralmotorRate);
   }
 
   // public void CoralFwdSce() {
