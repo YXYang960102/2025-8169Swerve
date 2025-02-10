@@ -171,7 +171,7 @@ public final class Constants {
     public static final double kUpLimit = 0;
     public static final double kDefaultLimit = 0;
 
-    public static final double kElevatorMotorGearRatio = 48.0 * (22 / 22);
+    public static final double kElevatorMotorGearRatio = 48.0 * (22.0 / 22.0);
 
     // Elevator PID
     public static final double kP = 0.0;
@@ -220,14 +220,16 @@ public final class Constants {
     public static final double kCoralTopPosition = 0;
 
     public static final double kCoralAngleMotorRate = 0.5;
-
-    public static final double CoralmotorRate = 0.6;
-    public static final double CoralmotorFwd = 0.3;
+    public static final double CoralmotorRate = 0.4;
+    public static final double CoralmotorFwd = 0.1;
 
     public static final double kCoralUpLimit = 0;
     public static final double kCoralDownLimit = 0;
 
-    // public static final double kCoralAngleMotorRatio = 100.0 / 12 * 38 / 22 * 36;
+    public static final double kcorlorSensorGateValue = 90;
+    // public static final double kcorlorSensorLGateValue = 90;
+
+    public static final double kCoralVortexRatio = 26.0 / 14.0;
     public static final double kCoralAngleMotorRatio = 100.0 * (38.0 / 12.0) * (36.0 / 22.0);
 
     
@@ -243,6 +245,7 @@ public final class Constants {
     public enum CoralState {
       kgetCoral,
       kputCoral,
+      kCoralFwd,
       kCoralUP,
       kCoralDown,
       kCoralDefult,

@@ -4,8 +4,6 @@
 
 package frc.robot.commands.Grabber;
 
-// import static edu.wpi.first.units.Units.Newton;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
@@ -14,60 +12,51 @@ import frc.robot.subsystems.AlgaeGrabberSubsystem;
 import frc.robot.subsystems.CoralGrabberSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class GrabberNormal extends Command {
+public class CoralGrabberAuto extends Command {
   private CoralGrabberSubsystem coralGrabberSubsystem;
-  private AlgaeGrabberSubsystem algaeGrabberSubsystem;
-  private CoralState coralState;
-  private AlgaeState algaeState;
-  // private Timer timer = new Timer();
-
-  /** Creates a new GrabberNormal. */
-  public GrabberNormal(
-      CoralGrabberSubsystem coralGrabberSubsystem,
-      AlgaeGrabberSubsystem algaeGrabberSubsystem,
-      CoralState coralState,
-      AlgaeState algaeState) {
+  // private AlgaeGrabberSubsystem algaeGrabberSubsystem;
+  // private CoralState coralState;
+  // private AlgaeState algaeState;
+  Timer timer = new Timer();
+  private boolean getCoral = false;
+  /** Creates a new GrabberAuto. */
+  public CoralGrabberAuto(
+  CoralGrabberSubsystem coralGrabberSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralGrabberSubsystem = coralGrabberSubsystem;
-    this.algaeGrabberSubsystem = algaeGrabberSubsystem;
-    this.coralState = coralState;
-    this.algaeState = algaeState;
-
-    // addRequirements(grabberSubsystem);
+    // this.algaeGrabberSubsystem = algaeGrabberSubsystem;
+    // this.coralState = coralState;
+    // this.algaeState = algaeState;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // timer.reset();
-
-    if (coralState == CoralState.kgetCoral)
-      // timer.start();
-    coralGrabberSubsystem.getCoral();
-    if (coralState == CoralState.kputCoral)
-      coralGrabberSubsystem.putCoral();
-    if (algaeState == AlgaeState.kgetAlgae)
-      // timer.start();
-    algaeGrabberSubsystem.getAlgae();
-    if (algaeState == AlgaeState.kputAlgae)
-      algaeGrabberSubsystem.putAlgae();
+    coralGrabberSubsystem.runFwd();
+    timer.reset();
+    getCoral = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(!getCoral && coralGrabberSubsystem.RisPass() || coralGrabberSubsystem.LisPass() && timer.get() == 0){
+      timer.start();
+      coralGrabberSubsystem.StopMotor();
+      getCoral = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    timer.stop();
     coralGrabberSubsystem.StopMotor();
-    algaeGrabberSubsystem.AlgaeMotorStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.get() > 0.05 ;
   }
 }

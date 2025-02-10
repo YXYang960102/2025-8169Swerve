@@ -132,41 +132,41 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
     // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
 
-    // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("Elevator P Gain", 0);
-    double i = SmartDashboard.getNumber("Elevator I Gain", 0);
-    double d = SmartDashboard.getNumber("Elevator D Gain", 0);
-    double iz = SmartDashboard.getNumber("Elevator I Zone", 0);
-    double ff = SmartDashboard.getNumber("Elevator Feed Forward", 0);
-    double max = SmartDashboard.getNumber("Elevator Max Output", 0);
-    double min = SmartDashboard.getNumber("Elevator Min Output", 0);
+    // // read PID coefficients from SmartDashboard
+    // double p = SmartDashboard.getNumber("Elevator P Gain", 0);
+    // double i = SmartDashboard.getNumber("Elevator I Gain", 0);
+    // double d = SmartDashboard.getNumber("Elevator D Gain", 0);
+    // double iz = SmartDashboard.getNumber("Elevator I Zone", 0);
+    // double ff = SmartDashboard.getNumber("Elevator Feed Forward", 0);
+    // double max = SmartDashboard.getNumber("Elevator Max Output", 0);
+    // double min = SmartDashboard.getNumber("Elevator Min Output", 0);
 
-    // if PID coefficients on SmartDashboard have changed, write new values to
-    // controller
-    if ((p != kP)) {
-      elevatorRConfig.closedLoop.p(p);
-      kP = p;
-    }
-    if ((i != kI)) {
-      elevatorRConfig.closedLoop.i(i);
-      kI = i;
-    }
-    if ((d != kD)) {
-      elevatorRConfig.closedLoop.d(d);
-      kD = d;
-    }
-    if ((iz != kIz)) {
-      elevatorRConfig.closedLoop.iZone(iz);
-      kIz = iz;
-    }
-    if ((ff != kFF)) {
-      elevatorRConfig.closedLoop.velocityFF(ff);
-      kFF = ff;
-    }
-    if ((max != kMaxOutput) || (min != kMinOutput)) {
-      elevatorRConfig.closedLoop.outputRange(min, max);
-      kMinOutput = min;
-      kMaxOutput = max;
-    }
+    // // if PID coefficients on SmartDashboard have changed, write new values to
+    // // controller
+    // if ((p != kP)) {
+    //   elevatorRConfig.closedLoop.p(p);
+    //   kP = p;
+    // }
+    // if ((i != kI)) {
+    //   elevatorRConfig.closedLoop.i(i);
+    //   kI = i;
+    // }
+    // if ((d != kD)) {
+    //   elevatorRConfig.closedLoop.d(d);
+    //   kD = d;
+    // }
+    // if ((iz != kIz)) {
+    //   elevatorRConfig.closedLoop.iZone(iz);
+    //   kIz = iz;
+    // }
+    // if ((ff != kFF)) {
+    //   elevatorRConfig.closedLoop.velocityFF(ff);
+    //   kFF = ff;
+    // }
+    // if ((max != kMaxOutput) || (min != kMinOutput)) {
+    //   elevatorRConfig.closedLoop.outputRange(min, max);
+    //   kMinOutput = min;
+    //   kMaxOutput = max;
+    // }
   }
 }
