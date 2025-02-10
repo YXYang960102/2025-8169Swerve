@@ -42,8 +42,9 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
         .secondaryCurrentLimit(70);
 
     AlgaeGrabberAngleConfig
-        .inverted(false)
-        .idleMode(IdleMode.kBrake).closedLoop
+        .inverted(true)
+        .idleMode(IdleMode.kBrake)
+        .closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(AlgaeGrabberConstants.AlgaekP, AlgaeGrabberConstants.AlgaekI, AlgaeGrabberConstants.AlgaekD)
         .iZone(AlgaeGrabberConstants.AlgaekIz)
