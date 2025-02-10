@@ -41,11 +41,11 @@ public class GrabberNormal extends Command {
   public void initialize() {
     // timer.reset();
 
-    if (coralState == CoralState.kgetCoral)
+    if (coralState == CoralState.kCoralFwd)
       // timer.start();
-    coralGrabberSubsystem.getCoral();
-    if (coralState == CoralState.kputCoral)
-      coralGrabberSubsystem.putCoral();
+    coralGrabberSubsystem.CoralFwd();
+    if (coralState == CoralState.kCoralRev)
+      coralGrabberSubsystem.CoralRev();
     if (algaeState == AlgaeState.kgetAlgae)
       // timer.start();
     algaeGrabberSubsystem.getAlgae();

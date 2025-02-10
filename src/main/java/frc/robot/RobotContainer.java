@@ -12,7 +12,7 @@ import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Angle.AngleNoraml;
 import frc.robot.commands.Auto.PutCoralAngleAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
-// import frc.robot.commands.Grabber.CoralGrabberAuto;
+import frc.robot.commands.Grabber.CoralGrabberAuto;
 import frc.robot.commands.Grabber.GrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
@@ -120,10 +120,10 @@ public class RobotContainer {
     m_operatorController.pov(90).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
     m_operatorController.pov(270).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
     // Coral Run Fwd
-    // m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
+    m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
     // Coral Grabber
-    m_operatorController.x().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kgetCoral, null));
-    m_operatorController.b().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kputCoral, null));
+    m_operatorController.x().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
+    m_operatorController.b().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
     // Algae Grabber
     m_operatorController.leftTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
     m_operatorController.rightTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
@@ -149,7 +149,7 @@ public class RobotContainer {
 
   private void configureNamedCommands() {
     NamedCommands.registerCommand("PutCoralNormal", 
-    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kputCoral, AlgaeState.kgetAlgae));
+    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, AlgaeState.kgetAlgae));
 
     NamedCommands.registerCommand("GetCoral", 
     new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kgetCoral, null));
