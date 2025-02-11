@@ -216,7 +216,7 @@ public final class Constants {
 
     
     // Coral Angle PID
-    public static final double CoralkP = 15.0;
+    public static final double CoralkP = 5.0;
     public static final double CoralkI = 0.0;
     public static final double CoralkD = 0.0;
     public static final double CoralkIz = 0;
