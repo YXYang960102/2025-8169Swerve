@@ -41,6 +41,12 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
         .inverted(false)
         .secondaryCurrentLimit(70);
 
+    AlgaeGrabberAngleConfig.softLimit
+        .forwardSoftLimitEnabled(true)
+        .reverseSoftLimitEnabled(true)
+        .forwardSoftLimit(AlgaeGrabberConstants.kAlgaeUpLimit)
+        .reverseSoftLimit(AlgaeGrabberConstants.kAlgaeDownLimit);
+
     AlgaeGrabberAngleConfig
         .inverted(true)
         .idleMode(IdleMode.kBrake)
@@ -52,11 +58,6 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
         .maxOutput(AlgaeGrabberConstants.AlgaekMaxOutput)
         .minOutput(AlgaeGrabberConstants.AlgaekMinOutput);
 
-    AlgaeGrabberAngleConfig.softLimit
-        .forwardSoftLimitEnabled(false)
-        .reverseSoftLimitEnabled(false)
-        .forwardSoftLimit(AlgaeGrabberConstants.kAlgaeUpLimit)
-        .reverseSoftLimit(AlgaeGrabberConstants.kAlgaeDownLimit);
 
     AlgaeGrabberAngleMotor.configure(AlgaeGrabberAngleConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
@@ -84,7 +85,7 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   }
 
   public void setAlgaeTopPosition() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kAlgaeTopPosition, ControlType.kPosition);
+    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetAlgaePosition, ControlType.kPosition);
   }
 
   public void setAlgaePutProPosition() {

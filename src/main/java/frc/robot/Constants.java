@@ -162,23 +162,22 @@ public final class Constants {
     public static final double kDefault = 0;
     public static final double kL1 = 71.00; //L1
     public static final double kL2 = 137.0; //L2
-    
     public static final double kTop = 234.00; //L4 & L3
 
     public static final double kElevatorMotorRate = 0.5;
 
-    public static final double kUpLimit = 234.2;
-    public static final double kDefaultLimit = 0;
+    public static final double kUpLimit = 234.00;
+    public static final double kDefaultLimit = 0.0;
 
     public static final double kElevatorMotorGearRatio = 48.0 * (22.0 / 22.0);
 
     // Elevator PID
-    public static final double kP = 0.0;
+    public static final double kP = 0.15;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
     public static final double kIz = 0;
     public static final double kFF = 0;
-    public static final double kMaxOutput = 0.9;
+    public static final double kMaxOutput = 0.7;
     public static final double kMinOutput = -1;
 
 
@@ -196,11 +195,11 @@ public final class Constants {
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralDefultPosition = 0.57;
+    public static final double kCoralDefultPosition = 0.574;
     public static final double kL1Position = 0.537; //L1
     public static final double kL2Psoition = 0.537;
     public static final double kL3Position = 0.51;
-    public static final double kCoralTopPosition = 0.1;
+    public static final double kCoralTopPosition = 0.08;
 
     public static final double kCoralAngleMotorRate = 0.5;
     public static final double CoralmotorRate = 0.15;
@@ -217,7 +216,7 @@ public final class Constants {
 
     
     // Coral Angle PID
-    public static final double CoralkP = 0.0;
+    public static final double CoralkP = 15.0;
     public static final double CoralkI = 0.0;
     public static final double CoralkD = 0.0;
     public static final double CoralkIz = 0;
@@ -232,7 +231,9 @@ public final class Constants {
       kCoralUP,
       kCoralDown,
       kCoralDefult,
-      kCoralStation,
+      kL1,
+      kL2,
+      kL3,
       kCoralTop
     }
   }
@@ -243,15 +244,15 @@ public final class Constants {
     public static final double AlgaeMotorRate = 0.2;//0.2
     public static final double kAlgaeAngleMotorRate = 0.5;
 
-    public static final double kAlgaeUpLimit = 0;
+    public static final double kAlgaeUpLimit = 0.99;
     public static final double kAlgaeDownLimit = 0.715;
 
-    public static final double kAlgaeDefultPosition = 0;
-    public static final double kAlgaeTopPosition = 0.767;
-    public static final double kAlgaePutProPosition = 0.714;
+    public static final double kAlgaeDefultPosition = 0.99;
+    public static final double kGetAlgaePosition = 0.776;
+    public static final double kAlgaePutProPosition = 0.715;
 
     // Algae Angle PID
-    public static final double AlgaekP = 0.0;
+    public static final double AlgaekP = 10.5;
     public static final double AlgaekI = 0.0;
     public static final double AlgaekD = 0.0;
     public static final double AlgaekIz = 0;
@@ -263,6 +264,7 @@ public final class Constants {
       kAlgaeUP,
       kAlgaeDown,
       kAlgaeDefult,
+      kAlgaePutPro,
       kAlgaeTop,
       kgetAlgae,
       kputAlgae

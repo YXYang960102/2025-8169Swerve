@@ -43,7 +43,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   // elevatorRMotor.getAbsoluteEncoder();
   private final SparkClosedLoopController elevatorPIDController = elevatorRMotor.getClosedLoopController();
 
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+  // public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -58,16 +58,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // elevatorEncoder.setPosition(elevatorAbsEncoder.getPosition());
 
-    elevatorRMotor.configure(elevatorRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    elevatorLMotor.configure(elevatorLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    kP = ElevatorConstants.kP;
-    kI = ElevatorConstants.kI;
-    kD = ElevatorConstants.kD;
-    kIz = ElevatorConstants.kIz;
-    kFF = ElevatorConstants.kFF;
-    kMaxOutput = ElevatorConstants.kMaxOutput;
-    kMinOutput = ElevatorConstants.kMinOutput;
+    // kP = ElevatorConstants.kP;
+    // kI = ElevatorConstants.kI;
+    // kD = ElevatorConstants.kD;
+    // kIz = ElevatorConstants.kIz;
+    // kFF = ElevatorConstants.kFF;
+    // kMaxOutput = ElevatorConstants.kMaxOutput;
+    // kMinOutput = ElevatorConstants.kMinOutput;
 
     elevatorRConfig.softLimit
         .forwardSoftLimitEnabled(true)
@@ -77,11 +74,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     elevatorRConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(kP, kI, kD)
-        .iZone(kIz)
-        .velocityFF(kFF)
-        .maxOutput(kMaxOutput)
-        .minOutput(kMinOutput);
+        .pid(ElevatorConstants.kP, ElevatorConstants.kI, ElevatorConstants.kD)
+        .iZone(ElevatorConstants.kIz)
+        .velocityFF(ElevatorConstants.kFF)
+        .maxOutput(ElevatorConstants.kMaxOutput)
+        .minOutput(ElevatorConstants.kMinOutput);
+
+    elevatorRMotor.configure(elevatorRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    elevatorLMotor.configure(elevatorLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters); 
 
   }
 
