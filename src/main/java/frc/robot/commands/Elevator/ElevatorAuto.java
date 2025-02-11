@@ -27,10 +27,10 @@ public class ElevatorAuto extends Command {
   public void initialize() {
     if(elevatorState == ElevatorState.kDefault)
        elevatorSubsystem.setDefault();
+    if(elevatorState == ElevatorState.kL1)
+       elevatorSubsystem.setL1();
     if(elevatorState == ElevatorState.kL2)
        elevatorSubsystem.setL2();
-    if(elevatorState == ElevatorState.kL4)
-       elevatorSubsystem.setL4();
     if(elevatorState == ElevatorState.kTop)
        elevatorSubsystem.setTop();
   

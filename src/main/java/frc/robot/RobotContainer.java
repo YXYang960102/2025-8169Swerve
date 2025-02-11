@@ -12,7 +12,7 @@ import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.Angle.AngleNoraml;
 import frc.robot.commands.Auto.PutCoralAngleAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
-import frc.robot.commands.Grabber.CoralGrabberAuto;
+// import frc.robot.commands.Grabber.CoralGrabberAuto;
 import frc.robot.commands.Grabber.GrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
@@ -120,7 +120,7 @@ public class RobotContainer {
     m_operatorController.pov(90).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
     m_operatorController.pov(270).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
     // Coral Run Fwd
-    m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
+    // m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
     // Coral Grabber
     m_operatorController.x().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
     m_operatorController.b().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
@@ -135,7 +135,7 @@ public class RobotContainer {
     m_operatorController.a().whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
 
     // elevator Auto
-
+    
   }
 
   private void setDefaultCommand() {

@@ -18,6 +18,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.AlternateEncoderConfig.Type;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -39,18 +40,19 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   private RelativeEncoder CoralGrabberAngleEncoder = CoralGrabberAngleMotor.getEncoder();
   private SparkAbsoluteEncoder CoralGrabberAngleAbsEncoder = CoralGrabberAngleMotor.getAbsoluteEncoder();
   private SparkClosedLoopController CoralGrabberAnglePIDController = CoralGrabberAngleMotor.getClosedLoopController();
-  private I2C.Port i2cPort = I2C.Port.kOnboard;
 
-  private ColorSensorV3 coralSensorR = new ColorSensorV3(i2cPort);
-  private ColorSensorV3 coralSensorL = new ColorSensorV3(i2cPort);
+  // private I2C.Port i2cPort = I2C.Port.kOnboard;
+  // private ColorSensorV3 coralSensorR = new ColorSensorV3(i2cPort);
+  // private ColorSensorV3 coralSensorL = new ColorSensorV3(i2cPort);
 
   /** Creates a new GrabberSubsystem. */
   public CoralGrabberSubsystem() {
 
     CoralGrabberAngleEncoder.setPosition(CoralGrabberAngleAbsEncoder.getPosition());
+    // coralSensorR.configureProximitySensor(ProximitySensorResolution.kProxRes11bit, ProximitySensorMeasurementRate.kProxRate12ms);
 
     coralVortexConfig
-        .idleMode(IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .inverted(false)
         .smartCurrentLimit(70);
 
@@ -74,8 +76,8 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     CoralGrabberAngleMotor.configure(CoralGrabberAngleConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
-    coralSensorR.configureProximitySensor(ProximitySensorResolution.kProxRes11bit, ProximitySensorMeasurementRate.kProxRate12ms);
-    coralSensorL.configureProximitySensor(ProximitySensorResolution.kProxRes11bit, ProximitySensorMeasurementRate.kProxRate12ms);
+    
+    // coralSensorL.configureProximitySensor(ProximitySensorResolution.kProxRes11bit, ProximitySensorMeasurementRate.kProxRate25ms);
 
 
   }
@@ -95,64 +97,76 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     return CoralGrabberAngleAbsEncoder.getPosition();
   }
 
-  public double getRIR() {
-    /**
-     * The sensor returns a raw IR value of the infrared light detected.
-     */
-    double RIR = coralSensorR.getIR();
-    return RIR;
-  }
+  // public double getRIR() {
+  //   /**
+  //    * The sensor returns a raw IR value of the infrared light detected.
+  //    */
+  //   double RIR = coralSensorR.getIR();
+  //   return RIR;
+  // }
 
-  public double getLIR() {
-    /**
-     * The sensor returns a raw IR value of the infrared light detected.
-     */
-    double LIR = coralSensorL.getIR();
-    return LIR;
-  }
+  // public double getLIR() {
+  //   /**
+  //    * The sensor returns a raw IR value of the infrared light detected.
+  //    */
+  //   double LIR = coralSensorL.getIR();
+  //   return LIR;
+  // }
 
-  public int getRProximity() {
-    /**
-     * In addition to RGB IR values, the color sensor can also return an
-     * infrared proximity value. The chip contains an IR led which will emit
-     * IR pulses and measure the intensity of the return. When an object is
-     * close the value of the proximity will be large (max 2047 with default
-     * settings) and will approach zero when the object is far away.
-     * 
-     * Proximity can be used to roughly approximate the distance of an object
-     * or provide a threshold for when an object is close enough to provide
-     * accurate color values.
-     */
-    int Rproximity = coralSensorR.getProximity();
-    return Rproximity;
-  }
+  // public int getRProximity() {
+  //   /**
+  //    * In addition to RGB IR values, the color sensor can also return an
+  //    * infrared proximity value. The chip contains an IR led which will emit
+  //    * IR pulses and measure the intensity of the return. When an object is
+  //    * close the value of the proximity will be large (max 2047 with default
+  //    * settings) and will approach zero when the object is far away.
+  //    * 
+  //    * Proximity can be used to roughly approximate the distance of an object
+  //    * or provide a threshold for when an object is close enough to provide
+  //    * accurate color values.
+  //    */
+  //   int Rproximity = coralSensorR.getProximity();
+  //   return Rproximity;
+  // }
 
-  public int getLProximity() {
-    /**
-     * In addition to RGB IR values, the color sensor can also return an
-     * infrared proximity value. The chip contains an IR led which will emit
-     * IR pulses and measure the intensity of the return. When an object is
-     * close the value of the proximity will be large (max 2047 with default
-     * settings) and will approach zero when the object is far away.
-     * 
-     * Proximity can be used to roughly approximate the distance of an object
-     * or provide a threshold for when an object is close enough to provide
-     * accurate color values.
-     */
-    int Lproximity = coralSensorL.getProximity();
-    return Lproximity;
-  }
+  // public int getLProximity() {
+  //   /**
+  //    * In addition to RGB IR values, the color sensor can also return an
+  //    * infrared proximity value. The chip contains an IR led which will emit
+  //    * IR pulses and measure the intensity of the return. When an object is
+  //    * close the value of the proximity will be large (max 2047 with default
+  //    * settings) and will approach zero when the object is far away.
+  //    * 
+  //    * Proximity can be used to roughly approximate the distance of an object
+  //    * or provide a threshold for when an object is close enough to provide
+  //    * accurate color values.
+  //    */
+  //   int Lproximity = coralSensorL.getProximity();
+  //   return Lproximity;
+  // }
 
-  public boolean RisPass() {
-    return getRProximity() > CoralGrabberConstants.kcorlorSensorGateValue;
-  }
+  // public boolean RisPass() {
+  //   return getRProximity() > CoralGrabberConstants.kcorlorSensorGateValue;
+  // }
 
-  public boolean LisPass() {
-    return getLProximity() > CoralGrabberConstants.kcorlorSensorGateValue;
-  }
+  // public boolean LisPass() {
+  //   return getLProximity() > CoralGrabberConstants.kcorlorSensorGateValue;
+  // }
 
   public void setDefultPosition() {
     CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kCoralDefultPosition, ControlType.kPosition);
+  }
+
+  public void setL1Position() {
+    CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kL1Position, ControlType.kPosition);
+  }
+
+  public void setL2Postion() {
+    CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kL2Psoition, ControlType.kPosition);
+  }
+
+  public void setL3Position() {
+    CoralGrabberAnglePIDController.setReference(CoralGrabberConstants.kL3Position, ControlType.kPosition);
   }
 
   public void setCoralTopPosition() {
@@ -175,11 +189,11 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     CoralGrabberAnglePIDController.setReference(getCoralAbsPosition(), ControlType.kPosition);
   }
 
-  public void getCoral() {
+  public void CoralFwd() {
     coralVortex.set(CoralGrabberConstants.CoralmotorRate);
   }
 
-  public void putCoral() {
+  public void CoralRev() {
     coralVortex.set(-CoralGrabberConstants.CoralmotorRate);
   }
 
@@ -201,6 +215,7 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Coral Grabber Position", getCoralPosition());
     SmartDashboard.putNumber("Coral Grabber Abs Position", getCoralAbsPosition());
     SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
+    // SmartDashboard.putBoolean("isGet", RisPass());
   }
 
 }

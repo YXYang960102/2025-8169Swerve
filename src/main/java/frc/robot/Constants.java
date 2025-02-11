@@ -160,15 +160,14 @@ public final class Constants {
   public static final class ElevatorConstants {
 
     public static final double kDefault = 0;
-    // public static final double kProcessor = 0;
-    public static final double kL2 = 0;
-    public static final double kL4 = 0;
-    // public static final double kCoralStation = 0;
-    public static final double kTop = 0;
+    public static final double kL1 = 71.00; //L1
+    public static final double kL2 = 137.0; //L2
+    
+    public static final double kTop = 234.00; //L4 & L3
 
     public static final double kElevatorMotorRate = 0.5;
 
-    public static final double kUpLimit = 0;
+    public static final double kUpLimit = 234.2;
     public static final double kDefaultLimit = 0;
 
     public static final double kElevatorMotorGearRatio = 48.0 * (22.0 / 22.0);
@@ -182,29 +181,11 @@ public final class Constants {
     public static final double kMaxOutput = 0.9;
     public static final double kMinOutput = -1;
 
-    // public enum HeightSet{
-    // kBottom(0),
-    // kMiddle(0),
-    // kTop(0);
-
-    // public final double setHeight;
-
-    // private HeightSet(double setHeight) {
-    // this.setHeight = setHeight;
-    // }
-
-    // public double getheight(){
-    // return setHeight;
-    // }
-
-    // }
 
     public enum ElevatorState {
       kDefault,
-      // kProcessor,
+      kL1,
       kL2,
-      kL4,
-      kCoralStation,
       kTop,
       kUP,
       kDown,
@@ -213,20 +194,22 @@ public final class Constants {
 
   }
 
-  // Grabber Angle
+  // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralDefultPosition = 0;
-    public static final double kCoralStationPosition = 0;
-    public static final double kCoralTopPosition = 0;
+    public static final double kCoralDefultPosition = 0.57;
+    public static final double kL1Position = 0.537; //L1
+    public static final double kL2Psoition = 0.537;
+    public static final double kL3Position = 0.51;
+    public static final double kCoralTopPosition = 0.1;
 
     public static final double kCoralAngleMotorRate = 0.5;
-    public static final double CoralmotorRate = 0.4;
+    public static final double CoralmotorRate = 0.15;
     public static final double CoralmotorFwd = 0.1;
 
-    public static final double kCoralUpLimit = 0;
-    public static final double kCoralDownLimit = 0;
+    public static final double kCoralUpLimit = 0.57;
+    public static final double kCoralDownLimit = 0.1;
 
-    public static final double kcorlorSensorGateValue = 90;
+    public static final double kcorlorSensorGateValue = 300;
     // public static final double kcorlorSensorLGateValue = 90;
 
     public static final double kCoralVortexRatio = 26.0 / 14.0;
@@ -243,9 +226,9 @@ public final class Constants {
     public static final double CoralkMinOutput = -1;
 
     public enum CoralState {
-      kgetCoral,
-      kputCoral,
       kCoralFwd,
+      kCoralRev,
+      kgetCoral,
       kCoralUP,
       kCoralDown,
       kCoralDefult,
@@ -257,14 +240,15 @@ public final class Constants {
   //Algae Grabber
   public static final class AlgaeGrabberConstants {
 
-    public static final double AlgaeMotorRate = 0.05;
+    public static final double AlgaeMotorRate = 0.2;//0.2
     public static final double kAlgaeAngleMotorRate = 0.5;
 
     public static final double kAlgaeUpLimit = 0;
-    public static final double kAlgaeDownLimit = 0;
+    public static final double kAlgaeDownLimit = 0.715;
 
     public static final double kAlgaeDefultPosition = 0;
-    public static final double kAlgaeTopPosition = 0;
+    public static final double kAlgaeTopPosition = 0.767;
+    public static final double kAlgaePutProPosition = 0.714;
 
     // Algae Angle PID
     public static final double AlgaekP = 0.0;

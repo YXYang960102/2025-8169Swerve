@@ -70,8 +70,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     kMinOutput = ElevatorConstants.kMinOutput;
 
     elevatorRConfig.softLimit
-        .forwardSoftLimitEnabled(false)
-        .reverseSoftLimitEnabled(false)
+        .forwardSoftLimitEnabled(true)
+        .reverseSoftLimitEnabled(true)
         .forwardSoftLimit(ElevatorConstants.kUpLimit)
         .reverseSoftLimit(ElevatorConstants.kDefaultLimit);
 
@@ -98,12 +98,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
   }
 
-  public void setL2() {
-    elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
+  public void setL1() {
+    elevatorPIDController.setReference(ElevatorConstants.kL1, ControlType.kPosition);
   }
 
-  public void setL4() {
-    elevatorPIDController.setReference(ElevatorConstants.kL4, ControlType.kPosition);
+  public void setL2() {
+    elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
   }
 
   public void setTop() {
