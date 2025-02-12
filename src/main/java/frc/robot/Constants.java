@@ -177,7 +177,7 @@ public final class Constants {
     public static final double kD = 0.0;
     public static final double kIz = 0;
     public static final double kFF = 0;
-    public static final double kMaxOutput = 0.7;
+    public static final double kMaxOutput = 1;
     public static final double kMinOutput = -1;
 
 
@@ -217,7 +217,7 @@ public final class Constants {
     
     // Coral Angle PID
     public static final double CoralkP = 5.0;
-    public static final double CoralkI = 0.0;
+    public static final double CoralkI = 0.0000000001;
     public static final double CoralkD = 0.0;
     public static final double CoralkIz = 0;
     public static final double CoralkFF = 0;

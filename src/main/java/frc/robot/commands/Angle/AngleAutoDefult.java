@@ -74,6 +74,7 @@ public class AngleAutoDefult extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !coralMoved && timer.get() >= 2.0;
+    // return !coralMoved && timer.get() >= 2.0;
+    return coralMoved;
   }
 }
