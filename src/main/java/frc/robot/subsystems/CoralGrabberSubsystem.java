@@ -213,9 +213,9 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Coral Grabber Position", getCoralPosition());
+    // SmartDashboard.putNumber("Coral Grabber Position", getCoralPosition());
     SmartDashboard.putNumber("Coral Grabber Abs Position", getCoralAbsPosition());
-    SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
+    // SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
     // SmartDashboard.putBoolean("isGet", RisPass());
   }
 

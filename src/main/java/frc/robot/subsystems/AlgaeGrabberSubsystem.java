@@ -125,9 +125,9 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Algae Position", getAlgaePosition());
+    // SmartDashboard.putNumber("Algae Position", getAlgaePosition());
     SmartDashboard.putNumber("Algae Abs Position", getAlgaeAbsPosition());
-    SmartDashboard.putNumber("Algae Velocity", getAlgaeVelocity());
+    // SmartDashboard.putNumber("Algae Velocity", getAlgaeVelocity());
   }
 
 
