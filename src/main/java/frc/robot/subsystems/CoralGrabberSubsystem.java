@@ -23,6 +23,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,6 +41,9 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   private RelativeEncoder CoralGrabberAngleEncoder = CoralGrabberAngleMotor.getEncoder();
   private SparkAbsoluteEncoder CoralGrabberAngleAbsEncoder = CoralGrabberAngleMotor.getAbsoluteEncoder();
   private SparkClosedLoopController CoralGrabberAnglePIDController = CoralGrabberAngleMotor.getClosedLoopController();
+
+  private DigitalInput irL = new DigitalInput(0);
+  private DigitalInput irR = new DigitalInput(1);
 
   // private I2C.Port i2cPort = I2C.Port.kOnboard;
   // private ColorSensorV3 coralSensorR = new ColorSensorV3(i2cPort);
@@ -83,7 +87,11 @@ public class CoralGrabberSubsystem extends SubsystemBase {
 
   }
 
-  // return Angle Relative Position
+  public boolean getIR(){
+    return !irL.get() || !irR.get();
+  }
+
+  // return Angle Relativ6e Position
   public double getCoralPosition() {
     return CoralGrabberAngleEncoder.getPosition();
   }
@@ -198,6 +206,10 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     coralVortex.set(-CoralGrabberConstants.CoralmotorRate);
   }
 
+  public void CoralRevSlow() {
+    coralVortex.set(-0.08);
+  }
+
   public void runFwd() {
     coralVortex.set(CoralGrabberConstants.CoralmotorFwd);
   }
@@ -217,6 +229,10 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Coral Grabber Abs Position", getCoralAbsPosition());
     SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
     // SmartDashboard.putBoolean("isGet", RisPass());
+
+    SmartDashboard.putBoolean("IR L", irL.get());
+    SmartDashboard.putBoolean("IR R", irR.get());
+    SmartDashboard.putBoolean("IR", getIR());
   }
 
 }

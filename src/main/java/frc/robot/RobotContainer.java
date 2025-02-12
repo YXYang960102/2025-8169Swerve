@@ -17,6 +17,7 @@ import frc.robot.commands.Angle.CoralGrabberAuto;
 import frc.robot.commands.Auto.PutCoralAngleAuto;
 import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
+import frc.robot.commands.Grabber.CoralAuto;
 // import frc.robot.commands.Grabber.CoralGrabberAuto;
 import frc.robot.commands.Grabber.GrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
@@ -139,6 +140,8 @@ public class RobotContainer {
     // Algae Grabber
     m_operatorController.leftBumper().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
     m_operatorController.rightBumper().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
+
+    m_operatorController.start().onTrue(new CoralAuto(coralGrabberSubsystem));
 
     // // Coral Grabber Auto
     // m_operatorController.pov(0).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kCoralTop));
