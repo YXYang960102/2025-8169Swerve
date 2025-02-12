@@ -164,7 +164,7 @@ public final class Constants {
     public static final double kL2 = 137.0; //L2
     public static final double kTop = 234.00; //L4 & L3
 
-    public static final double kElevatorMotorRate = 0.5;
+    public static final double kElevatorMotorRate = 1.0;
 
     public static final double kUpLimit = 234.00;
     public static final double kDefaultLimit = 0.0;
@@ -234,7 +234,8 @@ public final class Constants {
       kL1,
       kL2,
       kL3,
-      kCoralTop
+      kCoralTop,
+      kCoralStop
     }
   }
 
@@ -267,7 +268,8 @@ public final class Constants {
       kAlgaePutPro,
       kAlgaeTop,
       kgetAlgae,
-      kputAlgae
+      kputAlgae,
+      kAlgaeStop
     }
   }
 
