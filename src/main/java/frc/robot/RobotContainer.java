@@ -75,7 +75,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     // SmartDashboard.putData(elevatorSubsystem);
     
-    // configureNamedCommands();
+    configureNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
     SmartDashboard.putData("Auto Mode", autoChooser);
 
@@ -183,14 +183,9 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
-    NamedCommands.registerCommand("PutCoralNormal", 
-    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, AlgaeState.kgetAlgae));
+    NamedCommands.registerCommand("L3", 
+    new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kTop, CoralState.kL3, AlgaeState.kAlgaeTop));
 
-    NamedCommands.registerCommand("GetCoral", 
-    new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kgetCoral, null));
-
-    NamedCommands.registerCommand("PutCoralAngle", 
-    new PutCoralAngleAuto(swerveSubsytem, coralGrabberSubsystem, algaeGrabberAngleSubsystem, elevatorSubsystem));
 
   }
 
