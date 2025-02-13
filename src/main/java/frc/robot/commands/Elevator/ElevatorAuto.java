@@ -31,8 +31,10 @@ public class ElevatorAuto extends Command {
        elevatorSubsystem.setL1();
     if(elevatorState == ElevatorState.kL2)
        elevatorSubsystem.setL2();
-    if(elevatorState == ElevatorState.kTop)
-       elevatorSubsystem.setTop();
+    if(elevatorState == ElevatorState.kL3)
+       elevatorSubsystem.setL3();
+    if(elevatorState == ElevatorState.kL4)
+       elevatorSubsystem.setL4();
   
   }
 

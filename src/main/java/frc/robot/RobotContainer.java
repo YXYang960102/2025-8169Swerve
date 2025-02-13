@@ -130,9 +130,15 @@ public class RobotContainer {
     // Coral Grabeer Angle
     m_operatorController.pov(180).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, CoralState.kCoralUP, null));
     m_operatorController.pov(0).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, CoralState.kCoralDown, null));
-    // Algae Grabber Angle
+    // Elevator normal
     m_operatorController.pov(90).whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
     m_operatorController.pov(270).whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
+    // Algae Grabber Angle
+    m_driverController.pov(0).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
+    m_driverController.pov(180).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
+    // Algae Grabber
+    m_driverController.pov(90).toggleOnTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
+    m_driverController.pov(270).toggleOnTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
     
     // Coral Run Fwd
     // m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
@@ -140,9 +146,6 @@ public class RobotContainer {
     // Coral Grabber
     m_operatorController.rightTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
     m_operatorController.leftTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
-    // Algae Grabber
-    m_operatorController.leftBumper().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
-    m_operatorController.rightBumper().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
 
     m_operatorController.start().onTrue(new CoralAuto(coralGrabberSubsystem));
 
@@ -151,10 +154,6 @@ public class RobotContainer {
     // m_operatorController.pov(90).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kL1));
     // m_operatorController.pov(180).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kL3));
     // m_operatorController.pov(270).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kCoralDefult));
-
-    // elevator normal
-    // m_operatorController.y().whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
-    // m_operatorController.a().whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
 
     // elevator Auto
     // m_operatorController.x().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kL2));
