@@ -45,6 +45,8 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   private DigitalInput irL = new DigitalInput(0);
   private DigitalInput irR = new DigitalInput(1);
 
+  private boolean coralRevSlowRunning = false;
+
   // private I2C.Port i2cPort = I2C.Port.kOnboard;
   // private ColorSensorV3 coralSensorR = new ColorSensorV3(i2cPort);
   // private ColorSensorV3 coralSensorL = new ColorSensorV3(i2cPort);
@@ -104,6 +106,10 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   // return Angle Absolute Position
   public double getCoralAbsPosition() {
     return CoralGrabberAngleAbsEncoder.getPosition();
+  }
+
+  public boolean isDefault(){
+    return Math.abs(getCoralAbsPosition() - CoralGrabberConstants.kCoralDefultPosition) < 0.05;
   }
 
   // public double getRIR() {
@@ -233,6 +239,16 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("IR L", irL.get());
     SmartDashboard.putBoolean("IR R", irR.get());
     SmartDashboard.putBoolean("IR", getIR());
+
+    if(getIR() && coralVortex.getAppliedOutput() <= 0){
+      coralRevSlowRunning = true;
+      CoralRevSlow();
+    }
+
+    if (coralRevSlowRunning && !getIR()) {
+      coralRevSlowRunning = false;
+      StopMotor();
+    }
   }
 
 }
