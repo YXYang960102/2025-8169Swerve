@@ -4,7 +4,6 @@
 
 package frc.robot.commands.Angle;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
 import frc.robot.Constants.CoralGrabberConstants.CoralState;
@@ -21,9 +20,6 @@ public class AngleAutoDefult extends Command {
   private ElevatorState elevatorState;
   private CoralState coralState;
   private AlgaeState algaeState;
-
-  private boolean coralMoved = false;
-  Timer timer = new Timer();
 
   /** Creates a new AngleAutoDefult. */
   public AngleAutoDefult(
@@ -50,31 +46,25 @@ public class AngleAutoDefult extends Command {
    if(elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralDefult){
     elevatorSubsystem.setDefault();
     coralGrabberSubsystem.setDefultPosition();
-    timer.reset();
-    timer.start();
-    coralMoved = false;
    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!coralMoved && algaeState == AlgaeState.kAlgaeDefult && timer.get() > 2) {
-      coralMoved = true;
-      algaeGrabberSubsystem.setDefultPosition();
-    }
+  
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    timer.stop();
+    if(algaeState == AlgaeState.kAlgaeDefult && !interrupted)
+      algaeGrabberSubsystem.setDefultPosition();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return !coralMoved && timer.get() >= 2.0;
-    return coralMoved;
+    return coralGrabberSubsystem.isDefault();
   }
 }
