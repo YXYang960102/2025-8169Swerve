@@ -20,8 +20,6 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
 
-  private SwerveSubsytem swerveSubsytem;
-
   private boolean autoWaringSig = false;
 
   /**
@@ -89,7 +87,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    swerveSubsytem.copyHeading();
+    SwerveSubsytem.copyHeading();
     System.out.println("teleopInit: " + SwerveSubsytem.heading);
   }
 

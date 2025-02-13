@@ -34,7 +34,7 @@ import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.LimelightHelpers;
 
 public class SwerveSubsytem extends SubsystemBase {
-    // Create 4 swerve modules with attributes from constants
+  // Create 4 swerve modules with attributes from constants
   private final SwerveModule frontLeft = new SwerveModule(
       IDConstants.kFrontLeftDrivePort,
       IDConstants.kFrontLeftTurnPort,
@@ -67,7 +67,7 @@ public class SwerveSubsytem extends SubsystemBase {
       DriveConstants.kBackRightTurningMotorReversed,
       "Back Right");
 
-  private final AHRS gyro = new AHRS(NavXComType.kMXP_SPI);
+  private final static AHRS gyro = new AHRS(NavXComType.kMXP_SPI);
 
   private Field2d field = new Field2d();
 
@@ -78,7 +78,6 @@ public class SwerveSubsytem extends SubsystemBase {
 
   public double kP = DriveConstants.kPTheta, kI = DriveConstants.kITheta, kD = DriveConstants.kDTheta,
       kIZone = DriveConstants.kIZTheta;
-
 
   // Returns positions of the swerve modules for odometry
   public SwerveModulePosition[] getModulePositions() {
@@ -94,12 +93,12 @@ public class SwerveSubsytem extends SubsystemBase {
   // Create odometer for swerve drive
   private SwerveDriveOdometry odometer;
 
-  /*  Creates a new SwerveSubsytem. */
+  /* Creates a new SwerveSubsytem. */
   public SwerveSubsytem() {
 
     resetAllEncoders();
 
-     // Zero navX heading on new thread when robot starts
+    // Zero navX heading on new thread when robot starts
     new Thread(() -> {
       try {
         Thread.sleep(1000);
@@ -109,53 +108,52 @@ public class SwerveSubsytem extends SubsystemBase {
       }
     }).start();
 
-    
-
     odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
         getOdometryAngle(), getModulePositions());
 
     // Set default PID values for thetaPID
     // thetaController = new PIDController(
-    //     DriveConstants.kPTheta,
-    //     DriveConstants.kITheta,
-    //     DriveConstants.kDTheta);
+    // DriveConstants.kPTheta,
+    // DriveConstants.kITheta,
+    // DriveConstants.kDTheta);
     // thetaController.setIZone(DriveConstants.kIZTheta);
 
     // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
-    
-    try{
+
+    try {
       config = RobotConfig.fromGUISettings();
     } catch (Exception e) {
       // Handle exception as needed
       e.printStackTrace();
     }
 
+    // Configure AutoBuilder last
+    AutoBuilder.configure(
+        this::getPose, // Robot pose supplier
+        this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+        this::getSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also
+                                // optionally outputs individual module feedforwards
+        AutoConstants.pathFollowerConfig,
+        config, // The robot configuration
+        () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red
+          // alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-     // Configure AutoBuilder last
-     AutoBuilder.configure(
-      this::getPose, // Robot pose supplier
-      this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-      this::getSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-      this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
-      AutoConstants.pathFollowerConfig,
-      config,// The robot configuration
-      () -> {
-        // Boolean supplier that controls when the path will be mirrored for the red alliance
-        // This will flip the path being followed to the red side of the field.
-        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this // Reference to this subsystem to set requirements
+    );
 
-        var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent()) {
-          return alliance.get() == DriverStation.Alliance.Red;
-        }
-        return false;
-      },
-      this // Reference to this subsystem to set requirements
-);
-
-// Set up custom logging to add the current path to a field 2d widget
-PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
+    // Set up custom logging to add the current path to a field 2d widget
+    PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
 
     SmartDashboard.putData("Field", field);
   }
@@ -166,10 +164,10 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     heading = getHeading();
   }
 
-   // Return gyro heading, make sure to read navx docs on this
-   public double getHeading() {
+  // Return gyro heading, make sure to read navx docs on this
+  public static double getHeading() {
     return gyro.getAngle();
-   }
+  }
 
   // Stop all module movement
   public void stopModules() {
@@ -200,7 +198,7 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     setModuleStates(moduleStates);
   }
 
-    public void setChassisOutput(double xSpeed, double ySpeed, double turningAngle) {
+  public void setChassisOutput(double xSpeed, double ySpeed, double turningAngle) {
     setChassisOutput(xSpeed, ySpeed, turningAngle, false, false);
   }
 
@@ -222,14 +220,15 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     // System.out.println(getHeading() +" "+heading);
 
     double turningSpeed = turningAngle;
-    // turningSpeed *= DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond;
-                                   
+    // turningSpeed *=
+    // DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond;
 
     // double turningSpeed = thetaController.calculate(getHeading(), heading);
     // turningSpeed = Math.abs(turningSpeed) > 0.05 ? turningSpeed : 0.0;
     // turningSpeed *= -DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
-    // turningSpeed = MathUtil.clamp(turningSpeed, -DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond,
-    //     DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond);
+    // turningSpeed = MathUtil.clamp(turningSpeed,
+    // -DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond,
+    // DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond);
 
     // Create chassis speeds
     ChassisSpeeds chassisSpeeds;
@@ -283,12 +282,12 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
      */
     // SmartDashboard.putNumber("Yaw", gyro.getYaw());
     // SmartDashboard.putNumber("Angle", gyro.getAngle());
-    //return (Rotation2d.fromDegrees(gyro.getYaw()));
+    // return (Rotation2d.fromDegrees(gyro.getYaw()));
     return Rotation2d.fromDegrees(getRobotDegrees() - 180);
   }
 
-   // Returns an angle from 0 to 360 that is continuous, meaning it loops
-   public double getRobotDegrees() {
+  // Returns an angle from 0 to 360 that is continuous, meaning it loops
+  public double getRobotDegrees() {
     double rawValue = -gyro.getAngle() % 360.0;
     if (rawValue < 0.0) {
       return (rawValue + 360.0);
@@ -297,7 +296,7 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     }
   }
 
-  // Reset all swerve  encoders
+  // Reset all swerve encoders
   public void resetAllEncoders() {
     frontLeft.resetEncoders();
     frontRight.resetEncoders();
@@ -305,7 +304,7 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     backRight.resetEncoders();
   }
 
-  public  void copyHeading() {
+  public static void copyHeading() {
     heading = getHeading();
   }
 
@@ -319,8 +318,8 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     // Rotation2d angle = getOdometryAngle();
 
     // if (positions == null || angle == null) {
-    //     System.out.println("Error: Null values in odometry update!");
-    //     return; // Stop update
+    // System.out.println("Error: Null values in odometry update!");
+    // return; // Stop update
     // }
 
     // // update odometry
@@ -329,12 +328,11 @@ PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").s
     // // Debug
     // SmartDashboard.putNumber("Odometry X", odometer.getPoseMeters().getX());
     // SmartDashboard.putNumber("Odometry Y", odometer.getPoseMeters().getY());
-    // SmartDashboard.putNumber("Odometry Angle", odometer.getPoseMeters().getRotation().getDegrees());
+    // SmartDashboard.putNumber("Odometry Angle",
+    // odometer.getPoseMeters().getRotation().getDegrees());
 
     // field.setRobotPose(getPose());
- 
- 
-    
+
     // Put odometry data on smartdashboard
     SmartDashboard.putNumber("Heading", getHeading());
 
