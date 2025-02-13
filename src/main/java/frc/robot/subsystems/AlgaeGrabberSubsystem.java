@@ -93,7 +93,7 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   }
 
   public void AlgaeGrabberAngleHold() {
-    AlgaeGrabberAnglePIDController.setReference(getAlgaePosition(), ControlType.kPosition);
+    AlgaeGrabberAnglePIDController.setReference(getAlgaeAbsPosition(), ControlType.kPosition);
   }
 
   public void AlgaeGrabberAngleUP() {
