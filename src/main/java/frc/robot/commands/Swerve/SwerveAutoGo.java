@@ -6,8 +6,10 @@ package frc.robot.commands.Swerve;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.LimelightHelpers;
 
@@ -18,6 +20,11 @@ public class SwerveAutoGo extends Command {
   private final Limelight limelight;
   private final DoubleSupplier speed;
   private boolean detected;
+
+  PIDController pidController = new PIDController(
+    DriveConstants.kPLockHeading, 
+    DriveConstants.kILockHeading, 
+    DriveConstants.kDLockHeading);
 
   /** Creates a new SwerveAutoGo. */
   public SwerveAutoGo(SwerveSubsytem swerveSubsystem, Limelight limelight) {
@@ -50,14 +57,16 @@ public class SwerveAutoGo extends Command {
   public void execute() {
     if (LimelightHelpers.getTV(limelight.hostname)) {
       detected = true;
-      double turningAngle = -LimelightHelpers.getTX(limelight.hostname) * 0.02;
+
+      
+      double turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
       double xSpeed;
       if (speed != null) {
         xSpeed = OIConstants.deadbandHandler(speed.getAsDouble(), 0.1) * 0.5;
       } else {
         xSpeed = LimelightHelpers.getTY(limelight.hostname) * 0.01;
       }
-      swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, true, true);
+      swerveSubsystem.setChassisOutput(0, xSpeed * limelight.approachingYSpeed, turningAngle, true, true);
     } else {
       swerveSubsystem.stopModules();
     }

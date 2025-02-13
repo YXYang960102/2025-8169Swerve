@@ -106,8 +106,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
   }
 
-  public void setTop() {
-    elevatorPIDController.setReference(ElevatorConstants.kTop, ControlType.kPosition);
+  public void setL3() {
+    elevatorPIDController.setReference(ElevatorConstants.kL3, ControlType.kPosition);
+  }
+
+  public void setL4() {
+    elevatorPIDController.setReference(ElevatorConstants.kL4, ControlType.kPosition);
   }
 
   public void ElevatorUP() {

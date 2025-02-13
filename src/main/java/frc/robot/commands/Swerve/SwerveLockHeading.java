@@ -6,6 +6,7 @@ package frc.robot.commands.Swerve;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
@@ -20,6 +21,11 @@ public class SwerveLockHeading extends Command {
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   protected final Limelight limelight;
   private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
+
+  PIDController pidController = new PIDController(
+    DriveConstants.kPLockHeading, 
+    DriveConstants.kILockHeading, 
+    DriveConstants.kDLockHeading);
 
   /** Creates a new SwerveLockHeading. */
   public SwerveLockHeading(
@@ -70,7 +76,7 @@ public class SwerveLockHeading extends Command {
     turningAngle = turningLimiter.calculate(turningAngle);
 
     if (turningAngle == 0 && LimelightHelpers.getTV(limelight.hostname)) {
-      turningAngle = -LimelightHelpers.getTX(limelight.hostname) * 0.02;
+      turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
       swerveSubsystem.setChassisOutput(xSpeed, ySpeed, turningAngle, true);
     } else {
       turningAngle *= 3;

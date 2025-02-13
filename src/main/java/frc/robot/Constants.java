@@ -143,6 +143,10 @@ public final class Constants {
 
     public static final double kMotorMaxOutput = 1;
 
+    public static final double kPLockHeading = 0.02;
+    public static final double kILockHeading = 0.025;
+    public static final double kDLockHeading = 0.002;
+
   }
 
   // Auto
@@ -162,7 +166,9 @@ public final class Constants {
     public static final double kDefault = 0;
     public static final double kL1 = 71.00; //L1
     public static final double kL2 = 137.0; //L2
-    public static final double kTop = 234.00; //L4 & L3
+    public static final double kL3 = 234.0; //L3 & Top
+    public static final double kL4 = 222; //L4
+    // public static final double kTop = 234.00; //L4 & L3
 
     public static final double kElevatorMotorRate = 1.0;
 
@@ -185,7 +191,8 @@ public final class Constants {
       kDefault,
       kL1,
       kL2,
-      kTop,
+      kL3,
+      kL4,
       kUP,
       kDown,
       kStop
@@ -199,14 +206,14 @@ public final class Constants {
     public static final double kL1Position = 0.537; //L1
     public static final double kL2Psoition = 0.537;
     public static final double kL3Position = 0.51;
-    public static final double kCoralTopPosition = 0.08;
+    public static final double kCoralTopPosition = 0.07;
 
     public static final double kCoralAngleMotorRate = 0.5;
     public static final double CoralmotorRate = 0.15;
     public static final double CoralmotorFwd = 0.1;
 
     public static final double kCoralUpLimit = 0.57;
-    public static final double kCoralDownLimit = 0.1;
+    public static final double kCoralDownLimit = 0.04;
 
     public static final double kcorlorSensorGateValue = 300;
     // public static final double kcorlorSensorLGateValue = 90;
@@ -217,7 +224,7 @@ public final class Constants {
     
     // Coral Angle PID
     public static final double CoralkP = 5.0;
-    public static final double CoralkI = 0.0000000001;
+    public static final double CoralkI = 0.001;
     public static final double CoralkD = 0.0;
     public static final double CoralkIz = 0;
     public static final double CoralkFF = 0;
@@ -298,14 +305,14 @@ public final class Constants {
     // Limelight Name Mapping
     public enum Limelight {
       // kCoral("limelight-b", 1), // IP: 10.81.69.13
-      kReef("limelight-c", -1); // IP: 10.81.69.15
+      kReef("limelight-c", 1); // IP: 10.81.69.15
 
       public final String hostname;
-      public final double approachingXSpeed;
+      public final double approachingYSpeed;
 
-      private Limelight(String hostname, double approachingXSpeed) {
+      private Limelight(String hostname, double approachingYSpeed) {
         this.hostname = hostname;
-        this.approachingXSpeed = approachingXSpeed;
+        this.approachingYSpeed = approachingYSpeed;
       }
     }
   }
