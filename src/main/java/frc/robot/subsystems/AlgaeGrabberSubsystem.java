@@ -84,8 +84,12 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
     AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kAlgaeDefultPosition, ControlType.kPosition);
   }
 
-  public void setAlgaeTopPosition() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetAlgaePosition, ControlType.kPosition);
+  public void setAlgaeL2Position() {
+    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetL2AlgaePosition, ControlType.kPosition);
+  }
+
+  public void setAlgaeL3Position() {
+    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetL3AlgaePosition, ControlType.kPosition);
   }
 
   public void setAlgaePutProPosition() {

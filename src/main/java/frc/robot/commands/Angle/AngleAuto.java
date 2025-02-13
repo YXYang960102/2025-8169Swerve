@@ -49,38 +49,41 @@ public class AngleAuto extends Command {
   public void initialize() {
     if (elevatorState == ElevatorState.kL1 && algaeState == AlgaeState.kAlgaeTop) { // L1
       elevatorSubsystem.setL1();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeL2Position();
       if (coralState == CoralState.kL1) {
         coralGrabberSubsystem.setL1Position();
       }
     }
-    if (elevatorState == ElevatorState.kL2 && algaeState == AlgaeState.kAlgaeTop) { // L2
+    else if (elevatorState == ElevatorState.kL2 && algaeState == AlgaeState.kAlgaeTop) { // L2
       elevatorSubsystem.setL2();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeL2Position();
       if (coralState == CoralState.kL2) {
         coralGrabberSubsystem.setL1Position();
       }
     }
-    if (elevatorState == ElevatorState.kL3 && algaeState == AlgaeState.kAlgaeTop) { // L3
+    else if (elevatorState == ElevatorState.kL3 && algaeState == AlgaeState.kAlgaeTop) { // L3
       elevatorSubsystem.setL3();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeL3Position();
       if (coralState == CoralState.kL3) {
         coralGrabberSubsystem.setL3Position();
       }
     }
-    if (elevatorState == ElevatorState.kL4 && algaeState == AlgaeState.kAlgaeTop) { // L4
+    else if (elevatorState == ElevatorState.kL4 && algaeState == AlgaeState.kAlgaeTop) { // L4
       elevatorSubsystem.setL4();
-      algaeGrabberSubsystem.setAlgaeTopPosition();
+      algaeGrabberSubsystem.setAlgaeL2Position();
       if (coralState == CoralState.kCoralTop) {
         coralGrabberSubsystem.setCoralTopPosition();
       }
     }
-    if (elevatorState == ElevatorState.kDefault && algaeState == AlgaeState.kAlgaePutPro) { // processor
+    else if (elevatorState == ElevatorState.kDefault && algaeState == AlgaeState.kAlgaeTop) { // processor
       elevatorSubsystem.setDefault();
-      algaeGrabberSubsystem.setAlgaePutProPosition();
+      algaeGrabberSubsystem.setAlgaeL2Position();
       if (coralState == CoralState.kCoralTop) {
         coralGrabberSubsystem.setCoralTopPosition();
       }
+    }
+    else if(coralState == CoralState.kCoralTop){
+      coralGrabberSubsystem.setCoralTopPosition();
     }
   }
 

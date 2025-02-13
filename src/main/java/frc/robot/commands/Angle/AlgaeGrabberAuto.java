@@ -28,8 +28,8 @@ public class AlgaeGrabberAuto extends Command {
   @Override
   public void initialize() {
     if(algaeState == AlgaeState.kAlgaeTop)
-    algaeGrabberSubsystem.setAlgaeTopPosition();
-    if(algaeState == AlgaeState.kAlgaePutPro)
+    algaeGrabberSubsystem.setAlgaeL2Position();
+    if(algaeState == AlgaeState.kAlgaeTop)
     algaeGrabberSubsystem.setAlgaePutProPosition();
     if(algaeState == AlgaeState.kAlgaeDefult)
     algaeGrabberSubsystem.setDefultPosition();
