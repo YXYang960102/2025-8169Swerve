@@ -202,18 +202,18 @@ public final class Constants {
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralDefultPosition = 0.985;
+    public static final double kCoralDefultPosition = 0.985; // get coral
     public static final double kL1Position = 0.953; //L1
     public static final double kL2Psoition = 0.953;
     public static final double kL3Position = 0.93;
-    public static final double kCoralTopPosition = 0.5;
+    public static final double kCoralTopPosition = 0.5; // L4
 
     public static final double kCoralAngleMotorRate = 0.5;
     public static final double CoralmotorRate = 0.15;
     public static final double CoralmotorFwd = 0.1;
 
-    public static final double kCoralUpLimit = 0.99;
-    public static final double kCoralDownLimit = 0.48;
+    public static final double kCoralUpLimit = 0.99; //down limit
+    public static final double kCoralDownLimit = 0.48; // UP Limit
 
     public static final double kcorlorSensorGateValue = 300;
     // public static final double kcorlorSensorLGateValue = 90;
