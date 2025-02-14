@@ -252,13 +252,13 @@ public final class Constants {
     public static final double AlgaeMotorRate = 0.3;//0.2
     public static final double kAlgaeAngleMotorRate = 0.5;
 
-    public static final double kAlgaeUpLimit = 0.99;
-    public static final double kAlgaeDownLimit = 0.715;
+    public static final double kAlgaeUpLimit = 0.31;
+    public static final double kAlgaeDownLimit = 0.07;
 
-    public static final double kAlgaeDefultPosition = 0.99;
-    public static final double kGetL2AlgaePosition = 0.776;
-    public static final double kGetL3AlgaePosition = 0.864;
-    public static final double kAlgaePutProPosition = 0.715;
+    public static final double kAlgaeDefultPosition = 0.31;
+    public static final double kGetL2AlgaePosition = 0.11;
+    public static final double kGetL3AlgaePosition = 0.186;
+    public static final double kAlgaePutProPosition = 0.07;
 
     // Algae Angle PID
     public static final double AlgaekP = 10.5;
