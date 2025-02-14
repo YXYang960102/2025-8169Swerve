@@ -22,9 +22,9 @@ public class SwerveAutoGo extends Command {
   private boolean detected;
 
   PIDController pidController = new PIDController(
-    DriveConstants.kPLockHeading, 
-    DriveConstants.kILockHeading, 
-    DriveConstants.kDLockHeading);
+      DriveConstants.kPLockHeading,
+      DriveConstants.kILockHeading,
+      DriveConstants.kDLockHeading);
 
   /** Creates a new SwerveAutoGo. */
   public SwerveAutoGo(SwerveSubsytem swerveSubsystem, Limelight limelight) {
@@ -49,34 +49,34 @@ public class SwerveAutoGo extends Command {
   @Override
   public void initialize() {
     detected = false;
-   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double xSpeed = speed != null ? OIConstants.deadbandHandler(speed.getAsDouble(), 0.1) * 0.5 : 0;
+    double turningAngle = 0;
+
     if (LimelightHelpers.getTV(limelight.hostname)) {
       detected = true;
+      turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
 
-      
-      double turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
-      double xSpeed;
-      if (speed != null) {
-        xSpeed = OIConstants.deadbandHandler(speed.getAsDouble(), 0.1) * 0.5;
-      } else {
+      if (speed == null) {
         xSpeed = LimelightHelpers.getTY(limelight.hostname) * 0.01;
       }
-      swerveSubsystem.setChassisOutput(0, xSpeed * limelight.approachingYSpeed, turningAngle, true, true);
     } else {
-      swerveSubsystem.stopModules();
+      if (speed == null) {
+        xSpeed = 0;
+      }
     }
+
+    swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, true, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     swerveSubsystem.stopModules();
-    
   }
 
   // Returns true when the command should end.

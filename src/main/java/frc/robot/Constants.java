@@ -340,11 +340,11 @@ public final class Constants {
       kReef("limelight-c", 1); // IP: 10.81.69.15
 
       public final String hostname;
-      public final double approachingYSpeed;
+      public final double approachingXSpeed;
 
-      private Limelight(String hostname, double approachingYSpeed) {
+      private Limelight(String hostname, double approachingXSpeed) {
         this.hostname = hostname;
-        this.approachingYSpeed = approachingYSpeed;
+        this.approachingXSpeed = approachingXSpeed;
       }
     }
   }
