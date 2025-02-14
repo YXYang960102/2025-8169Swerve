@@ -65,6 +65,8 @@ public class RobotContainer {
   private static CommandXboxController m_operatorController = new CommandXboxController(
       OIConstants.kOperatorControllerPort);
 
+  
+
   // Create auto chooser
   private final SendableChooser<Command> autoChooser;
 
@@ -127,7 +129,7 @@ public class RobotContainer {
     .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
     m_operatorController.axisLessThan(XboxController.Axis.kRightY.value, -0.1)
     .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
-    
+
     // Algae Grabber Angle
     m_driverController.pov(0).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
     m_driverController.pov(180).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
@@ -172,6 +174,8 @@ public class RobotContainer {
   private void configureNamedCommands() {
     NamedCommands.registerCommand("L3", 
     new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralState.kL3, AlgaeState.kAlgaeTop));
+
+    NamedCommands.registerCommand("Put Coral", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
 
 
   }
