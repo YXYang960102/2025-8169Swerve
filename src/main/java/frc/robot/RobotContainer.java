@@ -5,21 +5,23 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
-import frc.robot.Constants.CoralGrabberConstants.CoralState;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAction;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAngleAction;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
+import frc.robot.Constants.CoralGrabberConstants.CoralGrabberAction;
+import frc.robot.Constants.CoralGrabberConstants.CoralGrabberAngleAction;
+import frc.robot.Constants.CoralGrabberConstants.CoralGrabberState;
+import frc.robot.Constants.ElevatorConstants.ElevatorAction;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
-import frc.robot.commands.Angle.AlgaeGrabberAuto;
-import frc.robot.commands.Angle.AngleAuto;
-import frc.robot.commands.Angle.AngleAutoDefult;
-import frc.robot.commands.Angle.AngleNoraml;
-import frc.robot.commands.Angle.CoralGrabberAuto;
-import frc.robot.commands.Auto.PutCoralAngleAuto;
-import frc.robot.commands.Elevator.ElevatorAuto;
+import frc.robot.commands.State.StateAuto;
+import frc.robot.commands.State.StateAutoDefult;
 import frc.robot.commands.Elevator.ElevatorNormal;
-import frc.robot.commands.Grabber.CoralAuto;
+import frc.robot.commands.Grabber.AlgaeAngleNormal;
+import frc.robot.commands.Grabber.AlgaeGrabberNormal;
+import frc.robot.commands.Grabber.CoralAngleNoraml;
 // import frc.robot.commands.Grabber.CoralGrabberAuto;
-import frc.robot.commands.Grabber.GrabberNormal;
+import frc.robot.commands.Grabber.CoralGrabberNormal;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
 // import frc.robot.commands.Swerve.SwerveXMode;
@@ -74,7 +76,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     // SmartDashboard.putData(elevatorSubsystem);
-    
+
     configureNamedCommands();
     autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
     SmartDashboard.putData("Auto Mode", autoChooser);
@@ -112,73 +114,60 @@ public class RobotContainer {
         () -> -m_driverController.getLeftX(),
         () -> -m_driverController.getRightX(),
         Limelight.kReef));
+    // Lock REEF and Forward
     m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, 0.1)
-    .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef, m_driverController::getLeftTriggerAxis));
+        .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef, m_driverController::getLeftTriggerAxis));
 
+    // Elevator Normal
+    m_operatorController.axisGreaterThan(XboxController.Axis.kRightY.value, 0.1)
+        .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorAction.kUP));
+    m_operatorController.axisLessThan(XboxController.Axis.kRightY.value, -0.1)
+        .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorAction.kDown));
+
+    // Coral Grabeer Angle Normal
+    m_operatorController.axisGreaterThan(XboxController.Axis.kLeftY.value, 0.1)
+        .whileTrue(new CoralAngleNoraml(coralGrabberSubsystem, CoralGrabberAngleAction.kUP));
+    m_operatorController.axisLessThan(XboxController.Axis.kLeftY.value, -0.1)
+        .whileTrue(new CoralAngleNoraml(coralGrabberSubsystem, CoralGrabberAngleAction.kDown));
+
+    // Coral Grabber Normal
+    m_operatorController.rightTrigger()
+        .whileTrue(new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kFwd));
+    m_operatorController.leftTrigger()
+        .whileTrue(new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kRev));
+
+    // Algae Grabber Angle Normal
+    m_driverController.pov(0).whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kUP));
+    m_driverController.pov(180)
+        .whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kDown));
 
     // Algae Grabber Normal
-    // m_driverController.y().whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
-    // m_driverController.a().whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
-
-
-    // // Swerve Auto approaching AprilTag
-    // m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value,
-    // 0.1)
-    // .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef,
-    // m_driverController::getLeftTriggerAxis));
-
-    // Coral Grabeer Angle
-    m_operatorController.axisGreaterThan(XboxController.Axis.kLeftY.value, 0.1)
-    .whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, CoralState.kCoralUP, null));
-    m_operatorController.axisLessThan(XboxController.Axis.kLeftY.value, -0.1)
-    .whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, CoralState.kCoralDown, null));
-    // Elevator normal
-    m_operatorController.axisGreaterThan(XboxController.Axis.kRightY.value, 0.1)
-    .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
-    m_operatorController.axisLessThan(XboxController.Axis.kRightY.value, -0.1)
-    .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
-    // Algae Grabber Angle
-    m_driverController.pov(0).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeUP));
-    m_driverController.pov(180).whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, null, AlgaeState.kAlgaeDown));
-    // Algae Grabber
-    m_driverController.pov(90).toggleOnTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
-    m_driverController.pov(270).toggleOnTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
+    m_driverController.pov(90)
+        .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
+    m_driverController.pov(270)
+        .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
 
     // Coral Angle Auto
-    m_operatorController.pov(0).whileTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, null, CoralState.kCoralTop, null));
-    
-    // Coral Run Fwd
-    // m_operatorController.rightBumper().toggleOnTrue(new CoralGrabberAuto(coralGrabberSubsystem));
-
-    // Coral Grabber
-    m_operatorController.rightTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
-    m_operatorController.leftTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
-
-    m_operatorController.start().onTrue(new CoralAuto(coralGrabberSubsystem));
-
-    // // Coral Grabber Auto
-    // m_operatorController.pov(0).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kCoralTop));
-    // m_operatorController.pov(90).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kL1));
-    // m_operatorController.pov(180).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kL3));
-    // m_operatorController.pov(270).onTrue(new CoralGrabberAuto(coralGrabberSubsystem, CoralState.kCoralDefult));
-
-    // elevator Auto
-    // m_operatorController.x().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kL2));
-    // m_operatorController.b().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kL1));
-    // m_operatorController.y().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
-    // m_operatorController.a().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kTop));
+    m_operatorController.pov(0).whileTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem,
+        elevatorSubsystem, null, CoralGrabberState.kL4, null));
 
     // Angle & Elevator All Auto
-    m_operatorController.x().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralState.kL1, AlgaeState.kAlgaeTop)); //L1
-    m_operatorController.y().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL2, CoralState.kL2, AlgaeState.kAlgaeTop)); // L2
-    m_operatorController.b().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralState.kL3, AlgaeState.kAlgaeTop)); // L3
-    m_operatorController.a().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralState.kCoralTop, AlgaeState.kAlgaeTop)); // L4
+    m_operatorController.x().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
+        ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2)); // L1
+    m_operatorController.y().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
+        ElevatorState.kL2, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2)); // L2
+    m_operatorController.b().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
+        ElevatorState.kL3, CoralGrabberState.kL3, AlgaeGrabberState.kGetL3)); // L3
+    m_operatorController.a().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
+        ElevatorState.kL4, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2)); // L4
 
     // Angle & Elevator All Defult
-    m_driverController.y().toggleOnTrue(new AngleAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralDefult, AlgaeState.kAlgaeDefult));
+    m_driverController.y()
+        .toggleOnTrue(new StateAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem));
 
     // Proseccor
-    m_driverController.a().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralTop, AlgaeState.kAlgaeTop));
+    m_driverController.a().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
+        ElevatorState.kDefault, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2));
 
   }
 
@@ -192,9 +181,9 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
-    NamedCommands.registerCommand("L3", 
-    new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralState.kL3, AlgaeState.kAlgaeTop));
-
+    NamedCommands.registerCommand("L3",
+        new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3,
+            CoralGrabberState.kL3, AlgaeGrabberState.kGetL3));
 
   }
 

@@ -4,10 +4,7 @@
 
 package frc.robot.subsystems;
 
-import java.lang.ref.Reference;
-
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -15,23 +12,16 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.hal.CANAPITypes.CANDeviceType;
-import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.IDConstants;
+import frc.robot.Constants.ElevatorConstants.ElevatorAction;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
-// import frc.robot.Constants.ElevatorConstants.HeightSet;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final SparkMax elevatorLMotor = new SparkMax(IDConstants.kElevatorLMotor, MotorType.kBrushless);
@@ -94,39 +84,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     return elevatorEncoder.getVelocity();
   }
 
-  public void setDefault() {
-    elevatorPIDController.setReference(ElevatorConstants.kDefault, ControlType.kPosition);
+  public void setAction(ElevatorAction action) {
+    elevatorRMotor.set(action.rate);
   }
 
-  public void setL1() {
-    elevatorPIDController.setReference(ElevatorConstants.kL1, ControlType.kPosition);
+  public void setState(ElevatorState state) {
+    elevatorPIDController.setReference(state.position, ControlType.kPosition);
   }
 
-  public void setL2() {
-    elevatorPIDController.setReference(ElevatorConstants.kL2, ControlType.kPosition);
-  }
-
-  public void setL3() {
-    elevatorPIDController.setReference(ElevatorConstants.kL3, ControlType.kPosition);
-  }
-
-  public void setL4() {
-    elevatorPIDController.setReference(ElevatorConstants.kL4, ControlType.kPosition);
-  }
-
-  public void ElevatorUP() {
-    elevatorRMotor.set(ElevatorConstants.kElevatorMotorRate);
-  }
-
-  public void ElevatorDown() {
-    elevatorRMotor.set(-ElevatorConstants.kElevatorMotorRate);
-  }
-
-  public void ElevatorStop() {
-    elevatorRMotor.set(0);
-  }
-
-  public void ElevatorHold() {
+  public void setHold() {
     elevatorPIDController.setReference(getCurrentHeight(), ControlType.kPosition);
   }
 

@@ -20,7 +20,9 @@ import frc.robot.Constants.AlgaeGrabberConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IDConstants;
-import frc.robot.commands.Angle.AngleAuto;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAction;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAngleAction;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
 
 public class AlgaeGrabberSubsystem extends SubsystemBase {
   private SparkMax AlgaeGrabberAngleMotor = new SparkMax(IDConstants.kAlgaeGrabberAngle, MotorType.kBrushless);
@@ -80,50 +82,20 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
     return AlgaeGrabberAngleAbsEncoder.getPosition();
   }
 
-  public void setDefultPosition() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kAlgaeDefultPosition, ControlType.kPosition);
+  public void setGrabberAction(AlgaeGrabberAction action) {
+    algaeVortex.set(action.rate);
   }
 
-  public void setAlgaeL2Position() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetL2AlgaePosition, ControlType.kPosition);
+  public void setAngleAction(AlgaeGrabberAngleAction action) {
+    AlgaeGrabberAngleMotor.set(action.rate);
   }
 
-  public void setAlgaeL3Position() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kGetL3AlgaePosition, ControlType.kPosition);
+  public void setState(AlgaeGrabberState state) {
+    AlgaeGrabberAnglePIDController.setReference(state.position, ControlType.kPosition);
   }
 
-  public void setAlgaePutProPosition() {
-    AlgaeGrabberAnglePIDController.setReference(AlgaeGrabberConstants.kAlgaePutProPosition, ControlType.kPosition);
-  }
-
-  public void AlgaeGrabberAngleHold() {
+  public void setAngleHold() {
     AlgaeGrabberAnglePIDController.setReference(getAlgaeAbsPosition(), ControlType.kPosition);
-  }
-
-  public void AlgaeGrabberAngleUP() {
-    AlgaeGrabberAngleMotor.set(AlgaeGrabberConstants.kAlgaeAngleMotorRate);
-  }
-
-  public void AlgaeGrabberAngleDown() {
-    AlgaeGrabberAngleMotor.set(-AlgaeGrabberConstants.kAlgaeAngleMotorRate);
-  }
-
-  public void getAlgae() {
-    algaeVortex.set(AlgaeGrabberConstants.AlgaeMotorRate);
-
-  }
-
-  public void putAlgae() {
-    algaeVortex.set(-AlgaeGrabberConstants.AlgaeMotorRate);
-
-  }
-
-  public void AlgaeMotorStop() {
-    algaeVortex.set(0);
-  }
-
-  public void AlgaeAngleMotorStop() {
-    AlgaeGrabberAngleMotor.set(0);
   }
 
   @Override
@@ -133,6 +105,5 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Algae Abs Position", getAlgaeAbsPosition());
     // SmartDashboard.putNumber("Algae Velocity", getAlgaeVelocity());
   }
-
 
 }

@@ -4,14 +4,12 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.Constants.AlgaeGrabberConstants.AlgaeState;
-import frc.robot.Constants.CoralGrabberConstants.CoralState;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
+import frc.robot.Constants.CoralGrabberConstants.CoralGrabberState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 import frc.robot.Constants.LimelightConstants.Limelight;
-import frc.robot.commands.Angle.AngleAuto;
-import frc.robot.commands.Grabber.GrabberNormal;
+import frc.robot.commands.State.StateAuto;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.subsystems.AlgaeGrabberSubsystem;
 import frc.robot.subsystems.CoralGrabberSubsystem;
@@ -31,7 +29,7 @@ public class PutCoralAngleAuto extends ParallelDeadlineGroup {
   ) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new AngleAuto(algaeGrabberSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralTop, AlgaeState.kAlgaeTop));
+    super(new StateAuto(algaeGrabberSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2));
     addCommands(new SwerveAutoGo(swerveSubsytem, Limelight.kReef));
     // addCommands(new FooCommand(), new BarCommand());
   }

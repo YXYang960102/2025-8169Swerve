@@ -162,16 +162,6 @@ public final class Constants {
 
   // Elevator
   public static final class ElevatorConstants {
-
-    public static final double kDefault = 0;
-    public static final double kL1 = 71.00; //L1
-    public static final double kL2 = 137.0; //L2
-    public static final double kL3 = 234.0; //L3 & Top
-    public static final double kL4 = 215.67; //L4
-    // public static final double kTop = 234.00; //L4 & L3
-
-    public static final double kElevatorMotorRate = 1.0;
-
     public static final double kUpLimit = 234.00;
     public static final double kDefaultLimit = 0.0;
 
@@ -186,42 +176,41 @@ public final class Constants {
     public static final double kMaxOutput = 1;
     public static final double kMinOutput = -1;
 
+    public enum ElevatorAction {
+      kUP(1),
+      kDown(-1),
+      kStop(0);
 
-    public enum ElevatorState {
-      kDefault,
-      kL1,
-      kL2,
-      kL3,
-      kL4,
-      kUP,
-      kDown,
-      kStop
+      public final double rate;
+
+      private ElevatorAction(double rate) {
+        this.rate = rate;
+      }
     }
 
+    public enum ElevatorState {
+      kDefault(0),
+      kL1(71.00),
+      kL2(137.00),
+      kL3(234.00),
+      kL4(215.67);
+
+      public final double position;
+
+      private ElevatorState(double position) {
+        this.position = position;
+      }
+    }
   }
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralDefultPosition = 0.574;
-    public static final double kL1Position = 0.537; //L1
-    public static final double kL2Psoition = 0.537;
-    public static final double kL3Position = 0.51;
-    public static final double kCoralTopPosition = 0.078;
-
-    public static final double kCoralAngleMotorRate = 0.5;
-    public static final double CoralmotorRate = 0.15;
-    public static final double CoralmotorFwd = 0.1;
-
     public static final double kCoralUpLimit = 0.57;
     public static final double kCoralDownLimit = 0.06;
-
-    public static final double kcorlorSensorGateValue = 300;
-    // public static final double kcorlorSensorLGateValue = 90;
 
     public static final double kCoralVortexRatio = 26.0 / 14.0;
     public static final double kCoralAngleMotorRatio = 100.0 * (38.0 / 12.0) * (36.0 / 22.0);
 
-    
     // Coral Angle PID
     public static final double CoralkP = 6.0;
     public static final double CoralkI = 0.005;
@@ -231,34 +220,50 @@ public final class Constants {
     public static final double CoralkMaxOutput = 1;
     public static final double CoralkMinOutput = -1;
 
-    public enum CoralState {
-      kCoralFwd,
-      kCoralRev,
-      kgetCoral,
-      kCoralUP,
-      kCoralDown,
-      kCoralDefult,
-      kL1,
-      kL2,
-      kL3,
-      kCoralTop,
-      kCoralStop
+    public enum CoralGrabberAction {
+      kFwd(0.15),
+      kRev(-0.1),
+      kRevSlow(-0.08),
+      kStop(0);
+
+      public final double rate;
+
+      private CoralGrabberAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum CoralGrabberAngleAction {
+      kUP(0.5),
+      kDown(-0.5),
+      kStop(0);
+
+      public final double rate;
+
+      private CoralGrabberAngleAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum CoralGrabberState {
+      kDefult(0.574),
+      kL1(0.537),
+      kL2(0.537),
+      kL3(0.51),
+      kL4(0.078);
+
+      public final double position;
+
+      private CoralGrabberState(double position) {
+        this.position = position;
+      }
     }
   }
 
-  //Algae Grabber
+  // Algae Grabber
   public static final class AlgaeGrabberConstants {
-
-    public static final double AlgaeMotorRate = 0.3;//0.2
-    public static final double kAlgaeAngleMotorRate = 0.5;
-
     public static final double kAlgaeUpLimit = 0.99;
     public static final double kAlgaeDownLimit = 0.715;
-
-    public static final double kAlgaeDefultPosition = 0.99;
-    public static final double kGetL2AlgaePosition = 0.776;
-    public static final double kGetL3AlgaePosition = 0.864;
-    public static final double kAlgaePutProPosition = 0.715;
 
     // Algae Angle PID
     public static final double AlgaekP = 10.5;
@@ -269,15 +274,41 @@ public final class Constants {
     public static final double AlgaekMaxOutput = 1;
     public static final double AlgaekMinOutput = -1;
 
-    public enum AlgaeState {
-      kAlgaeUP,
-      kAlgaeDown,
-      kAlgaeDefult,
-      // kAlgaePutPro,
-      kAlgaeTop,
-      kgetAlgae,
-      kputAlgae,
-      kAlgaeStop
+    public enum AlgaeGrabberAction {
+      kGet(0.3),
+      kPut(-0.3),
+      kStop(0);
+
+      public final double rate;
+
+      private AlgaeGrabberAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum AlgaeGrabberAngleAction {
+      kUP(0.5),
+      kDown(-0.5),
+      kStop(0);
+
+      public final double rate;
+
+      private AlgaeGrabberAngleAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum AlgaeGrabberState {
+      kDefult(0.99),
+      kGetL2(0.776),
+      kGetL3(0.864),
+      kPutPro(0.715);
+
+      public final double position;
+
+      private AlgaeGrabberState(double position) {
+        this.position = position;
+      }
     }
   }
 
