@@ -58,7 +58,6 @@ public class SwerveAutoGo extends Command {
     if (LimelightHelpers.getTV(limelight.hostname)) {
       detected = true;
 
-      
       double turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
       double xSpeed;
       if (speed != null) {
@@ -66,7 +65,7 @@ public class SwerveAutoGo extends Command {
       } else {
         xSpeed = LimelightHelpers.getTY(limelight.hostname) * 0.01;
       }
-      swerveSubsystem.setChassisOutput(0, xSpeed * limelight.approachingYSpeed, turningAngle, true, true);
+      swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, true, true);
     } else {
       swerveSubsystem.stopModules();
     }

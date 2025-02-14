@@ -175,7 +175,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("L3", 
     new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralState.kL3, AlgaeState.kAlgaeTop));
 
-    NamedCommands.registerCommand("Put Coral", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
+    NamedCommands.registerCommand("PutCoral", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
 
 
   }
