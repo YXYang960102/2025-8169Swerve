@@ -99,6 +99,25 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+  
+
+  // Define Commands for Controller binding, NamedCommand
+  private final Command cmdAllDefault = new StateAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem);
+
+  private final Command cmdStateAutoL1 = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2);
+  private final Command cmdStateAutoL2 = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL2, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2);
+  private final Command cmdStateAutoL3 = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralGrabberState.kL3, AlgaeGrabberState.kGetL3);
+  private final Command cmdStateAutoL4 = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2);
+
+  private final Command cmdStateAutoProseccor = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2);
+  private final Command cmdCoralAngleAutoL4 = new StateAuto(
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, null, CoralGrabberState.kL4, null);
+
   private void configureBindings() {
 
     m_driverController.start().whileTrue(new InstantCommand(() -> swerveSubsytem.zeroHeading()));
@@ -148,26 +167,19 @@ public class RobotContainer {
         .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
 
     // Coral Angle Auto
-    m_operatorController.pov(0).whileTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem,
-        elevatorSubsystem, null, CoralGrabberState.kL4, null));
+    m_operatorController.pov(0).whileTrue(cmdCoralAngleAutoL4);
 
     // Angle & Elevator All Auto
-    m_operatorController.x().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
-        ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2)); // L1
-    m_operatorController.y().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
-        ElevatorState.kL2, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2)); // L2
-    m_operatorController.b().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
-        ElevatorState.kL3, CoralGrabberState.kL3, AlgaeGrabberState.kGetL3)); // L3
-    m_operatorController.a().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
-        ElevatorState.kL4, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2)); // L4
+    m_operatorController.x().onTrue(cmdStateAutoL1); // L1
+    m_operatorController.y().onTrue(cmdStateAutoL2); // L2
+    m_operatorController.b().onTrue(cmdStateAutoL3); // L3
+    m_operatorController.a().onTrue(cmdStateAutoL4); // L4
 
     // Angle & Elevator All Defult
-    m_driverController.y()
-        .toggleOnTrue(new StateAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem));
+    m_driverController.y().toggleOnTrue(cmdAllDefault);
 
     // Proseccor
-    m_driverController.a().onTrue(new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem,
-        ElevatorState.kDefault, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2));
+    m_driverController.a().onTrue(cmdStateAutoProseccor);
 
   }
 
@@ -181,9 +193,11 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
-    NamedCommands.registerCommand("L3",
-        new StateAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3,
-            CoralGrabberState.kL3, AlgaeGrabberState.kGetL3));
+    NamedCommands.registerCommand("Default", cmdAllDefault);
+    NamedCommands.registerCommand("L1", cmdStateAutoL1);
+    NamedCommands.registerCommand("L2", cmdStateAutoL2);
+    NamedCommands.registerCommand("L3", cmdStateAutoL3);
+    NamedCommands.registerCommand("L4", cmdStateAutoL4);
 
   }
 
