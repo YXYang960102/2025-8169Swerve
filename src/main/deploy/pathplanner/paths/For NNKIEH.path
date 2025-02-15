@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.226639344262295,
-        "y": 5.25373975409836
+        "x": 3.7641393442622952,
+        "y": 5.793186475409836
       },
       "prevControl": {
-        "x": 5.434445439685767,
-        "y": 5.613670469494321
+        "x": 4.172425861642088,
+        "y": 5.793186475409836
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.25643716352924
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Paly",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

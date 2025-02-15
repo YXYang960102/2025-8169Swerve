@@ -5,27 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "L3"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "For NNKIEH"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PutCoral"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Paly",
   "choreoAuto": false
 }
