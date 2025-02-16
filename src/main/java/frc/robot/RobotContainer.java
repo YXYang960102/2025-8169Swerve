@@ -145,7 +145,7 @@ public class RobotContainer {
     m_operatorController.leftTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
 
     // Coral Auto
-    m_operatorController.start().onTrue(new CoralAuto(coralGrabberSubsystem));
+    m_operatorController.start().toggleOnTrue(new CoralAuto(coralGrabberSubsystem));
 
 
     // Angle & Elevator All Auto

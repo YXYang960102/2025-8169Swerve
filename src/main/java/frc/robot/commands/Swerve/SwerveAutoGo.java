@@ -65,7 +65,7 @@ public class SwerveAutoGo extends Command {
       } else {
         xSpeed = LimelightHelpers.getTY(limelight.hostname) * 0.01;
       }
-      swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, true, true);
+      swerveSubsystem.setChassisOutput(0, xSpeed * limelight.approachingYSpeed, turningAngle, true, true);
     } else {
       swerveSubsystem.stopModules();
     }
