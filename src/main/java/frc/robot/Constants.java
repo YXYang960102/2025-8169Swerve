@@ -145,7 +145,7 @@ public final class Constants {
 
     public static final double kPLockHeading = 0.02;
     public static final double kILockHeading = 0.025;
-    public static final double kDLockHeading = 0.002;
+    public static final double kDLockHeading = 0.001;
 
   }
 
@@ -254,6 +254,8 @@ public final class Constants {
 
     public static final double kAlgaeUpLimit = 0.31;
     public static final double kAlgaeDownLimit = 0.07;
+
+    public static final double kAlgaeAngleMotorRatio = 64.0 * (68.0 / 22.0);
 
     public static final double kAlgaeDefultPosition = 0.31;
     public static final double kGetL2AlgaePosition = 0.11;

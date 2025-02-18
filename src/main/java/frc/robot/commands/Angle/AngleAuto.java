@@ -84,6 +84,7 @@ public class AngleAuto extends Command {
     }
     else if(coralState == CoralState.kCoralTop){
       coralGrabberSubsystem.setCoralTopPosition();
+      algaeGrabberSubsystem.setDefultPosition();
     }
   }
 

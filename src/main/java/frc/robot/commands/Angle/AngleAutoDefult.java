@@ -46,6 +46,7 @@ public class AngleAutoDefult extends Command {
    if(elevatorState == ElevatorState.kDefault && coralState == CoralState.kCoralDefult){
     elevatorSubsystem.setDefault();
     coralGrabberSubsystem.setDefultPosition();
+    algaeGrabberSubsystem.setAlgaeL2Position();// Maybe >_<
    }
   }
 
