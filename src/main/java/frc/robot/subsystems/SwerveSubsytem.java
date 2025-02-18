@@ -229,10 +229,10 @@ public class SwerveSubsytem extends SubsystemBase {
     ChassisSpeeds chassisSpeeds;
 
     if (robotRelative) {
-      chassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(xSpeed, ySpeed, turningSpeed,
-          Rotation2d.fromDegrees(getRobotDegrees()));
-    } else {
       chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+    } else {
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed,
+          Rotation2d.fromDegrees(getRobotDegrees()));
     }
 
     // Set chassis speeds
