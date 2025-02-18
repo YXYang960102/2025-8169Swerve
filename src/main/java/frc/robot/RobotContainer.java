@@ -172,10 +172,24 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
+
+    // Angle & Elevator State
+    NamedCommands.registerCommand("AllDefult", 
+    new AngleAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralDefult, AlgaeState.kAlgaeDefult));
+    NamedCommands.registerCommand("L1", 
+    new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralState.kL1, AlgaeState.kAlgaeTop));
+    NamedCommands.registerCommand("L2", 
+    new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL2, CoralState.kL2, AlgaeState.kAlgaeTop));
     NamedCommands.registerCommand("L3", 
     new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL3, CoralState.kL3, AlgaeState.kAlgaeTop));
+    NamedCommands.registerCommand("L4", 
+    new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralState.kCoralTop, AlgaeState.kAlgaeTop));
 
+    // Get Point >w<
     NamedCommands.registerCommand("PutCoral", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
+    NamedCommands.registerCommand("CoralFwd", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
+    NamedCommands.registerCommand("getAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
+    NamedCommands.registerCommand("putAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
 
 
   }

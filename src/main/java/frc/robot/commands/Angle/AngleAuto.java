@@ -21,6 +21,7 @@ public class AngleAuto extends Command {
   private ElevatorState elevatorState;
   private CoralState coralState;
   private AlgaeState algaeState;
+  private boolean coralEnd = false;
 
   // private boolean algaeMoved = false;
   // private boolean coralMoved = false;
@@ -71,8 +72,12 @@ public class AngleAuto extends Command {
     else if (elevatorState == ElevatorState.kL4 && algaeState == AlgaeState.kAlgaeTop) { // L4
       elevatorSubsystem.setL4();
       algaeGrabberSubsystem.setAlgaeL2Position();
-      if (coralState == CoralState.kCoralTop) {
+      if (coralState == CoralState.kCoralTop && coralEnd) {
         coralGrabberSubsystem.setCoralTopPosition();
+        // if(!coralEnd){
+        //   algaeGrabberSubsystem.setDefultPosition();
+        //   coralEnd = true;
+        // }
       }
     }
     else if (elevatorState == ElevatorState.kDefault && algaeState == AlgaeState.kAlgaeTop) { // processor
@@ -84,7 +89,7 @@ public class AngleAuto extends Command {
     }
     else if(coralState == CoralState.kCoralTop){
       coralGrabberSubsystem.setCoralTopPosition();
-      algaeGrabberSubsystem.setDefultPosition();
+      // algaeGrabberSubsystem.setDefultPosition();
     }
   }
 
