@@ -62,11 +62,16 @@ public class AngleAuto extends Command {
         coralGrabberSubsystem.setL1Position();
       }
     }
+
     else if (elevatorState == ElevatorState.kL3 && algaeState == AlgaeState.kAlgaeTop) { // L3
       elevatorSubsystem.setL3();
       algaeGrabberSubsystem.setAlgaeL3Position();
       if (coralState == CoralState.kL3) {
         coralGrabberSubsystem.setL3Position();
+        // if(!coralEnd){
+        //   algaeGrabberSubsystem.setDefultPosition();
+        //   coralEnd = true;
+        // }
       }
     }
     else if (elevatorState == ElevatorState.kL4 && algaeState == AlgaeState.kAlgaeTop) { // L4
@@ -90,7 +95,7 @@ public class AngleAuto extends Command {
     else if(coralState == CoralState.kCoralTop){
       coralGrabberSubsystem.setCoralTopPosition();
       // algaeGrabberSubsystem.setDefultPosition();
-    }
+    } 
   }
 
   // Called every time the scheduler runs while the command is scheduled.

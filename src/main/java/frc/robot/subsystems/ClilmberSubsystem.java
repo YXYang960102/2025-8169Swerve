@@ -16,16 +16,16 @@
 // import frc.robot.Constants.IDConstants;
 
 // public class ClilmberSubsystem extends SubsystemBase {
-//   private SparkMax climberLMotor = new SparkMax(IDConstants.kClimberLMotor, MotorType.kBrushless);
+// //   private SparkMax climberLMotor = new SparkMax(IDConstants.kClimberLMotor, MotorType.kBrushless);
 //   private SparkMax climberRMotor = new SparkMax(IDConstants.kClimberRMotor, MotorType.kBrushless);
-//   private SparkMaxConfig climberLConfig = new SparkMaxConfig();
+// //   private SparkMaxConfig climberLConfig = new SparkMaxConfig();
 //   private SparkMaxConfig climberRConfig = new SparkMaxConfig();
 //   private RelativeEncoder climberEncoder = climberRMotor.getEncoder();
 //   /** Creates a new ClilmberSubsystem. */
 //   public ClilmberSubsystem() {
-//     climberLConfig
-//     .idleMode(IdleMode.kBrake)
-//     .inverted(false);
+//     // climberLConfig
+//     // .idleMode(IdleMode.kBrake)
+//     // .inverted(false);
 
 //     climberRConfig
 //     .idleMode(IdleMode.kBrake)
@@ -43,17 +43,17 @@
 
 //   public void ClimberDown() {
 //     climberRMotor.set(ClimberConstants.ClimberMotorRate);
-//     climberLConfig.follow(climberRMotor, false);
+//     // climberLConfig.follow(climberRMotor, false);
 //   }
 
 //   public void ClimberUP() {
 //     climberRMotor.set(-ClimberConstants.ClimberMotorRate);
-//     climberLConfig.follow(climberRMotor, false);
+//     // climberLConfig.follow(climberRMotor, false);
 //   }
 
 //   public void ClimberStop() {
 //     climberRMotor.set(0);
-//     climberLConfig.follow(climberRMotor, false);
+//     // climberLConfig.follow(climberRMotor, false);
 //   }
 
 //   @Override

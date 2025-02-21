@@ -20,6 +20,7 @@ import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.CoralAuto;
 // import frc.robot.commands.Grabber.CoralGrabberAuto;
 import frc.robot.commands.Grabber.GrabberNormal;
+import frc.robot.commands.Grabber.GrabberStop;
 import frc.robot.commands.Swerve.SwerveAutoGo;
 import frc.robot.commands.Swerve.SwerveLockHeading;
 // import frc.robot.commands.Swerve.SwerveXMode;
@@ -125,9 +126,9 @@ public class RobotContainer {
     .whileTrue(new AngleNoraml(algaeGrabberAngleSubsystem, coralGrabberSubsystem, CoralState.kCoralDown, null));
 
     // Elevator normal
-    m_operatorController.axisGreaterThan(XboxController.Axis.kRightY.value, 0.1)
-    .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
     m_operatorController.axisLessThan(XboxController.Axis.kRightY.value, -0.1)
+    .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kUP));
+    m_operatorController.axisGreaterThan(XboxController.Axis.kRightY.value, 0.1)
     .whileTrue(new ElevatorNormal(elevatorSubsystem, ElevatorState.kDown));
 
     // Algae Grabber Angle
@@ -145,7 +146,7 @@ public class RobotContainer {
     m_operatorController.leftTrigger().whileTrue(new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
 
     // Coral Auto
-    m_operatorController.start().toggleOnTrue(new CoralAuto(coralGrabberSubsystem));
+    m_operatorController.start().onTrue(new CoralAuto(coralGrabberSubsystem));
 
 
     // Angle & Elevator All Auto
@@ -191,6 +192,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("getAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
     NamedCommands.registerCommand("putAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
 
+    // Stop Algae & Coral
+    NamedCommands.registerCommand("CoralStop", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralStop, null));
+    NamedCommands.registerCommand("AlgaeStop", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kAlgaeStop));
 
   }
 
