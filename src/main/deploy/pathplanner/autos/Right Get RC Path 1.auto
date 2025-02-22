@@ -5,39 +5,204 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Position Put 1 Coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Put 1 Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "L1"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "Right Position Get RC Path 1"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "PutCoral"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralStop"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Position Put RC Path 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Get RC Path 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AllDefult"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Right Position Get R2C Path 2"
+            "waitTime": 0.5
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Position Put RC Path 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Put RC Path 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "L1"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "Right Position Get R2C Path 2"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "PutCoral"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralStop"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Get R2C Path 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AllDefult"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Put RC Path 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "L1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "PutCoral"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralStop"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Get R2C Path 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AllDefult"
+                }
+              }
+            ]
           }
         }
       ]

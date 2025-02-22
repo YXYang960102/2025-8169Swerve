@@ -156,7 +156,7 @@ public class RobotContainer {
     m_operatorController.a().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralState.kCoralTop, AlgaeState.kAlgaeTop)); // L4
 
     // Angle & Elevator All Defult
-    m_driverController.y().toggleOnTrue(new AngleAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralDefult, AlgaeState.kAlgaeDefult));
+    m_driverController.y().onTrue(new AngleAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralDefult, AlgaeState.kAlgaeDefult));
 
     // Proseccor
     m_driverController.a().onTrue(new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralState.kCoralTop, AlgaeState.kAlgaeTop));
@@ -187,10 +187,10 @@ public class RobotContainer {
     new AngleAuto(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralState.kCoralTop, AlgaeState.kAlgaeTop));
 
     // Get Point >w<
-    NamedCommands.registerCommand("PutCoral", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
-    NamedCommands.registerCommand("CoralFwd", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
-    NamedCommands.registerCommand("getAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
-    NamedCommands.registerCommand("putAlgae", new GrabberNormal(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
+    NamedCommands.registerCommand("PutCoral", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralRev, null));
+    NamedCommands.registerCommand("CoralFwd", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralFwd, null));
+    NamedCommands.registerCommand("getAlgae", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kgetAlgae));
+    NamedCommands.registerCommand("putAlgae", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, null, AlgaeState.kputAlgae));
 
     // Stop Algae & Coral
     NamedCommands.registerCommand("CoralStop", new GrabberStop(coralGrabberSubsystem, algaeGrabberAngleSubsystem, CoralState.kCoralStop, null));

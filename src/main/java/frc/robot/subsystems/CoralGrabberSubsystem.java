@@ -205,7 +205,7 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   }
 
   public void CoralFwd() {
-    coralVortex.set(0.25);
+    coralVortex.set(0.3);
   }
 
   public void CoralRev() {
@@ -240,15 +240,15 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("IR R", irR.get());
     SmartDashboard.putBoolean("IR", getIR());
 
-  //   if(getIR() && coralVortex.getAppliedOutput() <= 0){
-  //     coralRevSlowRunning = true;
-  //     CoralRevSlow();
-  //   }
+    // if(getIR() && coralVortex.getAppliedOutput() <= 0){
+    //   coralRevSlowRunning = true;
+    //   CoralRevSlow();
+    // }
 
-  //   if (coralRevSlowRunning && !getIR()) {
-  //     coralRevSlowRunning = false;
-  //     StopMotor();
-  //   }
+    // if (coralRevSlowRunning && !getIR()) {
+    //   coralRevSlowRunning = false;
+    //   StopMotor();
+    // }
   }
 
 }

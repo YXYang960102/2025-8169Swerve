@@ -12,7 +12,8 @@ import frc.robot.subsystems.CoralGrabberSubsystem;
 public class CoralAuto extends Command {
   private CoralGrabberSubsystem coralGrabberSubsystem;
   private boolean running = false;
-  Timer timer = new Timer();
+  // private final Timer timer = new Timer();
+  // private boolean delayStarted = false;
 
   /** Creates a new CoralAuto. */
   public CoralAuto(CoralGrabberSubsystem coralGrabberSubsystem) {
@@ -24,35 +25,39 @@ public class CoralAuto extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // coralGrabberSubsystem.CoralRevSlow();
-    timer.reset();
     running = false;
+    coralGrabberSubsystem.CoralRevSlow();
+    // delayStarted = false;
+    // timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!running && timer.get() == 0){
-      timer.start();
+    // if (coralGrabberSubsystem.getIR() && !running) {
+    //   timer.start(); 
+    //   delayStarted = true;
+    // }
+
+    
+    
+    if(!running && coralGrabberSubsystem.getIR()){
       coralGrabberSubsystem.CoralRevSlow();
       running = true;
-      
     }
-    // if(!running && coralGrabberSubsystem.getIR()){
-    //   coralGrabberSubsystem.CoralRevSlow();
-    //   running = true;
-    // }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // timer.stop();
     coralGrabberSubsystem.StopMotor();
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > 1.0;// running && !coralGrabberSubsystem.getIR();
+    return running && coralGrabberSubsystem.getIR();
   }
 }

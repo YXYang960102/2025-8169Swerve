@@ -76,6 +76,12 @@ public class SwerveLockHeading extends Command {
     turningAngle = turningLimiter.calculate(turningAngle);
 
     if (turningAngle == 0 && LimelightHelpers.getTV(limelight.hostname)) {
+
+    // double targetPose[] = LimelightHelpers.getTargetPose_RobotSpace(limelight.hostname);
+    // double distanceToTag = targetPose.length >= 3 ? targetPose[0] : 1.0;
+    // double angleCompensation = Math.toDegrees(Math.atan(0.1 / distanceToTag));
+    // turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname) + angleCompensation, 0);
+
       turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
       swerveSubsystem.setChassisOutput(xSpeed, ySpeed, turningAngle, true);
     } else {

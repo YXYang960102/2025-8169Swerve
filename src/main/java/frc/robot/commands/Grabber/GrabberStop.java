@@ -33,6 +33,18 @@ public class GrabberStop extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if (coralState == CoralState.kCoralFwd){
+      coralGrabberSubsystem.CoralFwd();
+    }
+    if (coralState == CoralState.kCoralRev){
+      coralGrabberSubsystem.CoralRev();
+    }
+    if (algaeState == AlgaeState.kgetAlgae) {
+      algaeGrabberSubsystem.getAlgae();
+    }
+    if (algaeState == AlgaeState.kputAlgae){
+      algaeGrabberSubsystem.putAlgae();
+    }
     if(coralState == CoralState.kCoralStop) {
       coralGrabberSubsystem.StopMotor();
     }
@@ -48,13 +60,13 @@ public class GrabberStop extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    coralGrabberSubsystem.StopMotor();
-    algaeGrabberSubsystem.AlgaeMotorStop();
+    // coralGrabberSubsystem.StopMotor();
+    // algaeGrabberSubsystem.AlgaeMotorStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
