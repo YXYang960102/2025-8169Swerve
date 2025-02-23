@@ -20,7 +20,7 @@ public class CoralGrabberNormal extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralGrabberSubsystem = coralGrabberSubsystem;
     this.coralGrabberAction = coralGrabberAction;
-    addRequirements(coralGrabberSubsystem);
+    // addRequirements(coralGrabberSubsystem);
   }
 
   // Called when the command is initially scheduled.
