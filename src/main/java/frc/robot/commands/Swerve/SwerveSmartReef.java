@@ -20,6 +20,7 @@ public class SwerveSmartReef extends Command {
   private final Limelight limelight;
   private final PIDController pidController = new PIDController(0.006, 0.005, 0);
   private final DoubleSupplier speedSup;
+
   /** Creates a new SwerveSmartReef. */
   public SwerveSmartReef(SwerveSubsytem swerveSubsytem, Limelight limelight, DoubleSupplier speedSup) {
     this.swerveSubsystem = swerveSubsytem;
@@ -40,9 +41,11 @@ public class SwerveSmartReef extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = OIConstants.deadbandHandler(speedSup.getAsDouble(), 0.4) * 0.2;
+    double speed = OIConstants.deadbandHandler(speedSup != null ? speedSup.getAsDouble() : 0, 0.4) * 0.2;
     if (LimelightHelpers.getTV(limelight.hostname)) {
-      swerveSubsystem.setChassisOutput(speed * limelight.approachingXSpeed, pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0), AprilTagConstants.ID2Angle[(int)LimelightHelpers.getFiducialID(limelight.hostname)-1], true, true);
+      swerveSubsystem.setChassisOutput(speed * limelight.approachingXSpeed,
+          pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0),
+          AprilTagConstants.ID2Angle[(int) LimelightHelpers.getFiducialID(limelight.hostname) - 1], true, true);
     } else {
       swerveSubsystem.stopModules();
     }

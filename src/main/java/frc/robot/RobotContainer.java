@@ -145,7 +145,7 @@ public class RobotContainer {
 
     m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, 0.1)
         .whileTrue(new SwerveSmartReef(swerveSubsytem, Limelight.kReef, m_driverController::getRightTriggerAxis));
-    // m_driverController.rightBumper().whileTrue(new SwerveSmartReef(swerveSubsytem, Limelight.kReef));
+    m_driverController.rightBumper().whileTrue(new SwerveSmartReef(swerveSubsytem, Limelight.kReef, null));
 
 
     // Swerve Robot Relative

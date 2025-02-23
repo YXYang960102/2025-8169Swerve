@@ -101,6 +101,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
     // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+    SmartDashboard.putNumber("Elevator L C", elevatorLMotor.getOutputCurrent());
+    SmartDashboard.putNumber("Elevator R C", elevatorRMotor.getOutputCurrent());
 
     // // read PID coefficients from SmartDashboard
     // double p = SmartDashboard.getNumber("Elevator P Gain", 0);
