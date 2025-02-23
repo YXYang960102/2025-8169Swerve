@@ -78,7 +78,7 @@ public final class Constants {
   // SwerveModule
   public static class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
-    public static final double kDriveMotorGearRatio = 1.0 / 6.12; // MK3:1.0 / 8.16;
+    public static final double kDriveMotorGearRatio = 1.0 / 6.122; // MK3:1.0 / 8.16;
     public static final double kTurningMotorGearRatio = 1 / (150 / 7.0);// MK3: 1 / 8.16
     public static final double kDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
     public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
@@ -98,7 +98,7 @@ public final class Constants {
   public static class DriveConstants {
 
     // Distance between right and left wheels
-    public static final double kTrackWidth = 0.720;
+    public static final double kTrackWidth = 0.585;
 
     // Distance between front and back wheels
     public static final double kWheelBase = kTrackWidth;
@@ -126,7 +126,7 @@ public final class Constants {
     public static final int kBackLeftDriveAbsoluteEncoderPort = 2;// 1
     public static final int kBackRightDriveAbsoluteEncoderPort = 1;// 2
 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 2.5;// 5.5
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.5;// 5.5
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond;

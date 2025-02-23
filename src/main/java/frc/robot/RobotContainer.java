@@ -215,6 +215,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2", cmdStateAutoL2);
     NamedCommands.registerCommand("L3", cmdStateAutoL3);
     NamedCommands.registerCommand("L4", cmdStateAutoL4);
+    NamedCommands.registerCommand("CGFwd", new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kFwd));
+    NamedCommands.registerCommand("AGGet", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
+    // NamedCommands.registerCommand("L4", cmdStateAutoL4);
 
   }
 
