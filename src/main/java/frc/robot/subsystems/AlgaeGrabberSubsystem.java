@@ -23,6 +23,7 @@ import frc.robot.Constants.IDConstants;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAction;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberAngleAction;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
+import frc.robot.Constants.CoralGrabberConstants.CoralGrabberState;
 
 public class AlgaeGrabberSubsystem extends SubsystemBase {
   private SparkMax AlgaeGrabberAngleMotor = new SparkMax(IDConstants.kAlgaeGrabberAngle, MotorType.kBrushless);
@@ -80,6 +81,10 @@ public class AlgaeGrabberSubsystem extends SubsystemBase {
   // return Angle Absolute Position
   public double getAlgaeAbsPosition() {
     return AlgaeGrabberAngleAbsEncoder.getPosition();
+  }
+
+  public boolean isSafe(){
+    return getAlgaeAbsPosition() < AlgaeGrabberState.kSafe.position + 0.02;
   }
 
   public void setGrabberAction(AlgaeGrabberAction action) {
