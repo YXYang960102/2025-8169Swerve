@@ -19,6 +19,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
 import frc.robot.Constants.CoralGrabberConstants;
 import frc.robot.Constants.IDConstants;
 import frc.robot.Constants.CoralGrabberConstants.CoralGrabberAction;
@@ -34,10 +35,10 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   private SparkAbsoluteEncoder CoralGrabberAngleAbsEncoder = CoralGrabberAngleMotor.getAbsoluteEncoder();
   private SparkClosedLoopController CoralGrabberAnglePIDController = CoralGrabberAngleMotor.getClosedLoopController();
 
-  private DigitalInput irL = new DigitalInput(0);
-  private DigitalInput irR = new DigitalInput(1);
+  private DigitalInput sensor = new DigitalInput(0);
 
   private boolean coralRevSlowRunning = false;
+  public boolean coralBlock = false;
 
   // private I2C.Port i2cPort = I2C.Port.kOnboard;
   // private ColorSensorV3 coralSensorR = new ColorSensorV3(i2cPort);
@@ -81,8 +82,8 @@ public class CoralGrabberSubsystem extends SubsystemBase {
 
   }
 
-  public boolean getIR(){
-    return !irL.get() || !irR.get();
+  public boolean getSensor(){
+    return !sensor.get();
   }
 
   // return Angle Relativ6e Position
@@ -101,7 +102,11 @@ public class CoralGrabberSubsystem extends SubsystemBase {
   }
 
   public boolean isDefault(){
-    return Math.abs(getCoralAbsPosition() - CoralGrabberState.kDefult.position) < 0.05;
+    return Math.abs(getCoralAbsPosition() - CoralGrabberState.kDefult.position) < 0.04;
+  }
+
+  public boolean isSafe(){
+    return getCoralAbsPosition() < CoralGrabberState.kSafe.position - 0.01;
   }
 
   public void setGrabberAction(CoralGrabberAction action) {
@@ -128,19 +133,7 @@ public class CoralGrabberSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("Coral Grabber Velocity", getCoralVelocity());
     // SmartDashboard.putBoolean("isGet", RisPass());
 
-    SmartDashboard.putBoolean("IR L", irL.get());
-    SmartDashboard.putBoolean("IR R", irR.get());
-    SmartDashboard.putBoolean("IR", getIR());
-
-    if(getIR() && coralVortex.getAppliedOutput() <= 0){
-      coralRevSlowRunning = true;
-      setGrabberAction(CoralGrabberAction.kRevSlow);
-    }
-
-    if (coralRevSlowRunning && !getIR()) {
-      coralRevSlowRunning = false;
-      setGrabberAction(CoralGrabberAction.kStop);
-    }
+    SmartDashboard.putBoolean("Sensor", getSensor());
   }
 
 }

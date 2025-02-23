@@ -59,8 +59,12 @@ public class StateAuto extends InstantCommand {
       algaeGrabberSubsystem.setState(algaeState);
     }
 
-    if(coralState!=null){
+    if(coralState!=null && coralGrabberSubsystem.coralBlock != true){
       coralGrabberSubsystem.setState(coralState);
+
+      if(coralState == CoralGrabberState.kL4){
+        coralGrabberSubsystem.coralBlock = true;
+      }
     }
     
   }
