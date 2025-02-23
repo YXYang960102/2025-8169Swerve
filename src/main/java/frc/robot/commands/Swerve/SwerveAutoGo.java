@@ -70,7 +70,7 @@ public class SwerveAutoGo extends Command {
       }
     }
 
-    swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, true, true);
+    swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, false, true);
   }
 
   // Called once the command ends or is interrupted.

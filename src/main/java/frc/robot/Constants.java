@@ -30,7 +30,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
     public static final boolean kDriverFieldOriented = true;
-    public static final double kDeadband = 0.1;
+    public static final double kDeadband = 0.05;
 
     public static double deadbandHandler(double value, double deadband) {
       if (Math.abs(value) < deadband) {
@@ -134,9 +134,9 @@ public final class Constants {
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 2;
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 2;// 2
 
-    public static final double kPTheta = 0.012;// 0.012
+    public static final double kPTheta = 0.04;// 0.012
     public static final double kITheta = 0.0;// 0.01
-    public static final double kDTheta = 0.00015;// 0.00015
+    public static final double kDTheta = 0.0;// 0.00015
     public static final double kIZTheta = 60.0;// 60.0
 
     public static final double kMaxDriveMotorTemp = 33.0;
@@ -145,7 +145,7 @@ public final class Constants {
 
     public static final double kPLockHeading = 0.02;
     public static final double kILockHeading = 0.025;
-    public static final double kDLockHeading = 0.002;
+    public static final double kDLockHeading = 0.001;
 
   }
 
@@ -162,23 +162,23 @@ public final class Constants {
 
   // Elevator
   public static final class ElevatorConstants {
-    public static final double kUpLimit = 234.00;
+    public static final double kUpLimit = 175.00;
     public static final double kDefaultLimit = 0.0;
 
-    public static final double kElevatorMotorGearRatio = 48.0 * (22.0 / 22.0);
+    public static final double kElevatorMotorGearRatio = 36.0 * (22.0 / 22.0);
 
     // Elevator PID
-    public static final double kP = 0.15;
-    public static final double kI = 0.0;
+    public static final double kP = 0.05;
+    public static final double kI = 0.00001;
     public static final double kD = 0.0;
-    public static final double kIz = 0;
+    public static final double kIz = 20;
     public static final double kFF = 0;
     public static final double kMaxOutput = 1;
     public static final double kMinOutput = -1;
 
     public enum ElevatorAction {
-      kUP(1),
-      kDown(-1),
+      kUP(.8),
+      kDown(-0.2),
       kStop(0);
 
       public final double rate;
@@ -189,11 +189,11 @@ public final class Constants {
     }
 
     public enum ElevatorState {
-      kDefault(0),
-      kL1(71.00),
-      kL2(137.00),
-      kL3(234.00),
-      kL4(215.67);
+      kDefault(0.5),
+      kL1(23.3),
+      kL2(85.55),
+      kL3(175.68),
+      kL4(154.0);
 
       public final double position;
 
@@ -205,25 +205,25 @@ public final class Constants {
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralUpLimit = 0.57;
-    public static final double kCoralDownLimit = 0.06;
+    public static final double kCoralUpLimit = 0.99;
+    public static final double kCoralDownLimit = 0.47;
 
     public static final double kCoralVortexRatio = 26.0 / 14.0;
     public static final double kCoralAngleMotorRatio = 100.0 * (38.0 / 12.0) * (36.0 / 22.0);
 
     // Coral Angle PID
     public static final double CoralkP = 6.0;
-    public static final double CoralkI = 0.005;
-    public static final double CoralkD = 2;
+    public static final double CoralkI = 0.0;
+    public static final double CoralkD = 1;
     public static final double CoralkIz = 0.1;
     public static final double CoralkFF = 0;
     public static final double CoralkMaxOutput = 1;
     public static final double CoralkMinOutput = -1;
 
     public enum CoralGrabberAction {
-      kFwd(0.15),
+      kFwd(0.4),
       kRev(-0.1),
-      kRevSlow(-0.08),
+      kRevAuto(-0.15),
       kStop(0);
 
       public final double rate;
@@ -246,11 +246,12 @@ public final class Constants {
     }
 
     public enum CoralGrabberState {
-      kDefult(0.574),
-      kL1(0.537),
-      kL2(0.537),
-      kL3(0.51),
-      kL4(0.078);
+      kDefult(0.99),
+      kSafe(0.850),
+      kL1(0.948),
+      kL2(0.929),
+      kL3(0.938),
+      kL4(0.529);
 
       public final double position;
 
@@ -262,8 +263,10 @@ public final class Constants {
 
   // Algae Grabber
   public static final class AlgaeGrabberConstants {
-    public static final double kAlgaeUpLimit = 0.99;
-    public static final double kAlgaeDownLimit = 0.715;
+    public static final double kAlgaeUpLimit = 0.595;
+    public static final double kAlgaeDownLimit = 0.36;
+
+    public static final double kAlgaeAngleMotorRatio = 64.0 * (68.0 / 22.0);
 
     // Algae Angle PID
     public static final double AlgaekP = 10.5;
@@ -299,10 +302,11 @@ public final class Constants {
     }
 
     public enum AlgaeGrabberState {
-      kDefult(0.99),
-      kGetL2(0.776),
-      kGetL3(0.864),
-      kPutPro(0.715);
+      kDefult(0.595),
+      kSafe(0.430),
+      kGetL2(0.448),
+      kGetL3(0.448),
+      kPutPro(0.36);
 
       public final double position;
 
@@ -347,5 +351,32 @@ public final class Constants {
         this.approachingXSpeed = approachingXSpeed;
       }
     }
+  }
+
+  // Reff
+  public static final class AprilTagConstants {
+    public static final int ID2Angle[] = {
+      54, 
+      306,
+      90,
+      180,
+      180,
+      60,
+      0, 
+      300, 
+      240,
+      180, // 10
+      120,
+      306, // 12
+      54, 
+      180,
+      180,
+      90,
+      300, 
+      0, 
+      60,
+      120,
+      180,
+      240}; // 22
   }
 }

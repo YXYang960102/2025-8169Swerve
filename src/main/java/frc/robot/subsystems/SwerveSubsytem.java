@@ -107,11 +107,13 @@ public class SwerveSubsytem extends SubsystemBase {
         getOdometryAngle(), getModulePositions());
 
     // Set default PID values for thetaPID
-    // thetaController = new PIDController(
-    // DriveConstants.kPTheta,
-    // DriveConstants.kITheta,
-    // DriveConstants.kDTheta);
-    // thetaController.setIZone(DriveConstants.kIZTheta);
+    thetaController = new PIDController(
+    DriveConstants.kPTheta,
+    DriveConstants.kITheta,
+    DriveConstants.kDTheta);
+    thetaController.setIZone(DriveConstants.kIZTheta);
+    thetaController.enableContinuousInput(0, 360);
+
 
     // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
@@ -164,6 +166,10 @@ public class SwerveSubsytem extends SubsystemBase {
     return gyro.getAngle();
   }
 
+  public double getNormalizedAngle(double angle) {
+    return (angle % 360 + 360) % 360; // 0~360
+  }
+
   // Stop all module movement
   public void stopModules() {
     frontLeft.stop();
@@ -197,24 +203,23 @@ public class SwerveSubsytem extends SubsystemBase {
     setChassisOutput(xSpeed, ySpeed, turningAngle, false, false);
   }
 
-  public void setChassisOutput(double xSpeed, double ySpeed, double turningAngle, boolean forAuto) {
-    setChassisOutput(xSpeed, ySpeed, turningAngle, forAuto, false);
+  public void setChassisOutput(double xSpeed, double ySpeed, double turningAngle, boolean angleFieldRelative) {
+    setChassisOutput(xSpeed, ySpeed, turningAngle, angleFieldRelative, false);
   }
 
   public void setChassisOutput(double xSpeed, double ySpeed, double turningAngle,
-      boolean forAuto, boolean robotRelative) {
+      boolean angleFieldRelative, boolean robotRelative) {
     xSpeed *= DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
     ySpeed *= DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
 
-    if (forAuto) {
-      heading = getHeading() - turningAngle;
-    } else {
-      heading -= turningAngle;
+    double turningSpeed = turningAngle;
+    if (angleFieldRelative) {
+      // heading = getHeading() - turningAngle;
+      turningSpeed = -thetaController.calculate(getNormalizedAngle(getHeading()), turningAngle);
     }
 
     // System.out.println(getHeading() +" "+heading);
 
-    double turningSpeed = turningAngle;
     // turningSpeed *=
     // DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond;
 
