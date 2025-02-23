@@ -214,7 +214,7 @@ public final class Constants {
     // Coral Angle PID
     public static final double CoralkP = 6.0;
     public static final double CoralkI = 0.0;
-    public static final double CoralkD = 1;
+    public static final double CoralkD = 0;
     public static final double CoralkIz = 0.1;
     public static final double CoralkFF = 0;
     public static final double CoralkMaxOutput = 1;
@@ -222,7 +222,7 @@ public final class Constants {
 
     public enum CoralGrabberAction {
       kFwd(0.4),
-      kRev(-0.1),
+      kRev(-0.3),
       kRevAuto(-0.15),
       kStop(0);
 
