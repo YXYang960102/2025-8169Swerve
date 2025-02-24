@@ -208,7 +208,7 @@ public final class Constants {
     public static final double kL3Position = 0.517; //L3 0.495
     public static final double kCoralTopPosition = 0.529; // L4 0.495
 
-    public static final double kCoralAngleMotorRate = 0.5;
+    public static final double kCoralAngleMotorRate = 0.5; // .W.
     public static final double CoralmotorRate = 0.15;
     public static final double CoralmotorFwd = 0.1;
 
