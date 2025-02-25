@@ -4,6 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -24,64 +29,40 @@ import frc.robot.Constants.ElevatorConstants.ElevatorAction;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final SparkMax elevatorLMotor = new SparkMax(IDConstants.kElevatorLMotor, MotorType.kBrushless);
-  private final SparkMax elevatorRMotor = new SparkMax(IDConstants.kElevatorRMotor, MotorType.kBrushless);
-  private final SparkMaxConfig elevatorLConfig = new SparkMaxConfig();
-  private final SparkMaxConfig elevatorRConfig = new SparkMaxConfig();
-  private final RelativeEncoder elevatorEncoder = elevatorRMotor.getEncoder();
-  // private final SparkAbsoluteEncoder elevatorAbsEncoder =
-  // elevatorRMotor.getAbsoluteEncoder();
-  private final SparkClosedLoopController elevatorPIDController = elevatorRMotor.getClosedLoopController();
-
-  // public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+  private final TalonFX elevatorLMotor = new TalonFX(IDConstants.kElevatorLMotor);
+  private final TalonFX elevatorRMotor = new TalonFX(IDConstants.kElevatorRMotor);
+  private final TalonFXConfiguration elevatorConfig = new TalonFXConfiguration();
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
-    elevatorLConfig
-        .idleMode(IdleMode.kBrake)
-        .inverted(false)
-        .follow(elevatorRMotor, true);
+    // Configure left motor to follow the right motor
+    elevatorLMotor.setControl(new Follower(elevatorRMotor.getDeviceID(), false));
+    
+    // Configure soft limits
+    elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    elevatorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ElevatorConstants.kUpLimit;
+    elevatorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ElevatorConstants.kDefaultLimit;
 
-    elevatorRConfig
-        .idleMode(IdleMode.kBrake)
-        .inverted(false);
+    // Configure PID values
+    elevatorConfig.Slot0.kP = ElevatorConstants.kP;
+    elevatorConfig.Slot0.kI = ElevatorConstants.kI;
+    elevatorConfig.Slot0.kD = ElevatorConstants.kD;
 
-    // elevatorEncoder.setPosition(elevatorAbsEncoder.getPosition());
+    // Apply configurations
+    elevatorRMotor.getConfigurator().apply(elevatorConfig);
+    elevatorLMotor.getConfigurator().apply(elevatorConfig);
 
-    // kP = ElevatorConstants.kP;
-    // kI = ElevatorConstants.kI;
-    // kD = ElevatorConstants.kD;
-    // kIz = ElevatorConstants.kIz;
-    // kFF = ElevatorConstants.kFF;
-    // kMaxOutput = ElevatorConstants.kMaxOutput;
-    // kMinOutput = ElevatorConstants.kMinOutput;
-
-    elevatorRConfig.softLimit
-        .forwardSoftLimitEnabled(true)
-        .reverseSoftLimitEnabled(true)
-        .forwardSoftLimit(ElevatorConstants.kUpLimit)
-        .reverseSoftLimit(ElevatorConstants.kDefaultLimit);
-
-    elevatorRConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ElevatorConstants.kP, ElevatorConstants.kI, ElevatorConstants.kD)
-        .iZone(ElevatorConstants.kIz)
-        .velocityFF(ElevatorConstants.kFF)
-        .maxOutput(ElevatorConstants.kMaxOutput)
-        .minOutput(ElevatorConstants.kMinOutput);
-
-    elevatorRMotor.configure(elevatorRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    elevatorLMotor.configure(elevatorLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters); 
-
+    elevatorRMotor.setNeutralMode(NeutralModeValue.Brake);
+    elevatorLMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   public double getCurrentHeight() {
-    // Convert relative encoder position to height in meters
-    return elevatorEncoder.getPosition();
+    return elevatorRMotor.getPosition().getValueAsDouble();
   }
 
   public double getVelocity() {
-    return elevatorEncoder.getVelocity();
+    return elevatorRMotor.getVelocity().getValueAsDouble();
   }
 
   public void setAction(ElevatorAction action) {
@@ -89,56 +70,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setState(ElevatorState state) {
-    elevatorPIDController.setReference(state.position, ControlType.kPosition);
+    elevatorRMotor.setControl(new PositionDutyCycle(state.position));
   }
 
   public void setHold() {
-    elevatorPIDController.setReference(getCurrentHeight(), ControlType.kPosition);
+    elevatorRMotor.setControl(new PositionDutyCycle(getCurrentHeight()));
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
-    // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
-    SmartDashboard.putNumber("Elevator L C", elevatorLMotor.getOutputCurrent());
-    SmartDashboard.putNumber("Elevator R C", elevatorRMotor.getOutputCurrent());
-
-    // // read PID coefficients from SmartDashboard
-    // double p = SmartDashboard.getNumber("Elevator P Gain", 0);
-    // double i = SmartDashboard.getNumber("Elevator I Gain", 0);
-    // double d = SmartDashboard.getNumber("Elevator D Gain", 0);
-    // double iz = SmartDashboard.getNumber("Elevator I Zone", 0);
-    // double ff = SmartDashboard.getNumber("Elevator Feed Forward", 0);
-    // double max = SmartDashboard.getNumber("Elevator Max Output", 0);
-    // double min = SmartDashboard.getNumber("Elevator Min Output", 0);
-
-    // // if PID coefficients on SmartDashboard have changed, write new values to
-    // // controller
-    // if ((p != kP)) {
-    //   elevatorRConfig.closedLoop.p(p);
-    //   kP = p;
-    // }
-    // if ((i != kI)) {
-    //   elevatorRConfig.closedLoop.i(i);
-    //   kI = i;
-    // }
-    // if ((d != kD)) {
-    //   elevatorRConfig.closedLoop.d(d);
-    //   kD = d;
-    // }
-    // if ((iz != kIz)) {
-    //   elevatorRConfig.closedLoop.iZone(iz);
-    //   kIz = iz;
-    // }
-    // if ((ff != kFF)) {
-    //   elevatorRConfig.closedLoop.velocityFF(ff);
-    //   kFF = ff;
-    // }
-    // if ((max != kMaxOutput) || (min != kMinOutput)) {
-    //   elevatorRConfig.closedLoop.outputRange(min, max);
-    //   kMinOutput = min;
-    //   kMaxOutput = max;
-    // }
+    SmartDashboard.putNumber("Elevator Velocity", getVelocity());
   }
 }
