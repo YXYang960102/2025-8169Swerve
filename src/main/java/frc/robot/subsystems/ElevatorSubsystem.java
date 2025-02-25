@@ -80,10 +80,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
-<<<<<<< Updated upstream
     SmartDashboard.putNumber("Elevator Velocity", getVelocity());
-=======
-   
->>>>>>> Stashed changes
   }
 }
