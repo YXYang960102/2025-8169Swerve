@@ -177,8 +177,8 @@ public final class Constants {
     public static final double kMinOutput = -1;
 
     public enum ElevatorAction {
-      kUP(.8),
-      kDown(-0.2),
+      kUP(0.5),
+      kDown(-0.5),
       kStop(0);
 
       public final double rate;
