@@ -127,12 +127,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     m_driverController.start().whileTrue(new InstantCommand(() -> swerveSubsytem.zeroHeading()));
-    // //LED Status
-    // m_operatorController.leftBumper().whileTrue(new InstantCommand(() ->
-    // statusSubsystem.lightLeft(0, 255, 128)));
-    // m_operatorController.rightBumper().whileTrue(new InstantCommand(() ->
-    // statusSubsystem.lightRight(60, 255, 128)));
-
+    
     // // Lock REEF
     // m_driverController.leftBumper().whileTrue(new SwerveLockHeading(swerveSubsytem,
     //     () -> -m_driverController.getLeftY(),

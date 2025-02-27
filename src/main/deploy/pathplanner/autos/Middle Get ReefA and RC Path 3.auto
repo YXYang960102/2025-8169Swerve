@@ -33,12 +33,6 @@
           "data": {
             "pathName": "Right Position Get R2C Path 4"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right Position Put RC Path 7"
-          }
         }
       ]
     }

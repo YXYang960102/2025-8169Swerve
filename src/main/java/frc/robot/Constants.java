@@ -69,9 +69,9 @@ public final class Constants {
     public static final int kCoralVortex = 13;
     public static final int kCoralGrabberAngle = 14;
 
-    // Climber Motor Port
-    public static final int kClimberLMotor = 15;
-    public static final int kClimberRMotor = 16;
+    // Intake Motor Port
+    public static final int kIntakeAngleMotor = 15;
+    public static final int kIntakeMotor = 16;
 
   }
 
@@ -316,12 +316,58 @@ public final class Constants {
     }
   }
 
-  // Climber
-  public static final class ClimberConstants {
-    public static final double ClimberMotorRate = 0.5;
+  // Intake
+  public static final class IntakeConstants {
+    public static final double kIntakeUpLimit = 0.0;
+    public static final double kIntakeDownLimit = 0.0;
 
-    public static final double ClimberUPLimit = 0;
-    public static final double ClimberDownLimit = 0;
+    
+
+    // Intake Angle PID
+    public static final double IntakekP = 0.0;
+    public static final double IntakekI = 0.0;
+    public static final double IntakekD = 0.0;
+    public static final double IntakekIz = 0;
+    public static final double IntakekFF = 0;
+    public static final double IntakekMaxOutput = 1;
+    public static final double IntakekMinOutput = -1;
+
+    public enum IntakeAction {
+      kGet(0.3),
+      kPut(-0.3),
+      kStop(0);
+
+      public final double rate;
+
+      private IntakeAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum IntakeAngleAction {
+      kUP(0.5),
+      kDown(-0.5),
+      kStop(0);
+
+      public final double rate;
+
+      private IntakeAngleAction(double rate) {
+        this.rate = rate;
+      }
+    }
+
+    public enum IntakeState {
+      kDefult(0.0),
+      kCoral(0.0),
+      kAlgae(0.0),
+      kIntake(0.0);
+
+      public final double position;
+
+      private IntakeState(double position) {
+        this.position = position;
+      }
+    }
 
   }
 
