@@ -48,6 +48,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorConfig.Slot0.kP = ElevatorConstants.kP;
     elevatorConfig.Slot0.kI = ElevatorConstants.kI;
     elevatorConfig.Slot0.kD = ElevatorConstants.kD;
+     
+    elevatorConfig.MotorOutput.DutyCycleNeutralDeadband = 0.05;
 
     // Apply configurations
     elevatorRMotor.getConfigurator().apply(elevatorConfig);
