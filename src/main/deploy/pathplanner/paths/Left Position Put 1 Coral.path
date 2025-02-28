@@ -48,7 +48,7 @@
   "folder": "Left Position ",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.13948092966162123
   },
   "useDefaultConstraints": false
 }

@@ -5,33 +5,154 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Middle Position Put 1 Coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle Position Put 1 Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "L4"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Middle Position Get LC Path"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "CGFwd"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Left Position Put LC Path 1"
+            "name": "CGStop"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left Position Get L2C Path 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle Position Get LC Path"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Default"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left Position Put LC Path 1"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "GetC"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left Position Put LC Path 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "L4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "CGFwd"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CGStop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left Position Get L2C Path 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Default"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetC"
           }
         }
       ]

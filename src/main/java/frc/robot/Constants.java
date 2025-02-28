@@ -169,9 +169,9 @@ public final class Constants {
 
     // Elevator PID
     public static final double kP = 0.05;
-    public static final double kI = 0.00001;
+    public static final double kI = 0.00002;
     public static final double kD = 0.0;
-    public static final double kIz = 20;
+    public static final double kIz = 40;
     public static final double kFF = 0;
     public static final double kMaxOutput = 1;
     public static final double kMinOutput = -1;
@@ -189,7 +189,7 @@ public final class Constants {
     }
 
     public enum ElevatorState {
-      kDefault(0.5),
+      kDefault(1),
       kL1(23.3),
       kL2(85.55),
       kL3(175.68),

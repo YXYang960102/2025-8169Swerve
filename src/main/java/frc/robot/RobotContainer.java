@@ -19,6 +19,7 @@ import frc.robot.Constants.IntakeConstants.IntakeState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.State.StateAuto;
 import frc.robot.commands.State.StateAutoDefult;
+import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.AlgaeAngleNormal;
 import frc.robot.commands.Grabber.AlgaeGrabberNormal;
@@ -216,6 +217,8 @@ public class RobotContainer {
 
     // Proseccor
     m_driverController.a().onTrue(cmdStateAutoProseccor);
+
+    m_operatorController.rightBumper().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
 
   }
 
