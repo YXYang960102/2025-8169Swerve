@@ -162,16 +162,16 @@ public final class Constants {
 
   // Elevator
   public static final class ElevatorConstants {
-    public static final double kUpLimit = 175.00;
+    public static final double kUpLimit = 116.75;
     public static final double kDefaultLimit = 0.0;
 
     public static final double kElevatorMotorGearRatio = 36.0 * (22.0 / 22.0);
 
     // Elevator PID
-    public static final double kP = 0.05;
-    public static final double kI = 0.00002;
-    public static final double kD = 0.0;
-    public static final double kIz = 40;
+    public static final double kP = 0.02;
+    public static final double kI = 0.00001;
+    public static final double kD = 0.00;
+    public static final double kIz = 20;
     public static final double kFF = 0;
     public static final double kMaxOutput = 1;
     public static final double kMinOutput = -1;
@@ -190,10 +190,10 @@ public final class Constants {
 
     public enum ElevatorState {
       kDefault(1),
-      kL1(23.3),
-      kL2(85.55),
-      kL3(175.68),
-      kL4(154.0);
+      kL1(13.2), //152.38
+      kL2(26.62), //90.13
+      kL3(116.75),
+      kL4(95); //21.68
 
       public final double position;
 
@@ -205,7 +205,7 @@ public final class Constants {
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralUpLimit = 0.99;
+    public static final double kCoralUpLimit = 0.930;
     public static final double kCoralDownLimit = 0.47;
 
     public static final double kCoralVortexRatio = 26.0 / 14.0;
@@ -246,12 +246,12 @@ public final class Constants {
     }
 
     public enum CoralGrabberState {
-      kDefult(0.99),
-      kSafe(0.850),
-      kL1(0.948),
-      kL2(0.929),
-      kL3(0.92),
-      kL4(0.529);
+      kDefult(0.930),
+      kSafe(0.79), //0.14
+      kL1(0.888), //0.042
+      kL2(0.869), //0.061
+      kL3(0.85), //0.08
+      kL4(0.469); //0.461
 
       public final double position;
 
@@ -263,8 +263,8 @@ public final class Constants {
 
   // Algae Grabber
   public static final class AlgaeGrabberConstants {
-    public static final double kAlgaeUpLimit = 0.595;
-    public static final double kAlgaeDownLimit = 0.36;
+    public static final double kAlgaeUpLimit = 0.931;
+    public static final double kAlgaeDownLimit = 0.695;
 
     public static final double kAlgaeAngleMotorRatio = 64.0 * (68.0 / 22.0);
 
@@ -302,11 +302,11 @@ public final class Constants {
     }
 
     public enum AlgaeGrabberState {
-      kDefult(0.595),
-      kSafe(0.430),
-      kGetL2(0.448),
-      kGetL3(0.448),
-      kPutPro(0.36);
+      kDefult(0.930),
+      kSafe(0.765), //0.165
+      kGetL2(0.783), //0.147
+      kGetL3(0.783), //0.147
+      kPutPro(0.695); //0.235
 
       public final double position;
 

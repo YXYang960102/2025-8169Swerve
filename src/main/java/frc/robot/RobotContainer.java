@@ -176,11 +176,17 @@ public class RobotContainer {
     m_operatorController.axisLessThan(XboxController.Axis.kLeftY.value, -0.1)
         .whileTrue(new CoralAngleNoraml(coralGrabberSubsystem, CoralGrabberAngleAction.kDown));
 
+    // // Intake Angle Noramal
+    // m_operatorController.axisGreaterThan(XboxController.Axis.kLeftX.value, 0.1)
+    //     .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kUP));
+    // m_operatorController.axisLessThan(XboxController.Axis.kLeftX.value, -0.1)
+    //     .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kDown));
+
     // Intake Angle Noramal
     m_operatorController.axisGreaterThan(XboxController.Axis.kLeftX.value, 0.1)
-        .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kUP));
+        .whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kUP));
     m_operatorController.axisLessThan(XboxController.Axis.kLeftX.value, -0.1)
-        .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kDown));
+        .whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kDown));
 
     // Coral Grabber Normal
     m_operatorController.rightTrigger()
