@@ -138,17 +138,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     m_driverController.start().whileTrue(new InstantCommand(() -> swerveSubsytem.zeroHeading()));
-    
-    // // Lock REEF
-    // m_driverController.leftBumper().whileTrue(new SwerveLockHeading(swerveSubsytem,
-    //     () -> -m_driverController.getLeftY(),
-    //     () -> -m_driverController.getLeftX(),
-    //     () -> -m_driverController.getRightX(),
-    //     Limelight.kReef));
-    // Lock REEF and Forward
-    // m_driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, 0.1)
-    //     .whileTrue(new SwerveAutoGo(swerveSubsytem, Limelight.kReef, m_driverController::getLeftTriggerAxis));
-
+   
     m_driverController.axisGreaterThan(XboxController.Axis.kRightTrigger.value, 0.2)
         .whileTrue(new SwerveSmartReef(swerveSubsytem, Limelight.kReef, m_driverController::getRightTriggerAxis));
     m_driverController.rightBumper().whileTrue(new SwerveSmartReef(swerveSubsytem, Limelight.kReef, null));
@@ -162,6 +152,17 @@ public class RobotContainer {
     m_driverController.pov(90).onTrue(new IntakeAuto(intakeSubsystem, IntakeState.kCoral));
     m_driverController.pov(180).onTrue(new IntakeAuto(intakeSubsystem, IntakeState.kAlgae));
     m_driverController.pov(270).onTrue(new IntakeAuto(intakeSubsystem, IntakeState.kIntake));
+
+    //Intake Normal
+    m_driverController.b().whileTrue(new IntakeNormal(intakeSubsystem, IntakeAction.kPut));
+    m_driverController.x().whileTrue(new IntakeNormal(intakeSubsystem, IntakeAction.kGet));
+
+    // Angle & Elevator All Default
+    m_driverController.y().onTrue(cmdAllDefault);
+
+    // Proseccor
+    m_driverController.a().onTrue(cmdStateAutoProseccor);
+
 
     // Elevator Normal
     m_operatorController.axisGreaterThan(XboxController.Axis.kRightY.value, 0.1)
@@ -187,10 +188,6 @@ public class RobotContainer {
     m_operatorController.leftTrigger()
         .whileTrue(new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kRev));
 
-    // Algae Grabber Angle Normal
-    // m_driverController.pov(0).whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kUP));
-    // m_driverController.pov(180)
-    //     .whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kDown));
 
     // Algae Grabber Normal
     m_operatorController.pov(90)
@@ -198,9 +195,6 @@ public class RobotContainer {
     m_operatorController.pov(270)
         .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
 
-    //Intake Normal
-    m_driverController.b().whileTrue(new IntakeNormal(intakeSubsystem, IntakeAction.kPut));
-    m_driverController.x().whileTrue(new IntakeNormal(intakeSubsystem, IntakeAction.kGet));
 
     // Coral Angle Auto
     m_operatorController.pov(0).onTrue(cmdCoralAngleAutoL4);
@@ -213,12 +207,6 @@ public class RobotContainer {
     m_operatorController.y().onTrue(cmdStateAutoL2); // L2
     m_operatorController.b().onTrue(cmdStateAutoL3); // L3
     m_operatorController.a().onTrue(cmdStateAutoL4); // L4
-
-    // Angle & Elevator All Default
-    m_driverController.y().onTrue(cmdAllDefault);
-
-    // Proseccor
-    m_driverController.a().onTrue(cmdStateAutoProseccor);
 
     // Elevator Default
     m_operatorController.rightBumper().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
