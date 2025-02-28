@@ -13,13 +13,13 @@ import frc.robot.subsystems.CoralGrabberSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class StateAutoDefult extends Command {
+public class StateAutoDefault extends Command {
   private AlgaeGrabberSubsystem algaeGrabberSubsystem;
   private CoralGrabberSubsystem coralGrabberSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
 
   /** Creates a new AngleAutoDefult. */
-  public StateAutoDefult(
+  public StateAutoDefault(
       AlgaeGrabberSubsystem algaeGrabberSubsystem,
       CoralGrabberSubsystem coralGrabberSubsystem,
       ElevatorSubsystem elevatorSubsystem

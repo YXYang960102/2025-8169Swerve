@@ -18,7 +18,7 @@ import frc.robot.Constants.IntakeConstants.IntakeAngleAction;
 import frc.robot.Constants.IntakeConstants.IntakeState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.State.StateAuto;
-import frc.robot.commands.State.StateAutoDefult;
+import frc.robot.commands.State.StateAutoDefault;
 import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.AlgaeAngleNormal;
@@ -117,7 +117,7 @@ public class RobotContainer {
   
 
   // Define Commands for Controller binding, NamedCommand
-  private final Command cmdAllDefault = new StateAutoDefult(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem);
+  private final Command cmdAllDefault = new StateAutoDefault(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem);
 
   private final Command cmdStateAutoL1 = new StateAuto(
     algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2);
@@ -156,6 +156,7 @@ public class RobotContainer {
 
     // // Swerve Robot Relative
     // m_driverController.povCenter().whileFalse(new SwerveRobotRelative(swerveSubsytem, m_driverControllerHID::getPOV));
+
     // Intake Auto
     m_driverController.pov(0).onTrue(new IntakeAuto(intakeSubsystem, IntakeState.kDefult));
     m_driverController.pov(90).onTrue(new IntakeAuto(intakeSubsystem, IntakeState.kCoral));
@@ -174,9 +175,10 @@ public class RobotContainer {
     m_operatorController.axisLessThan(XboxController.Axis.kLeftY.value, -0.1)
         .whileTrue(new CoralAngleNoraml(coralGrabberSubsystem, CoralGrabberAngleAction.kDown));
 
+    // Intake Angle Noramal
     m_operatorController.axisGreaterThan(XboxController.Axis.kLeftX.value, 0.1)
         .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kUP));
-    m_operatorController.axisLessThan(XboxController.Axis.kLeftY.value, -0.1)
+    m_operatorController.axisLessThan(XboxController.Axis.kLeftX.value, -0.1)
         .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kDown));
 
     // Coral Grabber Normal
@@ -212,12 +214,13 @@ public class RobotContainer {
     m_operatorController.b().onTrue(cmdStateAutoL3); // L3
     m_operatorController.a().onTrue(cmdStateAutoL4); // L4
 
-    // Angle & Elevator All Defult
+    // Angle & Elevator All Default
     m_driverController.y().onTrue(cmdAllDefault);
 
     // Proseccor
     m_driverController.a().onTrue(cmdStateAutoProseccor);
 
+    // Elevator Default
     m_operatorController.rightBumper().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
 
   }
