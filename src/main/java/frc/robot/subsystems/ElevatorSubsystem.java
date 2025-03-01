@@ -93,7 +93,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
 
-    if (getCurrentHeight() < 1.5) { // 假設小於 0.1 代表已經到達底部
+    if (getCurrentHeight() < 1.5) { 
       resetEncoder();
   }
     // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
