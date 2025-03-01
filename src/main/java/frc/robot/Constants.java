@@ -163,12 +163,12 @@ public final class Constants {
   // Elevator
   public static final class ElevatorConstants {
     public static final double kUpLimit = 116.75;
-    public static final double kDefaultLimit = 0.0;
+    public static final double kDefaultLimit = 1;
 
     public static final double kElevatorMotorGearRatio = (62.0 / 8.0) * (32.0 / 14.0) * (14.0 / 10.0);
 
     // Elevator PID
-    public static final double kP = 0.02;
+    public static final double kP = 0.05;
     public static final double kI = 0.00001;
     public static final double kD = 0.00;
     public static final double kIz = 20;
@@ -189,10 +189,10 @@ public final class Constants {
     }
 
     public enum ElevatorState {
-      kDefault(1),
+      kDefault(0.7),
       kL1(13.2), //152.38
       kL2(26.62), //90.13
-      kL3(116.75),
+      kL3(114.5),
       kL4(95); //21.68
 
       public final double position;

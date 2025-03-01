@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final TalonFX elevatorLMotor = new TalonFX(IDConstants.kElevatorLMotor);
   private final TalonFX elevatorRMotor = new TalonFX(IDConstants.kElevatorRMotor);
   private final TalonFXConfiguration elevatorConfig = new TalonFXConfiguration();
-  private  Encoder encoder = new Encoder(1, 2); 
+  // private  Encoder encoder = new Encoder(1, 2); 
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -51,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorConfig.Slot0.kI = ElevatorConstants.kI;
     elevatorConfig.Slot0.kD = ElevatorConstants.kD;
      
-    elevatorConfig.MotorOutput.DutyCycleNeutralDeadband = 0.03;
+    elevatorConfig.MotorOutput.DutyCycleNeutralDeadband = 0.02;
 
     // Apply configurations
     elevatorRMotor.getConfigurator().apply(elevatorConfig);
@@ -60,22 +60,22 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorRMotor.setNeutralMode(NeutralModeValue.Brake);
     elevatorLMotor.setNeutralMode(NeutralModeValue.Brake);
 
-    encoder.setDistancePerPulse((1.0 / 2048.0) * ElevatorConstants.kElevatorMotorGearRatio);
-    resetEncoder();
+    // encoder.setDistancePerPulse((1.0 / 2048.0));
+    // resetEncoder();
   }
 
   public double getCurrentHeight() {
-    // return elevatorRMotor.getPosition().getValueAsDouble();
-    return encoder.getDistance();
+    return elevatorRMotor.getPosition().getValueAsDouble();
+    // return encoder.getDistance();
   }
 
-  public void resetEncoder() {
-    encoder.reset();
-  }
-
-  // public double getVelocity() {
-  //   return elevatorRMotor.getVelocity().getValueAsDouble();
+  // public void resetEncoder() {
+  //   encoder.reset();
   // }
+
+  public double getVelocity() {
+    return elevatorRMotor.getVelocity().getValueAsDouble();
+  }
 
   public void setAction(ElevatorAction action) {
     elevatorRMotor.set(action.rate);
@@ -93,9 +93,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
 
-    if (getCurrentHeight() < 1.5) { 
-      resetEncoder();
+    if (getCurrentHeight() < 0.5) { 
+      elevatorRMotor.stopMotor();
   }
-    // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+    SmartDashboard.putNumber("Elevator Velocity", getVelocity());
   }
 }
