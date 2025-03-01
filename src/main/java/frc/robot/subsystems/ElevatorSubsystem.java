@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final TalonFX elevatorLMotor = new TalonFX(IDConstants.kElevatorLMotor);
   private final TalonFX elevatorRMotor = new TalonFX(IDConstants.kElevatorRMotor);
   private final TalonFXConfiguration elevatorConfig = new TalonFXConfiguration();
-  private  Encoder encoder = new Encoder(0, 1); 
+  private  Encoder encoder = new Encoder(1, 2); 
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
