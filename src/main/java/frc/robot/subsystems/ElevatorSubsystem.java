@@ -21,6 +21,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
@@ -32,6 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final TalonFX elevatorLMotor = new TalonFX(IDConstants.kElevatorLMotor);
   private final TalonFX elevatorRMotor = new TalonFX(IDConstants.kElevatorRMotor);
   private final TalonFXConfiguration elevatorConfig = new TalonFXConfiguration();
+  private  Encoder encoder = new Encoder(0, 1); 
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -57,22 +59,30 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     elevatorRMotor.setNeutralMode(NeutralModeValue.Brake);
     elevatorLMotor.setNeutralMode(NeutralModeValue.Brake);
+
+    encoder.setDistancePerPulse(1.0 / 2048.0 * ElevatorConstants.kElevatorMotorGearRatio);
+    resetEncoder();
   }
 
   public double getCurrentHeight() {
-    return elevatorRMotor.getPosition().getValueAsDouble();
+    // return elevatorRMotor.getPosition().getValueAsDouble();
+    return encoder.getDistance();
   }
 
-  public double getVelocity() {
-    return elevatorRMotor.getVelocity().getValueAsDouble();
+  public void resetEncoder() {
+    encoder.reset();
   }
+
+  // public double getVelocity() {
+  //   return elevatorRMotor.getVelocity().getValueAsDouble();
+  // }
 
   public void setAction(ElevatorAction action) {
     elevatorRMotor.set(action.rate);
   }
 
   public void setState(ElevatorState state) {
-    elevatorRMotor.setControl(new PositionDutyCycle(state.position));
+    elevatorRMotor.setControl(new PositionDutyCycle(state.position)); 
   }
 
   public void setHold() {
@@ -82,6 +92,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
-    SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+
+    if (getCurrentHeight() < 1.5) { // 假設小於 0.1 代表已經到達底部
+      resetEncoder();
+  }
+    // SmartDashboard.putNumber("Elevator Velocity", getVelocity());
   }
 }

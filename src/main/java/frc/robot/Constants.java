@@ -165,7 +165,7 @@ public final class Constants {
     public static final double kUpLimit = 116.75;
     public static final double kDefaultLimit = 0.0;
 
-    public static final double kElevatorMotorGearRatio = 36.0 * (22.0 / 22.0);
+    public static final double kElevatorMotorGearRatio = (62.0 / 8.0) * (32.0 / 14.0) * (14.0 / 10.0);
 
     // Elevator PID
     public static final double kP = 0.02;
