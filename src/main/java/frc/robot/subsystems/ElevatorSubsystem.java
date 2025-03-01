@@ -60,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorRMotor.setNeutralMode(NeutralModeValue.Brake);
     elevatorLMotor.setNeutralMode(NeutralModeValue.Brake);
 
-    encoder.setDistancePerPulse(1.0 / 2048.0 * ElevatorConstants.kElevatorMotorGearRatio);
+    encoder.setDistancePerPulse((1.0 / 2048.0) * ElevatorConstants.kElevatorMotorGearRatio);
     resetEncoder();
   }
 
