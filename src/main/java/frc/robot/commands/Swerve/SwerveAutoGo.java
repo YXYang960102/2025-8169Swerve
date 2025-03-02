@@ -1,87 +1,69 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands.Swerve;
 
 import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.AprilTagConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.LimelightHelpers;
-
 import frc.robot.subsystems.SwerveSubsytem;
 
 public class SwerveAutoGo extends Command {
   private final SwerveSubsytem swerveSubsystem;
   private final Limelight limelight;
-  private final DoubleSupplier speed;
+  private final PIDController pidController = new PIDController(0.006, 0.005, 0);
+  private final DoubleSupplier speedSup;
   private boolean detected;
+  private final boolean useVision; // 是否使用視覺修正
 
-  PIDController pidController = new PIDController(
-      DriveConstants.kPLockHeading,
-      DriveConstants.kILockHeading,
-      DriveConstants.kDLockHeading);
-
-  /** Creates a new SwerveAutoGo. */
-  public SwerveAutoGo(SwerveSubsytem swerveSubsystem, Limelight limelight) {
+  /** 
+   * Creates a new SwerveAutoGo. 
+   * @param swerveSubsystem  Swerve 
+   * @param limelight        Limelight 
+   * @param speedSup         Robot Speed
+   * @param useVision        April Tag True or false
+   */
+  public SwerveAutoGo(SwerveSubsytem swerveSubsystem, Limelight limelight, DoubleSupplier speedSup, boolean useVision) {
     this.swerveSubsystem = swerveSubsystem;
     this.limelight = limelight;
-    this.speed = null;
+    this.speedSup = speedSup;
+    this.useVision = useVision;
 
-    // Use addRequirements() here to declare subsystem dependencies.
+    pidController.setIZone(5);
     addRequirements(swerveSubsystem);
   }
 
-  public SwerveAutoGo(SwerveSubsytem swerveSubsystem, Limelight limelight, DoubleSupplier speed) {
-    this.swerveSubsystem = swerveSubsystem;
-    this.limelight = limelight;
-    this.speed = speed;
-
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(swerveSubsystem);
-  }
-
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     detected = false;
+    pidController.reset();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = speed != null ? OIConstants.deadbandHandler(speed.getAsDouble(), 0.1) * 0.5 : 0;
-    double turningAngle = 0;
+    double speed = OIConstants.deadbandHandler(speedSup != null ? speedSup.getAsDouble() : 0, 0.4) * 0.2;
+    double targetAngle = 0; 
+    double turningCorrection = 0;
 
-    if (LimelightHelpers.getTV(limelight.hostname)) {
+    if (LimelightHelpers.getTV(limelight.hostname) && useVision) {
       detected = true;
-      turningAngle = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
-
-      if (speed == null) {
-        xSpeed = LimelightHelpers.getTY(limelight.hostname) * 0.01;
-      }
-    } else {
-      if (speed == null) {
-        xSpeed = 0;
-      }
+      targetAngle = AprilTagConstants.ID2Angle[(int) LimelightHelpers.getFiducialID(limelight.hostname) - 1];
+      turningCorrection = pidController.calculate(LimelightHelpers.getTX(limelight.hostname), 0);
     }
 
-    swerveSubsystem.setChassisOutput(xSpeed * limelight.approachingXSpeed, 0, turningAngle, false, true);
+    // 繼續路徑行進，若偵測到目標才會進行修正
+    swerveSubsystem.setChassisOutput(speed * limelight.approachingXSpeed, turningCorrection, targetAngle, true, true);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     swerveSubsystem.stopModules();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return speed == null && detected && !LimelightHelpers.getTV(limelight.hostname);
+    // 若 useVision 為 false，則永遠不因 Limelight 失去偵測而結束
+    return false;
   }
 }

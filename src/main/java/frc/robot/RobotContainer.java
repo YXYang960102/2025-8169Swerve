@@ -19,6 +19,8 @@ import frc.robot.Constants.IntakeConstants.IntakeState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.State.StateAuto;
 import frc.robot.commands.State.StateAutoDefault;
+import frc.robot.commands.Auto.AutoDefault;
+import frc.robot.commands.Auto.AutoL4;
 import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.AlgaeAngleNormal;
@@ -27,6 +29,7 @@ import frc.robot.commands.Grabber.CoralAngleNoraml;
 import frc.robot.commands.Grabber.CoralGrabberAuto;
 // import frc.robot.commands.Grabber.CoralGrabberAuto;
 import frc.robot.commands.Grabber.CoralGrabberNormal;
+import frc.robot.commands.Grabber.CoralGrabberStop;
 import frc.robot.commands.Intake.IntakeAngleNormal;
 import frc.robot.commands.Intake.IntakeAuto;
 import frc.robot.commands.Intake.IntakeNormal;
@@ -182,7 +185,7 @@ public class RobotContainer {
     // m_operatorController.axisLessThan(XboxController.Axis.kLeftX.value, -0.1)
     //     .whileTrue(new IntakeAngleNormal(intakeSubsystem, IntakeAngleAction.kDown));
 
-    // Intake Angle Noramal
+    // Algae Angle Noramal
     m_operatorController.axisGreaterThan(XboxController.Axis.kLeftX.value, 0.1)
         .whileTrue(new AlgaeAngleNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAngleAction.kUP));
     m_operatorController.axisLessThan(XboxController.Axis.kLeftX.value, -0.1)
@@ -234,13 +237,17 @@ public class RobotContainer {
     NamedCommands.registerCommand("L2", cmdStateAutoL2);
     NamedCommands.registerCommand("L3", cmdStateAutoL3);
     NamedCommands.registerCommand("L4", cmdStateAutoL4);
-    NamedCommands.registerCommand("CGFwd", new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kFwd));
-    NamedCommands.registerCommand("CGRev", new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kRev));
-    NamedCommands.registerCommand("CGStop", new CoralGrabberNormal(coralGrabberSubsystem, CoralGrabberAction.kStop));
+    NamedCommands.registerCommand("CGFwd", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kFwd));
+    NamedCommands.registerCommand("CGRev", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kRev));
+    NamedCommands.registerCommand("CGStop", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kStop));
     NamedCommands.registerCommand("AGGet", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
     NamedCommands.registerCommand("AGPut", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
     NamedCommands.registerCommand("AGStop", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kStop));
     NamedCommands.registerCommand("GetC", new CoralGrabberAuto(coralGrabberSubsystem));
+    NamedCommands.registerCommand("SwerveAutoL4", new AutoL4(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
+    NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
+
+
     // NamedCommands.registerCommand("L4", cmdStateAutoL4);
 
   }

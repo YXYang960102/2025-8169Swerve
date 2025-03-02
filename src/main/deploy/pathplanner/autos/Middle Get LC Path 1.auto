@@ -17,29 +17,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "L4"
+                  "name": "SwerveAutoL4"
                 }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "CGFwd"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
+            "name": "CGFwd"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -61,7 +54,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Default"
+                  "name": "SwerveAutoDefault"
                 }
               }
             ]
@@ -99,29 +92,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "L4"
+                  "name": "SwerveAutoL4"
                 }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "CGFwd"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
+            "name": "CGFwd"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -143,7 +129,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Default"
+                  "name": "SwerveAutoDefault"
                 }
               }
             ]

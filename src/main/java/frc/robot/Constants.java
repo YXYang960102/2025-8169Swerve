@@ -191,9 +191,9 @@ public final class Constants {
     public enum ElevatorState {
       kDefault(0.7),
       kL1(13.2), //152.38
-      kL2(26.62), //90.13
-      kL3(114.5),
-      kL4(95); //21.68
+      kL2(54.0), //90.13
+      kL3(116.0),
+      kL4(114.5); //21.68
 
       public final double position;
 
@@ -250,7 +250,7 @@ public final class Constants {
       kSafe(0.79), //0.14
       kL1(0.888), //0.042
       kL2(0.869), //0.061
-      kL3(0.85), //0.08
+      kL3(0.878), //0.08
       kL4(0.469); //0.461
 
       public final double position;
@@ -302,11 +302,11 @@ public final class Constants {
     }
 
     public enum AlgaeGrabberState {
-      kDefult(0.930),
+      kDefult(0.905),
       kSafe(0.765), //0.165
       kGetL2(0.783), //0.147
       kGetL3(0.783), //0.147
-      kPutPro(0.695); //0.235
+      kPutPro(0.717); //0.235
 
       public final double position;
 

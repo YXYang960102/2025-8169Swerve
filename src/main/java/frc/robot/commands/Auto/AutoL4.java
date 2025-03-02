@@ -4,7 +4,7 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.AlgaeGrabberConstants.AlgaeGrabberState;
 import frc.robot.Constants.CoralGrabberConstants.CoralGrabberState;
 import frc.robot.Constants.ElevatorConstants.ElevatorState;
@@ -19,18 +19,19 @@ import frc.robot.subsystems.SwerveSubsytem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PutCoralAngleAuto extends ParallelDeadlineGroup {
-  /** Creates a new GrabberAuto. */
-  public PutCoralAngleAuto(
+public class AutoL4 extends ParallelCommandGroup {
+  /** Creates a new AutoL4. */
+  public AutoL4(
     SwerveSubsytem swerveSubsytem,
+    ElevatorSubsystem elevatorSubsystem,
     CoralGrabberSubsystem coralGrabberSubsystem,
-    AlgaeGrabberSubsystem algaeGrabberSubsystem,
-    ElevatorSubsystem elevatorSubsystem
+    AlgaeGrabberSubsystem algaeGrabberSubsystem
   ) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(new StateAuto(algaeGrabberSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2));
-    addCommands(new SwerveAutoGo(swerveSubsytem, Limelight.kReef));
+    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    addCommands(
+      new SwerveAutoGo(swerveSubsytem, Limelight.kReef, () -> 0.3, true),
+      new StateAuto(algaeGrabberSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL4, CoralGrabberState.kL4, AlgaeGrabberState.kGetL2)
+    );
   }
 }
