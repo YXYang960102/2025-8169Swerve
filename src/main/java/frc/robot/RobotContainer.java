@@ -19,8 +19,9 @@ import frc.robot.Constants.IntakeConstants.IntakeState;
 import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.State.StateAuto;
 import frc.robot.commands.State.StateAutoDefault;
-import frc.robot.commands.Auto.AutoDefault;
-import frc.robot.commands.Auto.AutoL4;
+import frc.robot.commands.State.StatePutPro;
+// import frc.robot.commands.Auto.AutoDefault;
+// import frc.robot.commands.Auto.AutoL4;
 import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.AlgaeAngleNormal;
@@ -138,6 +139,8 @@ public class RobotContainer {
 
   
 
+  
+
   private void configureBindings() {
 
     m_driverController.start().whileTrue(new InstantCommand(() -> swerveSubsytem.zeroHeading()));
@@ -165,6 +168,8 @@ public class RobotContainer {
 
     // Proseccor
     m_driverController.a().onTrue(cmdStateAutoProseccor);
+    // m_driverController.a().onTrue(new StatePutPro(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kDefault, 
+    // CoralGrabberState.kL4, AlgaeGrabberState.kPutPro));
 
 
     // Elevator Normal
@@ -244,8 +249,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("AGPut", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
     NamedCommands.registerCommand("AGStop", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kStop));
     NamedCommands.registerCommand("GetC", new CoralGrabberAuto(coralGrabberSubsystem));
-    NamedCommands.registerCommand("SwerveAutoL4", new AutoL4(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
-    NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
+    // NamedCommands.registerCommand("SwerveAutoL4", new SwerveAutoGo(swerveSubsytem, Limelight.kReef, () -> 0.3, true));
+    // NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
 
 
     // NamedCommands.registerCommand("L4", cmdStateAutoL4);

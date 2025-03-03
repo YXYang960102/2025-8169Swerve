@@ -93,9 +93,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getCurrentHeight());
 
-    if (getCurrentHeight() < 0.5) { 
-      elevatorRMotor.stopMotor();
-  }
+  //   if (getCurrentHeight() < 0.5) { 
+  //     elevatorRMotor.stopMotor();
+  // }
     SmartDashboard.putNumber("Elevator Velocity", getVelocity());
   }
 }

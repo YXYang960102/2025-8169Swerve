@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveAutoL4"
+                  "name": "L4"
                 }
               }
             ]
@@ -52,9 +52,15 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
                 "type": "named",
                 "data": {
-                  "name": "SwerveAutoDefault"
+                  "name": "Default"
                 }
               }
             ]
@@ -87,12 +93,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "Middle Position Put LC Ptah 1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SwerveAutoL4"
                 }
               }
             ]
@@ -127,9 +127,15 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
                 "type": "named",
                 "data": {
-                  "name": "SwerveAutoDefault"
+                  "name": "Default"
                 }
               }
             ]
