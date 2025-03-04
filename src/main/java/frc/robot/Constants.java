@@ -376,9 +376,9 @@ public final class Constants {
   public static final class StatusConstants {
     // LED
     public static final int LED_LEFT_START = 0;
-    public static final int LED_LEFT_END = 134;
-    public static final int LED_RIGHT_START = 135;
-    public static final int LED_RIGHT_END = 269;
+    public static final int LED_LEFT_END = 45;
+    public static final int LED_RIGHT_START = 46;
+    public static final int LED_RIGHT_END = 89;
 
     // LED Color
     public static final Color LED_RED = new Color(255, 0, 0);
