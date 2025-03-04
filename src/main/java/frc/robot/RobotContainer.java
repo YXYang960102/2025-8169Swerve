@@ -253,7 +253,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AGGet", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
     NamedCommands.registerCommand("AGPut", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
     NamedCommands.registerCommand("AGStop", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kStop));
-    NamedCommands.registerCommand("GetC", new CoralGrabberAuto(coralGrabberSubsystem));
+    NamedCommands.registerCommand("GetC", new CoralGrabberAuto(coralGrabberSubsystem, stateSubsystem));
     // NamedCommands.registerCommand("SwerveAutoL4", new AutoL4(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
     // NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem));
 
