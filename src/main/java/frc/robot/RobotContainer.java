@@ -20,8 +20,8 @@ import frc.robot.Constants.LimelightConstants.Limelight;
 import frc.robot.commands.State.StateAuto;
 import frc.robot.commands.State.StateAutoDefault;
 import frc.robot.commands.State.StatePutPro;
-// import frc.robot.commands.Auto.AutoDefault;
-// import frc.robot.commands.Auto.AutoL4;
+import frc.robot.commands.Auto.AutoDefault;
+import frc.robot.commands.Auto.AutoL4;
 import frc.robot.commands.Elevator.ElevatorAuto;
 import frc.robot.commands.Elevator.ElevatorNormal;
 import frc.robot.commands.Grabber.AlgaeAngleNormal;
@@ -40,7 +40,8 @@ import frc.robot.commands.Swerve.SwerveRobotRelative;
 import frc.robot.commands.Swerve.SwerveSmartReef;
 // import frc.robot.commands.Swerve.SwerveXMode;
 import frc.robot.commands.Swerve.SwerveFieldRelative;
-// import frc.robot.subsystems.StatusSubsystem;
+import frc.robot.commands.LED.SetLEDStateCommand;
+import frc.robot.subsystems.StatusSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.AlgaeGrabberSubsystem;
@@ -74,6 +75,7 @@ public class RobotContainer {
   private final AlgaeGrabberSubsystem algaeGrabberAngleSubsystem = new AlgaeGrabberSubsystem();
   private final CoralGrabberSubsystem coralGrabberSubsystem = new CoralGrabberSubsystem();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final StatusSubsystem stateSubsystem = new StatusSubsystem(0, 270);
 
   // private final StatusSubsystem statusSubsystem = new StatusSubsystem(9, 270);
 
@@ -214,7 +216,7 @@ public class RobotContainer {
     m_operatorController.pov(0).onTrue(cmdCoralAngleAutoL4);
 
     // Coral Grabber Auto
-    m_operatorController.leftBumper().onTrue(new CoralGrabberAuto(coralGrabberSubsystem));
+    m_operatorController.start().onTrue(new CoralGrabberAuto(coralGrabberSubsystem, stateSubsystem));
 
     // Angle & Elevator All Auto
     m_operatorController.x().onTrue(cmdStateAutoL1); // L1
@@ -223,7 +225,10 @@ public class RobotContainer {
     m_operatorController.a().onTrue(cmdStateAutoL4); // L4
 
     // Elevator Default
-    m_operatorController.rightBumper().onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
+    m_operatorController.pov(180).onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
+
+    m_operatorController.rightBumper().whileTrue(new SetLEDStateCommand(stateSubsystem,  StatusSubsystem.LEDState.GREEN_RIGHT));
+    m_operatorController.leftBumper().whileTrue(new SetLEDStateCommand(stateSubsystem,  StatusSubsystem.LEDState.RED_LEFT));
 
   }
 
@@ -249,8 +254,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("AGPut", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
     NamedCommands.registerCommand("AGStop", new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kStop));
     NamedCommands.registerCommand("GetC", new CoralGrabberAuto(coralGrabberSubsystem));
-    // NamedCommands.registerCommand("SwerveAutoL4", new SwerveAutoGo(swerveSubsytem, Limelight.kReef, () -> 0.3, true));
-    // NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
+    // NamedCommands.registerCommand("SwerveAutoL4", new AutoL4(swerveSubsytem, elevatorSubsystem, coralGrabberSubsystem, algaeGrabberAngleSubsystem));
+    // NamedCommands.registerCommand("SwerveAutoDefault", new AutoDefault(swerveSubsytem));
 
 
     // NamedCommands.registerCommand("L4", cmdStateAutoL4);

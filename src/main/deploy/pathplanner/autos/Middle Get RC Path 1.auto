@@ -9,15 +9,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Middle Position Put 1 Coral"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "L4"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle Position Put 1 Coral"
                 }
               }
             ]
@@ -61,22 +61,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "GetC"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
+            "name": "GetC"
           }
         },
         {
@@ -84,15 +71,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Right Position Put RC Path 1"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "L4"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Put RC Path 1"
                 }
               }
             ]
@@ -136,22 +123,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "GetC"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
+            "name": "GetC"
           }
         },
         {
@@ -159,15 +133,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Right Position Put RC Path 1"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "L4"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Position Put RC Path 1"
                 }
               }
             ]

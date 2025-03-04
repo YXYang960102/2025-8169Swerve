@@ -29,6 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private SparkMaxConfig IntakeAngleConfig = new SparkMaxConfig();
   private SparkMaxConfig IntakeMotorConfig = new SparkMaxConfig();
   private RelativeEncoder IntakeAngleEncoder = IntakeAngleMotor.getEncoder();
+  // private RelativeEncoder IntakeEnocder = IntakeMotor.getEncoder();
   private SparkClosedLoopController IntakePIDController = IntakeAngleMotor.getClosedLoopController();
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -65,6 +66,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public double getIntakeVelocity() {
     return IntakeAngleEncoder.getVelocity();
+  }
+
+  public double getIntakeVolage() {
+    return IntakeMotor.getOutputCurrent();
   }
 
   public void setIntakeAction(IntakeAction action) {
