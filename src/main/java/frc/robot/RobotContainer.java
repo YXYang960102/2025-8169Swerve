@@ -75,7 +75,7 @@ public class RobotContainer {
   private final AlgaeGrabberSubsystem algaeGrabberAngleSubsystem = new AlgaeGrabberSubsystem();
   private final CoralGrabberSubsystem coralGrabberSubsystem = new CoralGrabberSubsystem();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private final StatusSubsystem stateSubsystem = new StatusSubsystem(1, 90);
+  private final StatusSubsystem stateSubsystem = new StatusSubsystem(1, 89);
 
   // private final StatusSubsystem statusSubsystem = new StatusSubsystem(9, 270);
 
@@ -228,8 +228,13 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(new ElevatorAuto(elevatorSubsystem, ElevatorState.kDefault));
 
     //LED
-    m_operatorController.rightBumper().whileTrue(new SetLEDStateCommand(stateSubsystem,  StatusSubsystem.LEDState.GREEN_RIGHT));
-    m_operatorController.leftBumper().whileTrue(new SetLEDStateCommand(stateSubsystem,  StatusSubsystem.LEDState.RED_LEFT));
+    m_operatorController.rightBumper()
+    .whileTrue(new SetLEDStateCommand(stateSubsystem, StatusSubsystem.LEDState.GREEN_RIGHT))
+    .onFalse(new SetLEDStateCommand(stateSubsystem, StatusSubsystem.LEDState.OFF));
+
+    m_operatorController.leftBumper()
+    .whileTrue(new SetLEDStateCommand(stateSubsystem, StatusSubsystem.LEDState.RED_LEFT))
+    .onFalse(new SetLEDStateCommand(stateSubsystem, StatusSubsystem.LEDState.OFF));
 
   }
 

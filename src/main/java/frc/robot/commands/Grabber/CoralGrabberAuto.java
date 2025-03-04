@@ -20,6 +20,7 @@ public class CoralGrabberAuto extends Command {
     this.statusSubsystem = statusSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
 
+    addRequirements(statusSubsystem);
     addRequirements(coralGrabberSubsystem);
   }
 
@@ -32,9 +33,12 @@ public class CoralGrabberAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(coralGrabberSubsystem.getSensor()) {
-     statusSubsystem.setLEDState(StatusSubsystem.LEDState.BLUE_BOTH);
-    }
+    if (coralGrabberSubsystem.getSensor()) {
+      statusSubsystem.setLEDState(StatusSubsystem.LEDState.BLUE_BOTH);
+  } else {
+      statusSubsystem.setLEDState(StatusSubsystem.LEDState.OFF);
+  }
+
   }
 
   // Called once the command ends or is interrupted.
