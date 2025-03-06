@@ -320,7 +320,7 @@ public final class Constants {
   // Intake
   public static final class IntakeConstants {
     public static final double kIntakeUpLimit = 0.0;
-    public static final double kIntakeDownLimit = 0.0;
+    public static final double kIntakeDownLimit = -43;
 
     
 
@@ -330,12 +330,12 @@ public final class Constants {
     public static final double IntakekD = 0.0;
     public static final double IntakekIz = 0;
     public static final double IntakekFF = 0;
-    public static final double IntakekMaxOutput = 1;
-    public static final double IntakekMinOutput = -1;
+    public static final double IntakekMaxOutput = 0.4;
+    public static final double IntakekMinOutput = -0.4;
 
     public enum IntakeAction {
-      kGet(0.3),
-      kPut(-0.3),
+      kGet(0.1),
+      kPut(-0.2),
       kStop(0);
 
       public final double rate;
@@ -346,8 +346,8 @@ public final class Constants {
     }
 
     public enum IntakeAngleAction {
-      kUP(0.5),
-      kDown(-0.5),
+      kUP(0.2),
+      kDown(-0.2),
       kStop(0);
 
       public final double rate;
@@ -381,8 +381,8 @@ public final class Constants {
     public static final int LED_RIGHT_END = 87;
 
     // LED Color
-    public static final Color LED_GREEN = new Color(255, 0, 0);
-    public static final Color LED_RED = new Color(0, 255, 0);
+    public static final Color LED_RED = new Color(255, 0, 0);
+    public static final Color LED_GREEN = new Color(0, 255, 0);
     public static final Color LED_BLUE = new Color(0, 0, 255);
     public static final Color LED_OFF = new Color(0, 0, 0);
   }

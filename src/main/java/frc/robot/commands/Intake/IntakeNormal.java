@@ -32,9 +32,9 @@ public class IntakeNormal extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(intakeSubsystem.getIntakeVolage() > 60){
-      intakeSubsystem.setIntakeAction(IntakeAction.kStop);
-    }
+    // if(intakeSubsystem.getIntakeVolage() > 60){
+    //   intakeSubsystem.setIntakeAction(IntakeAction.kStop);
+    // }
   }
 
   // Called once the command ends or is interrupted.
