@@ -170,9 +170,9 @@ public class RobotContainer {
 
   
     // Algae Grabber Normal
-    m_operatorController.x()
+    m_driverController.x()
         .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
-    m_operatorController.b()
+    m_driverController.b()
         .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
   
 

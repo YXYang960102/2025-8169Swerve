@@ -252,7 +252,7 @@ public final class Constants {
       kL1(0.72), //0.042
       kL2(0.701), //0.061
       kL3(0.682), //0.08
-      kL4(0.30); //0.461
+      kL4(0.294); //0.461
 
       public final double position;
 
@@ -264,7 +264,7 @@ public final class Constants {
 
   // Algae Grabber
   public static final class AlgaeGrabberConstants {
-    public static final double kAlgaeUpLimit = 0.880;
+    public static final double kAlgaeUpLimit = 0.920;
     public static final double kAlgaeDownLimit = 0.695;
 
     public static final double kAlgaeAngleMotorRatio = 64.0 * (68.0 / 22.0);
@@ -303,14 +303,14 @@ public final class Constants {
     }
 
     public enum AlgaeGrabberState {
-      kDefult(0.876),
+      kDefult(0.918),
       kSafe(0.740), //0.14
       kGetL2(0.770), //0.122
       kGetL3(0.780), //0.122
       kPutPro(0.726); //0.188
 
       public final double position;
-
+  
       private AlgaeGrabberState(double position) {
         this.position = position;
       }
@@ -334,8 +334,8 @@ public final class Constants {
     public static final double IntakekMinOutput = -0.4;
 
     public enum IntakeAction {
-      kGet(0.1),
-      kPut(-0.2),
+      kGet(0.3),
+      kPut(-0.3),
       kStop(0);
 
       public final double rate;
