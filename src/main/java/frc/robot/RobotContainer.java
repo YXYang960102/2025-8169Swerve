@@ -248,8 +248,8 @@ m_operatorController.leftBumper()
 
   private void setDefaultCommand() {
     swerveSubsytem.setDefaultCommand(new SwerveFieldRelative(swerveSubsytem,
-        () -> m_driverController.getLeftY(), // X-Axis
-        () -> m_driverController.getLeftX(), // Y-Axis
+        () -> -m_driverController.getLeftY(), // X-Axis
+        () -> -m_driverController.getLeftX(), // Y-Axis
         () -> -m_driverController.getRightX() // R-Axis
     ));
 

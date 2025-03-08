@@ -251,7 +251,7 @@ public final class Constants {
       kSafe(0.622), //0.14
       kL1(0.72), //0.042
       kL2(0.701), //0.061
-      kL3(0.682), //0.08
+      kL3(0.698), //0.08
       kL4(0.294); //0.461
 
       public final double position;
