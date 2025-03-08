@@ -171,9 +171,9 @@ public class RobotContainer {
   
     // Algae Grabber Normal
     m_driverController.x()
-        .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
-    m_driverController.b()
         .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kGet));
+    m_driverController.b()
+        .toggleOnTrue(new AlgaeGrabberNormal(algaeGrabberAngleSubsystem, AlgaeGrabberAction.kPut));
   
 
     // Angle & Elevator All Default
@@ -248,8 +248,8 @@ m_operatorController.leftBumper()
 
   private void setDefaultCommand() {
     swerveSubsytem.setDefaultCommand(new SwerveFieldRelative(swerveSubsytem,
-        () -> -m_driverController.getLeftY(), // X-Axis
-        () -> -m_driverController.getLeftX(), // Y-Axis
+        () -> m_driverController.getLeftY(), // X-Axis
+        () -> m_driverController.getLeftX(), // Y-Axis
         () -> -m_driverController.getRightX() // R-Axis
     ));
 

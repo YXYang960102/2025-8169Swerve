@@ -49,7 +49,7 @@ public class StatusSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (!isOverridden) {
-      currentState = LEDState.RAINBOW; // 如果沒有手動控制，回到 RAINBOW
+      currentState = LEDState.OFF; // 如果沒有手動控制，回到 RAINBOW
     }
 
     switch (currentState) {
