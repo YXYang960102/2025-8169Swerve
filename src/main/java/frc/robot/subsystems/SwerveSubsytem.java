@@ -74,6 +74,8 @@ public class SwerveSubsytem extends SubsystemBase {
   public double kP = DriveConstants.kPTheta, kI = DriveConstants.kITheta, kD = DriveConstants.kDTheta,
       kIZone = DriveConstants.kIZTheta;
 
+  private boolean isRED = false;
+
   // Returns positions of the swerve modules for odometry
   public SwerveModulePosition[] getModulePositions() {
 
@@ -142,6 +144,7 @@ public class SwerveSubsytem extends SubsystemBase {
 
           var alliance = DriverStation.getAlliance();
           if (alliance.isPresent()) {
+            isRED = alliance.get() == DriverStation.Alliance.Red;
             return alliance.get() == DriverStation.Alliance.Red;
           }
           return false;
@@ -236,8 +239,13 @@ public class SwerveSubsytem extends SubsystemBase {
     if (robotRelative) {
       chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
     } else {
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed,
-      odometer.getPoseMeters().getRotation());
+      if(isRED){
+        chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed,
+        odometer.getPoseMeters().getRotation().plus(Rotation2d.k180deg));
+      }else{
+        chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed,
+        odometer.getPoseMeters().getRotation());
+      }
     }
 
     // Set chassis speeds
@@ -305,6 +313,7 @@ public class SwerveSubsytem extends SubsystemBase {
 
   public static void copyHeading() {
     heading = getHeading();
+    
   }
 
   @Override

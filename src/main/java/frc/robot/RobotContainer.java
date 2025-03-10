@@ -131,7 +131,7 @@ public class RobotContainer {
   private final Command cmdAllDefault = new StateAutoDefault(algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem);
 
   private final Command cmdStateAutoL1 = new StateAuto(
-    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2);
+    algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL1, CoralGrabberState.kL1, AlgaeGrabberState.kGetL1);
   private final Command cmdStateAutoL2 = new StateAuto(
     algaeGrabberAngleSubsystem, coralGrabberSubsystem, elevatorSubsystem, ElevatorState.kL2, CoralGrabberState.kL1, AlgaeGrabberState.kGetL2);
   private final Command cmdStateAutoL3 = new StateAuto(
@@ -252,7 +252,6 @@ m_operatorController.leftBumper()
         () -> -m_driverController.getLeftX(), // Y-Axis
         () -> -m_driverController.getRightX() // R-Axis
     ));
-
   }
 
   private void configureNamedCommands() {
@@ -260,7 +259,8 @@ m_operatorController.leftBumper()
     NamedCommands.registerCommand("L1", cmdStateAutoL1);
     NamedCommands.registerCommand("L2", cmdStateAutoL2);
     NamedCommands.registerCommand("L3", cmdStateAutoL3);
-    NamedCommands.registerCommand("L4", cmdStateAutoL4);
+    NamedCommands.registerCommand("L4", cmdStateAuthhoBbb
+    之                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         L4);
     NamedCommands.registerCommand("CGFwd", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kFwd));
     NamedCommands.registerCommand("CGRev", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kRev));
     NamedCommands.registerCommand("CGStop", new CoralGrabberStop(coralGrabberSubsystem, CoralGrabberAction.kStop));

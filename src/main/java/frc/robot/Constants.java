@@ -206,7 +206,7 @@ public final class Constants {
 
   // Coral Grabber
   public static class CoralGrabberConstants {
-    public static final double kCoralUpLimit = 0.774;
+    public static final double kCoralUpLimit = 0.780;
     public static final double kCoralDownLimit = 0.29;
 
     public static final double kCoralVortexRatio = 26.0 / 14.0;
@@ -247,7 +247,7 @@ public final class Constants {
     }
 
     public enum CoralGrabberState {
-      kDefult(0.774),
+      kDefult(0.780),
       kSafe(0.622), //0.14
       kL1(0.72), //0.042
       kL2(0.701), //0.061
@@ -305,8 +305,9 @@ public final class Constants {
     public enum AlgaeGrabberState {
       kDefult(0.918),
       kSafe(0.740), //0.14
+      kGetL1(0.812),
       kGetL2(0.770), //0.122
-      kGetL3(0.790), //0.122
+      kGetL3(0.803), //0.122
       kPutPro(0.726); //0.188
 
       public final double position;
